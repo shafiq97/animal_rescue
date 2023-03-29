@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // set the user as logged in
   $_SESSION['loggedin'] = true;
+  $_SESSION['username'] = $username;
   // redirect to the dashboard
   header('Location: dashboard.php');
   exit;
