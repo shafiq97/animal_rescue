@@ -33,6 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // set the user as logged in
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username; 
+            $_SESSION['email'] = $row['email']; 
+            $_SESSION['id'] = $row['id']; 
             // redirect to the dashboard
             header('Location: dashboard.php');
             exit;

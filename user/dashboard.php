@@ -55,6 +55,42 @@ mysqli_close($conn);
   </nav>
 
   <div class="container">
+    <div class="row mt-5">
+      <div class="col-md-12">
+        <form method="GET" action="">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search images by description" name="search">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+          </div>
+        </form>
+        <h2>Featured Animals</h2>
+        <div class="card-deck mt-4">
+          <?php
+          if (isset($_GET['search'])) {
+            $search_term = mysqli_real_escape_string($conn, $_GET['search']);
+            $sql         = "SELECT * FROM images WHERE description LIKE '%{$search_term}%'";
+            $result      = mysqli_query($conn, $sql);
+            $images      = mysqli_fetch_all($result, MYSQLI_ASSOC);
+          }
+          foreach ($images as $image): ?>
+            <div class="card">
+              <img src="<?php echo $image['url']; ?>" class="card-img-top" alt="<?php echo $image['alt']; ?>">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <?php echo $image['title']; ?>
+                </h5>
+                <p class="card-text">
+                  <?php echo $image['description']; ?>
+                </p>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-12">
         <h1>Welcome,
@@ -88,6 +124,26 @@ mysqli_close($conn);
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-md-12">
+        <h2>Featured Animals</h2>
+        <div class="card-deck mt-4">
+          <?php foreach ($images as $image): ?>
+            <div class="card">
+              <img src="<?php echo $image['url']; ?>" class="card-img-top" alt="<?php echo $image['alt']; ?>">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <?php echo $image['alt']; ?>
+                </h5>
+                <p class="card-text">
+                  <?php echo $image['alt']; ?>
+                </p>
+              </div>
+            </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
