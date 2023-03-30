@@ -79,10 +79,10 @@ mysqli_close($conn);
               <img src="<?php echo $image['url']; ?>" class="card-img-top" alt="<?php echo $image['alt']; ?>">
               <div class="card-body">
                 <h5 class="card-title">
-                  <?php echo $image['title']; ?>
+                  <!-- <?php echo $image['title']; ?> -->
                 </h5>
                 <p class="card-text">
-                  <?php echo $image['description']; ?>
+                  <!-- <?php echo $image['description']; ?> -->
                 </p>
               </div>
             </div>
