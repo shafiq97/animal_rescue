@@ -27,9 +27,11 @@ if (!$conn) {
 }
 
 // Retrieve images from the database
-$sql    = 'SELECT * FROM images';
-$result = mysqli_query($conn, $sql);
-$images = mysqli_fetch_all($result, MYSQLI_ASSOC);
+// Retrieve animals from the database
+$sql     = 'SELECT * FROM animals';
+$result  = mysqli_query($conn, $sql);
+$animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
 
 // Close the database connection
 mysqli_close($conn);
@@ -72,78 +74,33 @@ mysqli_close($conn);
             $search_term = mysqli_real_escape_string($conn, $_GET['search']);
             $sql         = "SELECT * FROM images WHERE description LIKE '%{$search_term}%'";
             $result      = mysqli_query($conn, $sql);
-            $images      = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            $animals     = mysqli_fetch_all($result, MYSQLI_ASSOC);
           }
-          foreach ($images as $image): ?>
+          foreach ($animals as $animal): ?>
             <div class="card">
-              <img src="<?php echo $image['url']; ?>" class="card-img-top" alt="<?php echo $image['alt']; ?>">
+              <img src="<?php echo $animal['image_path']; ?>" class="card-img-top" alt="<?php echo $animal['name']; ?>">
               <div class="card-body">
                 <h5 class="card-title">
-                  <!-- <?php echo $image['title']; ?> -->
+                  <?php echo $animal['name']; ?>
                 </h5>
                 <p class="card-text">
-                  <!-- <?php echo $image['description']; ?> -->
+                  <?php echo $animal['description']; ?>
                 </p>
+                <p class="card-text">
+                  Donation Amount:
+                  <?php echo $animal['donation_amount']; ?>
+                </p>
+                <form action="donate.php" method='post'>
+                  <div class="form-group">
+                    <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
+                    <input name="donation_amount" type="text" placeholder="Enter donation amount">
+                    <button onclick="return confirm('Are you sure?')" class='btn btn-primary'>Donate</button>
+                  </div>
+                </form>
               </div>
             </div>
           <?php endforeach; ?>
-        </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <h1>Welcome,
-          <?php echo $_SESSION['username']; ?>!
-        </h1>
-        <p>This is your user dashboard. You can view your profile, change your settings, and log out from here.</p>
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-md-12">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <?php foreach ($images as $key => $image): ?>
-              <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $key; ?>"
-                class="<?php echo $key === 0 ? 'active' : ''; ?>"></li>
-            <?php endforeach; ?>
-          </ol>
-          <div class="carousel-inner">
-            <?php foreach ($images as $key => $image): ?>
-              <div class="carousel-item <?php echo $key === 0 ? 'active' : ''; ?>">
-                <img src="<?php echo $image['url']; ?>" height="500px" class="d-block w-100"
-                  alt="<?php echo $image['alt']; ?>">
-              </div>
-            <?php endforeach; ?>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-md-12">
-        <h2>Featured Animals</h2>
-        <div class="card-deck mt-4">
-          <?php foreach ($images as $image): ?>
-            <div class="card">
-              <img src="<?php echo $image['url']; ?>" class="card-img-top" alt="<?php echo $image['alt']; ?>">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <?php echo $image['alt']; ?>
-                </h5>
-                <p class="card-text">
-                  <?php echo $image['alt']; ?>
-                </p>
-              </div>
-            </div>
-          <?php endforeach; ?>
         </div>
       </div>
     </div>
