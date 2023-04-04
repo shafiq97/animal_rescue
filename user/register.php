@@ -20,12 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $email    = $_POST['email'];
   $password = $_POST['password'];
 
-  // hash the password
-  $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
   // prepare and execute the SQL query to insert the user into the database
   $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-  $stmt->bind_param("sss", $username, $email, $hashed_password);
+  $stmt->bind_param("sss", $username, $email, $password);
   $stmt->execute();
 
   // set the user as logged in

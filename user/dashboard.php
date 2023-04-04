@@ -90,11 +90,10 @@ mysqli_close($conn);
                   Donation Amount:
                   <?php echo $animal['donation_amount']; ?>
                 </p>
-                <form action="donate.php" method='post'>
+                <form action="donate.php">
                   <div class="form-group">
                     <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
-                    <input name="donation_amount" type="text" placeholder="Enter donation amount">
-                    <button onclick="return confirm('Are you sure?')" class='btn btn-primary'>Donate</button>
+                    <a href="donate.php?id=<?php echo $animal['id'] ?>" onclick="return confirm('Are you sure?')" class='btn btn-primary'>Donate</a>
                   </div>
                 </form>
               </div>

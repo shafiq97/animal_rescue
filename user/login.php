@@ -20,28 +20,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     // prepare and execute the SQL query
-    $sql    = "SELECT * FROM users WHERE username='$username'";
+    $sql    = "SELECT * FROM users WHERE username='$username' and password = '$password'";
     $result = mysqli_query($conn, $sql);
 
     // check if the query returned any rows
     if (mysqli_num_rows($result) == 1) {
-        $row             = mysqli_fetch_assoc($result);
-        $hashed_password = $row['password'];
-
         // verify the password
-        if (password_verify($password, $hashed_password)) {
             // set the user as logged in
+            $row = mysqli_fetch_assoc($result);
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username; 
             $_SESSION['email'] = $row['email']; 
             $_SESSION['id'] = $row['id']; 
             // redirect to the dashboard
             header('Location: dashboard.php');
-            exit;
-        } else {
-            // display an error message
-            $error = 'Invalid username or password';
-        }
+            // display an error message        }
     } else {
         // display an error message
         $error = 'Invalid username';

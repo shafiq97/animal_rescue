@@ -4,6 +4,9 @@
       <a class="nav-link" href="register_animal.php">Register Animal</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="donation_list.php">Donation List</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="profile.php">Profile</a>
     </li>
     <li class="nav-item">

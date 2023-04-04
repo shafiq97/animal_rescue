@@ -1,49 +1,62 @@
-<?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-// start the session
-session_start();
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Donate</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Donate</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <?php
+    include('header.php');
+    ?>
+  </nav>
 
-// check if the user is logged in
-// if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-//   // redirect to the login page
-//   header('Location: login.php');
-//   exit;
-// }
-
-// Database configuration
-$host     = 'localhost';
-$username = 'root';
-$password = '';
-$dbname   = 'animal_rescue';
-
-// Create connection
-$conn = mysqli_connect($host, $username, $password, $dbname);
-
-// Check connection
-if (!$conn) {
-  die('Connection failed: ' . mysqli_connect_error());
-}
-
-// check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $donation_amount = $_POST['donation_amount'];
-  $animal_id       = $_POST['animal_id'];
-
-  // update the donation amount in the database
-  $sql    = "UPDATE animals SET donation_amount = donation_amount - {$donation_amount} WHERE id = {$animal_id}";
-  $result = mysqli_query($conn, $sql);
-
-  if ($result) {
-    // redirect to the dashboard page
-    header('Location: dashboard.php');
-    exit;
-  } else {
-    echo "Error: " . mysqli_error($conn);
-  }
-}
-
-// Close the database connection
-mysqli_close($conn);
-?>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Make a Donation</h2>
+        <form method="POST" action="process_donation.php" enctype="multipart/form-data">
+          <input type="hidden" name='animal_id' value="<?php echo $_GET['id'] ?>">
+          <div class="form-group">
+            <label for="amount">Amount:</label>
+            <input type="number" class="form-control" id="amount" name="amount" required>
+          </div>
+          <div class="form-group">
+            <label for="category">Category:</label>
+            <select class="form-control" id="category" name="category">
+              <option value="Food">Food</option>
+              <option value="Medical Supplies">Medical Supplies</option>
+              <option value="Toys and Treats">Toys and Treats</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="receipt">Receipt:</label>
+            <input type="file" class="form-control-file" id="receipt" name="receipt">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <!-- Logout confirmation dialog -->
+  <script>
+    document.getElementById("logout-btn").addEventListener("click", function (event) {
+      event.preventDefault();
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "logout.php";
+      }
+    });
+  </script>
+</body>
+</html>
