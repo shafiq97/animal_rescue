@@ -93,7 +93,7 @@ mysqli_close($conn);
       <div class="col-md-12">
         <h2>Your Medical Fund Donations</h2>
         <?php if (mysqli_num_rows($result2) > 0): ?>
-          <table id="donationTable" class="table table-striped table-bordered mt-4" style="width:100%">
+          <table id="donationTable2" class="table table-striped table-bordered mt-4" style="width:100%">
             <thead>
               <tr>
                 <th scope="col">Animal</th>
@@ -132,6 +132,7 @@ mysqli_close($conn);
   <script>
     $(document).ready(function() {
       $('#donationTable').DataTable();
+      $('#donationTable2').DataTable();
     });
   </script>
   

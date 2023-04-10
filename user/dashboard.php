@@ -52,6 +52,13 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
   <title>User Dashboard</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .fill-image {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -92,73 +99,77 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             }
             ?>
             <div class="col-md-4">
-              <div class="card">
-                <img src="<?php echo $animal['image_path']; ?>" class="card-img-top" alt="<?php echo $animal['name']; ?>">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <?php echo $animal['name']; ?>
-                  </h5>
-                  <p class="card-text">
-                    <?php echo $animal['description']; ?>
-                  </p>
-                  <p class="card-text">
-                    Age:
-                    <?php echo $animal['age']; ?> years old
-                  </p>
-                  <p class="card-text">
-                    Gender:
-                    <?php echo $animal['gender']; ?>
-                  </p>
-                  <p class="card-text">
-                    Breed:
-                    <?php echo $animal['breed']; ?>
-                  </p>
-                  <p class="card-text">
-                    Maturing Size:
-                    <?php echo $animal['maturing_size']; ?>
-                  </p>
-                  <p class="card-text">
-                    Vaccinated:
-                    <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
-                  </p>
-                  <p class="card-text">
-                    Donation Amount:
-                    <?php echo $animal['medical_adopt_fee']; ?>
-                  </p>
-                  <form action="medical_fund.php">
-                    <div class="form-group">
-                      <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
-                      <a href="medical_fund.php?id=<?php echo $animal['id'] ?>" onclick="return confirm('Are you sure?')"
-                        class='btn btn-warning'>Medical Fund</a>
-                    </div>
-                  </form>
+              <a href="animal_profile.php?id=<?php echo $animal['id'] ?>">
 
-                  <?php
-                  $found = false;
-                  foreach ($donations as $donation) {
-                    if ($donation['animal_id'] == $animal['id']) {
-                      $found = true;
+                <div class="card" style="width: 30vw">
+                  <img style="width: 30vw; height: 50vh;" class="card-image-top" src="<?php echo $animal['image_path']; ?>"
+                    alt="<?php echo $animal['name']; ?>">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <?php echo $animal['name']; ?>
+                    </h5>
+                    <p class="card-text">
+                      <?php echo $animal['description']; ?>
+                    </p>
+                    <p class="card-text">
+                      Age:
+                      <?php echo $animal['age']; ?> years old
+                    </p>
+                    <p class="card-text">
+                      Gender:
+                      <?php echo $animal['gender']; ?>
+                    </p>
+                    <p class="card-text">
+                      Breed:
+                      <?php echo $animal['breed']; ?>
+                    </p>
+                    <p class="card-text">
+                      Maturing Size:
+                      <?php echo $animal['maturing_size']; ?>
+                    </p>
+                    <p class="card-text">
+                      Vaccinated:
+                      <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
+                    </p>
+                    <p class="card-text">
+                      Donation Amount:
+                      <?php echo $animal['medical_adopt_fee']; ?>
+                    </p>
+                    <form action="medical_fund.php">
+                      <div class="form-group">
+                        <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
+                        <a href="medical_fund.php?id=<?php echo $animal['id'] ?>"
+                          onclick="return confirm('Are you sure?')" class='btn btn-warning'>Medical Fund</a>
+                      </div>
+                    </form>
+
+                    <?php
+                    $found = false;
+                    foreach ($donations as $donation) {
+                      if ($donation['animal_id'] == $animal['id']) {
+                        $found = true;
+                        ?>
+                        <div class="progress mt-4">
+                          <div class="progress-bar bg-success" role="progressbar"
+                            style="width: <?php echo (double) $donation['total_amount'] / (double) $animal['medical_adopt_fee'] * 100 ?>%;"
+                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo round((double) $donation['total_amount'] / (double) $animal['medical_adopt_fee'] * 100) ?>%</div>
+                        </div>
+                        <?php
+                      }
+                    }
+                    if (!$found) {
                       ?>
                       <div class="progress mt-4">
-                        <div class="progress-bar bg-success" role="progressbar"
-                          style="width: <?php echo (double) $donation['total_amount'] / (double) $animal['medical_adopt_fee'] * 100 ?>%;"
-                          aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo round((double) $donation['total_amount'] / (double) $animal['medical_adopt_fee'] * 100) ?>%</div>
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="25"
+                          aria-valuemin="0" aria-valuemax="100">0%</div>
                       </div>
                       <?php
-                    }
-                  }
-                  if (!$found) {
-                    ?>
-                    <div class="progress mt-4">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="25"
-                        aria-valuemin="0" aria-valuemax="100">0%</div>
-                    </div>
-                    <?php
 
-                  }
-                  ?>
+                    }
+                    ?>
+                  </div>
                 </div>
-              </div>
+              </a>
             </div>
             <?php
             $count++;
