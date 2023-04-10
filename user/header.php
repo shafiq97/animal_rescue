@@ -7,6 +7,9 @@
       <a class="nav-link" href="dashboard.php">Dashboard</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="search.php">Search</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="donation_list.php">Donation List</a>
     </li>
     <li class="nav-item">
