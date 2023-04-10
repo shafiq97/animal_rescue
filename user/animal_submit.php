@@ -87,6 +87,7 @@ $sql = "INSERT INTO animals (name, status, type, gender, breed, age, color, matu
 // Execute the SQL query
 if ($conn->query($sql) === TRUE) {
   echo "New record created successfully";
+  header("location: dashboard.php");
 } else {
   echo "Error: " . $sql . "<br>" . $conn->error;
 }

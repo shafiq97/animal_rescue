@@ -32,6 +32,15 @@ $sql     = 'SELECT * FROM animals';
 $result  = mysqli_query($conn, $sql);
 $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+$sql2      = 'SELECT *, SUM(total_amount) AS total_donations
+FROM medical_funds
+GROUP BY animal_id
+ORDER BY total_donations DESC';
+$result2   = mysqli_query($conn, $sql2);
+$donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
+
+
+
 
 // Close the database connection
 // mysqli_close($conn);
@@ -76,57 +85,80 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
             $result      = mysqli_query($conn, $sql);
             $animals     = mysqli_fetch_all($result, MYSQLI_ASSOC);
           }
-          foreach ($animals as $animal): ?>
-            <div class="card">
-              <img src="<?php echo $animal['image_path']; ?>" class="card-img-top" alt="<?php echo $animal['name']; ?>">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <?php echo $animal['name']; ?>
-                </h5>
-                <p class="card-text">
-                  <?php echo $animal['description']; ?>
-                </p>
-                <p class="card-text">
-                  Age:
-                  <?php echo $animal['age']; ?> years old
-                </p>
-                <p class="card-text">
-                  Gender:
-                  <?php echo $animal['gender']; ?>
-                </p>
-                <p class="card-text">
-                  Breed:
-                  <?php echo $animal['breed']; ?>
-                </p>
-                <p class="card-text">
-                  Maturing Size:
-                  <?php echo $animal['maturing_size']; ?>
-                </p>
-                <p class="card-text">
-                  Vaccinated:
-                  <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
-                </p>
-                <p class="card-text">
-                  Donation Amount:
-                  <?php echo $animal['medical_adopt_fee']; ?>
-                </p>
-                <form action="donate.php">
-                  <div class="form-group">
-                    <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
-                    <a href="donate.php?id=<?php echo $animal['id'] ?>" onclick="return confirm('Are you sure?')"
-                      class='btn btn-primary'>Donate</a>
-                  </div>
-                </form>
-                <form action="medical_fund.php">
-                  <div class="form-group">
-                    <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
-                    <a href="medical_fund.php?id=<?php echo $animal['id'] ?>" onclick="return confirm('Are you sure?')"
-                      class='btn btn-warning'>Medical Fund</a>
-                  </div>
-                </form>
+          $count = 0;
+          foreach ($animals as $animal):
+            if ($count % 3 == 0) {
+              echo "<div class='row mt-4'>";
+            }
+            ?>
+            <div class="col-md-4">
+              <div class="card">
+                <img src="<?php echo $animal['image_path']; ?>" class="card-img-top" alt="<?php echo $animal['name']; ?>">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <?php echo $animal['name']; ?>
+                  </h5>
+                  <p class="card-text">
+                    <?php echo $animal['description']; ?>
+                  </p>
+                  <p class="card-text">
+                    Age:
+                    <?php echo $animal['age']; ?> years old
+                  </p>
+                  <p class="card-text">
+                    Gender:
+                    <?php echo $animal['gender']; ?>
+                  </p>
+                  <p class="card-text">
+                    Breed:
+                    <?php echo $animal['breed']; ?>
+                  </p>
+                  <p class="card-text">
+                    Maturing Size:
+                    <?php echo $animal['maturing_size']; ?>
+                  </p>
+                  <p class="card-text">
+                    Vaccinated:
+                    <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
+                  </p>
+                  <p class="card-text">
+                    Donation Amount:
+                    <?php echo $animal['medical_adopt_fee']; ?>
+                  </p>
+                  <form action="medical_fund.php">
+                    <div class="form-group">
+                      <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
+                      <a href="medical_fund.php?id=<?php echo $animal['id'] ?>" onclick="return confirm('Are you sure?')"
+                        class='btn btn-warning'>Medical Fund</a>
+                    </div>
+                  </form>
+
+                  <?php
+                  foreach ($donations as $donation) {
+                    if ($donation['animal_id'] == $animal['id']) {
+                      ?>
+                      <div class="progress mt-4">
+                        <div class="progress-bar bg-success" role="progressbar"
+                          style="width: <?php echo (double)$donation['total_amount'] / (double)$animal['medical_adopt_fee'] * 100?>%;"
+                          aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo round((double)$donation['total_amount'] / (double)$animal['medical_adopt_fee'] * 100)?>%</div>
+                      </div>
+                      <?php
+                    }
+                  }
+                  ?>
+                </div>
               </div>
             </div>
-          <?php endforeach; ?>
+            <?php
+            $count++;
+            if ($count % 3 == 0) {
+              echo "</div>";
+            }
+          endforeach;
+          if ($count % 3 != 0) {
+            echo "</div>";
+          }
+          ?>
         </div>
       </div>
     </div>

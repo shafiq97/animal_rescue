@@ -68,10 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       }
 
       // get the animal id from the form data
-      $animal_id = $_POST['animal_id'];
       $user_id = $_SESSION['id'];
       // insert the donation details into the database
-      $sql = "INSERT INTO donations (animal_id, amount, category_id, receipt_path, user_id) VALUES ('$animal_id', '$amount', '$category', '$target_file', '$user_id')";
+      $sql = "INSERT INTO donations (amount, category_id, receipt_path, user_id) VALUES ('$amount', '$category', '$target_file', '$user_id')";
       if (mysqli_query($conn, $sql)) {
         // donation details successfully added to the database
         header('Location: dashboard.php?success=true');

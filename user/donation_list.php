@@ -24,7 +24,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 $user_id = $_SESSION['id'];
 
 // prepare and execute the SQL query to retrieve the user's donations
-$sql    = "SELECT * FROM donations WHERE user_id='$user_id'";
+$sql    = "SELECT * FROM donations inner join category_donation on donations.category_id = category_donation.id WHERE user_id='$user_id'";
 $result = mysqli_query($conn, $sql);
 
 $sql2    = "SELECT * FROM medical_funds WHERE user_id='$user_id'";
@@ -66,7 +66,6 @@ mysqli_close($conn);
           <table id="donationTable" class="table table-striped table-bordered mt-4" style="width:100%">
             <thead>
               <tr>
-                <th scope="col">Animal</th>
                 <th scope="col">Amount</th>
                 <th scope="col">Category</th>
                 <th scope="col">Receipt</th>
@@ -75,9 +74,8 @@ mysqli_close($conn);
             <tbody>
               <?php while ($row = mysqli_fetch_assoc($result)): ?>
                 <tr>
-                  <td><?php echo $row['animal_id']; ?></td>
                   <td>$<?php echo $row['amount']; ?></td>
-                  <td><?php echo $row['category_id']; ?></td>
+                  <td><?php echo $row['name']; ?></td>
                   <td><a href="<?php echo $row['receipt_path']; ?>" target="_blank">View</a></td>
                 </tr>
               <?php endwhile; ?>
