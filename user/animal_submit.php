@@ -1,69 +1,95 @@
 <?php
-// start the session
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
-
 session_start();
+// connect to database
+$servername = "localhost";
+$username   = "root";
+$password   = "";
+$dbname     = "animal_rescue";
+$conn       = new mysqli($servername, $username, $password, $dbname);
 
-// check if the user is logged in
-// if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-//   // redirect to the login page
-//   header('Location: login.php');
-//   exit;
-// }
-
-// Database configuration
-$host     = 'localhost';
-$username = 'root';
-$password = '';
-$dbname   = 'animal_rescue';
-
-// Create connection
-$conn = mysqli_connect($host, $username, $password, $dbname);
-
-// Check connection
-if (!$conn) {
-  die('Connection failed: ' . mysqli_connect_error());
+// check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
 }
 
-// Get the form data
-$name = $_POST['animal-name'];
-$age = $_POST['animal-age'];
-$description = $_POST['animal-description'];
-$donation_amount = $_POST['donation-amount'];
-$status = 'pending';
+// escape user inputs for security
+$animalName        = mysqli_real_escape_string($conn, $_POST['animal-name']);
+$petStatus         = mysqli_real_escape_string($conn, $_POST['pet_status']);
+$petType           = mysqli_real_escape_string($conn, $_POST['pet_type']);
+$petGender         = mysqli_real_escape_string($conn, $_POST['pet_gender']);
+$breed             = mysqli_real_escape_string($conn, $_POST['breed']);
+$animalAge         = mysqli_real_escape_string($conn, $_POST['animal-age']);
+$color             = mysqli_real_escape_string($conn, $_POST['color']);
+$maturingSize      = mysqli_real_escape_string($conn, $_POST['maturing_size']);
+$vaccinated        = mysqli_real_escape_string($conn, $_POST['vaccinated']);
+$codeCategory      = mysqli_real_escape_string($conn, $_POST['code_category']);
+$animalDescription = mysqli_real_escape_string($conn, $_POST['animal-description']);
+$medicalAdoptFee   = mysqli_real_escape_string($conn, $_POST['medical_adopt_fee']);
+$role              = mysqli_real_escape_string($conn, $_POST['role']);
 
-// Get the image data
-$image_name = $_FILES['animal-image']['name'];
-$image_tmp_name = $_FILES['animal-image']['tmp_name'];
-$image_type = $_FILES['animal-image']['type'];
-$image_size = $_FILES['animal-image']['size'];
+// handle image upload
+$targetDir     = "uploads/";
+$targetFile    = $targetDir . basename($_FILES["animal-image"]["name"]);
+$uploadOk      = 1;
+$imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
-// Validate the image file
-$allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
-if (!in_array($image_type, $allowed_types)) {
-  die('Error: Only JPG, PNG, and GIF files are allowed.');
+// check if image file is a actual image or fake image
+if (isset($_POST["submit"])) {
+  $check = getimagesize($_FILES["animal-image"]["tmp_name"]);
+  if ($check !== false) {
+    $uploadOk = 1;
+  } else {
+    echo "File is not an image.";
+    $uploadOk = 0;
+  }
 }
-if ($image_size > 5 * 1024 * 1024) {
-  die('Error: Maximum file size is 5MB.');
+
+// check if file already exists
+if (file_exists($targetFile)) {
+  echo "Sorry, file already exists.";
+  $uploadOk = 0;
 }
 
-// Move the image file to the uploads directory
-$uploads_dir = 'uploads/';
-$image_path = $uploads_dir . $image_name;
-if (!move_uploaded_file($image_tmp_name, $image_path)) {
-  die('Error: Failed to move uploaded file.');
+// check file size
+if ($_FILES["animal-image"]["size"] > 5000000) {
+  echo "Sorry, your file is too large.";
+  $uploadOk = 0;
 }
 
-// Insert the animal data into the database
-$sql = "INSERT INTO animals (name, age, description, image_path, donation_amount, status) VALUES ('$name', $age, '$description', '$image_path', $donation_amount, '$status')";
-if (mysqli_query($conn, $sql)) {
-  echo "Animal registered successfully.";
+// allow certain file formats
+if (
+  $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+  && $imageFileType != "gif"
+) {
+  echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+  $uploadOk = 0;
+}
+
+// check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+  echo "Sorry, your file was not uploaded.";
+  // if everything is ok, try to upload file
 } else {
-  echo "Error: " . mysqli_error($conn);
+  if (move_uploaded_file($_FILES["animal-image"]["tmp_name"], $targetFile)) {
+    echo "The file " . basename($_FILES["animal-image"]["name"]) . " has been uploaded.";
+  } else {
+    echo "Sorry, there was an error uploading your file.";
+  }
+}
+$image = $targetFile;
+$user_id = $_SESSION['id'];
+// insert data into database
+$sql = "INSERT INTO animals (name, status, type, gender, breed, age, color, maturing_size, vaccinated, category_id, description, image_path, medical_adopt_fee, role, user_id) VALUES ('$animalName', '$petStatus', '$petType', '$petGender', '$breed', '$animalAge', '$color', '$maturingSize', '$vaccinated', '$codeCategory', '$animalDescription', '$image', '$medicalAdoptFee', '$role', $user_id)";
+
+// Execute the SQL query
+if ($conn->query($sql) === TRUE) {
+  echo "New record created successfully";
+} else {
+  echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
 // Close the database connection
-mysqli_close($conn);
-?>
+$conn->close();

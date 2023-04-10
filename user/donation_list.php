@@ -74,7 +74,7 @@ mysqli_close($conn);
                 <tr>
                   <td><?php echo $row['animal_id']; ?></td>
                   <td>$<?php echo $row['amount']; ?></td>
-                  <td><?php echo $row['category']; ?></td>
+                  <td><?php echo $row['category_id']; ?></td>
                   <td><a href="<?php echo $row['receipt_path']; ?>" target="_blank">View</a></td>
                 </tr>
               <?php endwhile; ?>

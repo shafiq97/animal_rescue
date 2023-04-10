@@ -15,14 +15,20 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 // check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  // get the username, email and password from the form
-  $username = $_POST['username'];
-  $email    = $_POST['email'];
-  $password = $_POST['password'];
+  // get the username, email, password, name, country, state, city, phone, and bank account number from the form
+  $username    = $_POST['username'];
+  $email       = $_POST['email'];
+  $password    = $_POST['password'];
+  $name        = $_POST['name'];
+  $country     = $_POST['country'];
+  $state       = $_POST['state'];
+  $city        = $_POST['city'];
+  $phone       = $_POST['phone'];
+  $bank_acc_no = $_POST['bank_acc_no'];
 
   // prepare and execute the SQL query to insert the user into the database
-  $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-  $stmt->bind_param("sss", $username, $email, $password);
+  $stmt = $conn->prepare("INSERT INTO users (username, email, password, name, user_country, user_state, user_city, user_nophone, bank_acc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+  $stmt->bind_param("sssssssss", $username, $email, $password, $name, $country, $state, $city, $phone, $bank_acc_no);
   $stmt->execute();
 
   // set the user as logged in
@@ -128,7 +134,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="row">
       <div class="col-md-4 offset-md-4">
         <h2 class="text-center mb-4">
-          <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" class="form-signin">
+          <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" class="form-signin"
+            enctype="multipart/form-data">
             <div class="form-label-group">
               <input type="text" id="username" name="username" class="form-control" placeholder="Username" required
                 autofocus>
@@ -142,9 +149,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
             </div>
 
+            <div class="form-label-group">
+              <input type="text" id="name" name="name" class="form-control" placeholder="Name" required>
+            </div>
+
+            <div class="form-label-group">
+              <input type="text" id="country" name="country" class="form-control" placeholder="Country" required>
+            </div>
+
+            <div class="form-label-group">
+              <input type="text" id="state" name="state" class="form-control" placeholder="State" required>
+            </div>
+
+            <div class="form-label-group">
+              <input type="text" id="city" name="city" class="form-control" placeholder="City" required>
+            </div>
+
+            <div class="form-label-group">
+              <input type="tel" id="phone" name="phone" class="form-control" placeholder="Phone" required>
+            </div>
+
+            <div class="form-label-group">
+              <input type="text" id="bank_acc_no" name="bank_acc_no" class="form-control"
+                placeholder="Bank Account Number" required>
+            </div>
+
+            <div class="form-label-group">
+              <input type="file" id="profile_photo" name="profile_photo" class="form-control" required>
+              <label for="profile_photo">Profile Photo</label>
+            </div>
+
+            <div class="form-group form-check">
+              <div class="row">
+                <input type="checkbox" class="form-check-input" id="terms" required>
+                <h6 class="form-check-label" for="terms">I agree to Safe Paws <a target="_blank" href="../terms_and_condition.php">terms and conditions</a></h6>
+              </div>
+            </div>
+
             <button class="btn btn-lg btn-primary btn-block btn-register" type="submit">Register</button>
           </form>
-
           <div class="text-center mt-3">
             <a href="login.php">Already have an account? Login here.</a>
           </div>

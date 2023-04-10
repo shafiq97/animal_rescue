@@ -34,7 +34,7 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 
 // Close the database connection
-mysqli_close($conn);
+// mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +56,7 @@ mysqli_close($conn);
     ?>
   </nav>
 
-  <div class="container">
+  <div class="container" style="height: 700px; overflow-y: scroll;">
     <div class="row mt-5">
       <div class="col-md-12">
         <form method="GET" action="">
@@ -72,7 +72,7 @@ mysqli_close($conn);
           <?php
           if (isset($_GET['search'])) {
             $search_term = mysqli_real_escape_string($conn, $_GET['search']);
-            $sql         = "SELECT * FROM images WHERE description LIKE '%{$search_term}%'";
+            $sql         = "SELECT * FROM animals WHERE description LIKE '%{$search_term}%'";
             $result      = mysqli_query($conn, $sql);
             $animals     = mysqli_fetch_all($result, MYSQLI_ASSOC);
           }
@@ -87,19 +87,46 @@ mysqli_close($conn);
                   <?php echo $animal['description']; ?>
                 </p>
                 <p class="card-text">
+                  Age:
+                  <?php echo $animal['age']; ?> years old
+                </p>
+                <p class="card-text">
+                  Gender:
+                  <?php echo $animal['gender']; ?>
+                </p>
+                <p class="card-text">
+                  Breed:
+                  <?php echo $animal['breed']; ?>
+                </p>
+                <p class="card-text">
+                  Maturing Size:
+                  <?php echo $animal['maturing_size']; ?>
+                </p>
+                <p class="card-text">
+                  Vaccinated:
+                  <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
+                </p>
+                <p class="card-text">
                   Donation Amount:
-                  <?php echo $animal['donation_amount']; ?>
+                  <?php echo $animal['medical_adopt_fee']; ?>
                 </p>
                 <form action="donate.php">
                   <div class="form-group">
                     <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
-                    <a href="donate.php?id=<?php echo $animal['id'] ?>" onclick="return confirm('Are you sure?')" class='btn btn-primary'>Donate</a>
+                    <a href="donate.php?id=<?php echo $animal['id'] ?>" onclick="return confirm('Are you sure?')"
+                      class='btn btn-primary'>Donate</a>
+                  </div>
+                </form>
+                <form action="medical_fund.php">
+                  <div class="form-group">
+                    <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
+                    <a href="medical_fund.php?id=<?php echo $animal['id'] ?>" onclick="return confirm('Are you sure?')"
+                      class='btn btn-warning'>Medical Fund</a>
                   </div>
                 </form>
               </div>
             </div>
           <?php endforeach; ?>
-
         </div>
       </div>
     </div>
