@@ -61,7 +61,7 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
       <div class="col-md-12">
         <form method="GET" action="">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search images by description" name="search">
+            <input type="text" class="form-control" placeholder="Search animal" name="search">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="submit">Search</button>
             </div>
@@ -72,7 +72,7 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
           <?php
           if (isset($_GET['search'])) {
             $search_term = mysqli_real_escape_string($conn, $_GET['search']);
-            $sql         = "SELECT * FROM animals WHERE description LIKE '%{$search_term}%'";
+            $sql         = "SELECT * FROM animals WHERE name LIKE '%{$search_term}%' or description LIKE '%{$search_term}%'";
             $result      = mysqli_query($conn, $sql);
             $animals     = mysqli_fetch_all($result, MYSQLI_ASSOC);
           }

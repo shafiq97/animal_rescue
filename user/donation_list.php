@@ -27,6 +27,9 @@ $user_id = $_SESSION['id'];
 $sql    = "SELECT * FROM donations WHERE user_id='$user_id'";
 $result = mysqli_query($conn, $sql);
 
+$sql2    = "SELECT * FROM medical_funds WHERE user_id='$user_id'";
+$result2 = mysqli_query($conn, $sql2);
+
 // close the database connection
 mysqli_close($conn);
 ?>
@@ -75,6 +78,38 @@ mysqli_close($conn);
                   <td><?php echo $row['animal_id']; ?></td>
                   <td>$<?php echo $row['amount']; ?></td>
                   <td><?php echo $row['category_id']; ?></td>
+                  <td><a href="<?php echo $row['receipt_path']; ?>" target="_blank">View</a></td>
+                </tr>
+              <?php endwhile; ?>
+            </tbody>
+          </table>
+        <?php else: ?>
+          <p>You haven't made any donations yet.</p>
+        <?php endif; ?>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Your Medical Fund Donations</h2>
+        <?php if (mysqli_num_rows($result2) > 0): ?>
+          <table id="donationTable" class="table table-striped table-bordered mt-4" style="width:100%">
+            <thead>
+              <tr>
+                <th scope="col">Animal</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Category</th>
+                <th scope="col">Receipt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php while ($row = mysqli_fetch_assoc($result2)): ?>
+                <tr>
+                  <td><?php echo $row['animal_id']; ?></td>
+                  <td>RM<?php echo $row['total_amount']; ?></td>
+                  <td><?php echo $row['code_category']; ?></td>
                   <td><a href="<?php echo $row['receipt_path']; ?>" target="_blank">View</a></td>
                 </tr>
               <?php endwhile; ?>

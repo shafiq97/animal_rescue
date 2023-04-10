@@ -21,7 +21,7 @@
     <div class="row">
       <div class="col-md-12">
         <h2>Make a Medical Fund</h2>
-        <form method="POST" action="process_donation.php" enctype="multipart/form-data">
+        <form method="POST" action="process_medical.php" enctype="multipart/form-data">
           <input type="hidden" name='animal_id' value="<?php echo $_GET['id'] ?>">
           <div class="form-group">
             <label for="amount">Amount(RM):</label>

@@ -114,6 +114,7 @@
 						</div>
 					</div>
 					<button type="submit" class="btn btn-block btn-primary">Submit</button>
+					<a href="dashboard.php" class="btn btn-block btn-warning">Cancel</a>
 				</form>
 			</div>
 		</div>
