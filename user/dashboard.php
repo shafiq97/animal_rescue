@@ -100,9 +100,8 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             ?>
             <div class="col-md-4">
               <a href="animal_profile.php?id=<?php echo $animal['id'] ?>">
-
-                <div class="card" style="width: 30vw">
-                  <img style="width: 30vw; height: 50vh;" class="card-image-top" src="<?php echo $animal['image_path']; ?>"
+                <div class="card" style="width: 20vw;">
+                  <img style="width: 20vw; height: 50vh;" class="card-image-top" src="<?php echo $animal['image_path']; ?>"
                     alt="<?php echo $animal['name']; ?>">
                   <div class="card-body">
                     <h5 class="card-title">
