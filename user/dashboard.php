@@ -6,11 +6,11 @@ error_reporting(E_ALL);
 session_start();
 
 // check if the user is logged in
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-  // redirect to the login page
-  header('Location: login.php');
-  exit;
-}
+// if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+//   // redirect to the login page
+//   header('Location: login.php');
+//   exit;
+// }
 
 // Database configuration
 $host     = 'localhost';

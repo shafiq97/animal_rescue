@@ -16,6 +16,9 @@
       <a class="nav-link" href="profile.php">Profile</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="questionnaire.php">Questionnaire</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="#">Settings</a>
     </li>
 
