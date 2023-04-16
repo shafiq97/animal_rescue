@@ -28,16 +28,9 @@ if (!$conn) {
 
 // Retrieve images from the database
 // Retrieve animals from the database
-$sql     = 'SELECT * FROM animals where isMedical = 0';
+$sql     = 'SELECT * FROM animals';
 $result  = mysqli_query($conn, $sql);
 $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-$sql2      = 'SELECT *, SUM(total_amount) AS total_donations
-FROM medical_funds
-GROUP BY animal_id
-ORDER BY total_donations DESC';
-$result2   = mysqli_query($conn, $sql2);
-$donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
 
 

@@ -28,7 +28,7 @@ if (!$conn) {
 
 // Retrieve images from the database
 // Retrieve animals from the database
-$sql     = 'SELECT * FROM animals where isMedical = 0';
+$sql     = 'SELECT * FROM animals where isMedical = 1';
 $result  = mysqli_query($conn, $sql);
 $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -83,12 +83,12 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             </div>
           </div>
         </form>
-        <h2>Featured Animals</h2>
+        <h2>Medical fund</h2>
         <div class="card-deck mt-4">
           <?php
           if (isset($_GET['search'])) {
             $search_term = mysqli_real_escape_string($conn, $_GET['search']);
-            $sql         = "SELECT * FROM animals WHERE name LIKE '%{$search_term}%' or description LIKE '%{$search_term}%'";
+            $sql         = "SELECT * FROM animals WHERE (name LIKE '%{$search_term}%' or description LIKE '%{$search_term}%') and isMedical = 1";
             $result      = mysqli_query($conn, $sql);
             $animals     = mysqli_fetch_all($result, MYSQLI_ASSOC);
           }
@@ -131,18 +131,18 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                       <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
                     </p>
                     <p class="card-text">
-                      Adoption Fee:
+                      Medical Fee:
                       <?php echo $animal['medical_adopt_fee']; ?>
                     </p>
-                    <!-- <form action="medical_fund.php">
+                    <form action="medical_fund.php">
                       <div class="form-group">
                         <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
                         <a href="medical_fund.php?id=<?php echo $animal['id'] ?>"
                           onclick="return confirm('Are you sure?')" class='btn btn-warning'>Medical Fund</a>
                       </div>
-                    </form> -->
+                    </form>
 
-                    <!-- <?php
+                    <?php
                     $found = false;
                     foreach ($donations as $donation) {
                       if ($donation['animal_id'] == $animal['id']) {
@@ -165,7 +165,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                       <?php
 
                     }
-                    ?> -->
+                    ?>
                   </div>
                 </div>
               </a>
