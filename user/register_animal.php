@@ -130,6 +130,29 @@ if (!$conn) {
 					</div>
 
 					<div class="form-group">
+						<label for="location" class="">Location</label>
+						<div class="">
+							<select name="location" class="form-control" id="location-select">
+								<option value="johor">Johor</option>
+								<option value="kedah">Kedah</option>
+								<option value="kelantan">Kelantan</option>
+								<option value="melaka">Melaka</option>
+								<option value="negeri sembilan">Negeri Sembilan</option>
+								<option value="pahang">Pahang</option>
+								<option value="perak">Perak</option>
+								<option value="perlis">Perlis</option>
+								<option value="penang">Penang</option>
+								<option value="sabah">Sabah</option>
+								<option value="sarawak">Sarawak</option>
+								<option value="selangor">Selangor</option>
+								<option value="terengganu">Terengganu</option>
+								<option value="wilayah persekutuan kuala lumpur">Wilayah Persekutuan Kuala Lumpur</option>
+								<option value="wilayah persekutuan labuan">Wilayah Persekutuan Labuan</option>
+								<option value="wilayah persekutuan putrajaya">Wilayah Persekutuan Putrajaya</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
 						<label for="animal-description">Description</label>
 						<textarea class="form-control" id="animal-description" name="animal-description" rows="3"
 							required></textarea>

@@ -29,12 +29,13 @@ $codeCategory      = mysqli_real_escape_string($conn, $_POST['code_category']);
 $animalDescription = mysqli_real_escape_string($conn, $_POST['animal-description']);
 $medicalAdoptFee   = mysqli_real_escape_string($conn, $_POST['medical_adopt_fee']);
 $role              = mysqli_real_escape_string($conn, $_POST['role']);
+$location          = mysqli_real_escape_string($conn, $_POST['location']);
 $isMedical         = 0;
 
 // die($isMedical);
 
-if(isset($_POST['isMedical'])){
-  $isMedical         = 1;
+if (isset($_POST['isMedical'])) {
+  $isMedical = 1;
 }
 
 // handle image upload

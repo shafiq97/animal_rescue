@@ -182,10 +182,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group form-check">
               <div class="row">
                 <input type="checkbox" class="form-check-input" id="terms" required>
-                <h6 class="form-check-label" for="terms">I agree to Safe Paws <a target="_blank" href="../terms_and_condition.php">terms and conditions</a></h6>
+                <h6 class="form-check-label" for="terms">I agree to Safe Paws <a target="_blank"
+                    href="../terms_and_condition.php">terms and conditions</a></h6>
               </div>
             </div>
-
             <button class="btn btn-lg btn-primary btn-block btn-register" type="submit">Register</button>
           </form>
           <div class="text-center mt-3">

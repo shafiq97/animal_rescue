@@ -191,10 +191,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
       </div>
     </form>
 
-
-
     <div class="container" style="height: 100%; overflow-y: scroll;">
-
       <div class="row mt-5">
         <div class="col-md-12">
           <form method="GET" action="">
