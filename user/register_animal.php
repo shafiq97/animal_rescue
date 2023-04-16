@@ -78,9 +78,49 @@ if (!$conn) {
 					<div class="form-group">
 						<label for="animal-breed">Breed</label>
 						<select name="breed" class="form-control" id="">
-							<option value="V">V</option>
+							<optgroup label="Mixed Breed">
+								<option value="Affenpinscher">Affenpinscher</option>
+								<option value="Afghan Hound">Afghan Hound</option>
+								<option value="Airedale Terrier">Airedale Terrier</option>
+								<option value="Akbash">Akbash</option>
+								<option value="Akita">Akita</option>
+								<option value="Alaskan Malamute">Alaskan Malamute</option>
+								<option value="American Bulldog">American Bulldog</option>
+								<option value="American Eskimo Dog">American Eskimo Dog</option>
+								<option value="American Hairless Terrier">American Hairless Terrier</option>
+								<option value="American Staffordshire Terrier">American Staffordshire Terrier</option>
+								<option value="American Water Spaniel">American Water Spaniel</option>
+								<option value="Anatolian Shepherd">Anatolian Shepherd</option>
+								<option value="Appenzell Mountain Dog">Appenzell Mountain Dog</option>
+								<option value="Australian Cattle Dog/Blue Heeler">Australian Cattle Dog/Blue Heeler</option>
+								<option value="Australian Kelpie">Australian Kelpie</option>
+								<option value="Australian Shepherd">Australian Shepherd</option>
+								<option value="Australian Terrier">Australian Terrier</option>
+							</optgroup>
+							<optgroup label="Non-Mixed Breed">
+								<option value="Domestic Short Hair">Domestic Short Hair</option>
+								<option value="Domestic Medium Hair">Domestic Medium Hair</option>
+								<option value="Domestic Long Hair">Domestic Long Hair</option>
+								<option value="Abyssinian">Abyssinian</option>
+								<option value="American Curl">American Curl</option>
+								<option value="American Shorthair">American Shorthair</option>
+								<option value="American Wirehair">American Wirehair</option>
+								<option value="Applehead Siamese">Applehead Siamese</option>
+								<option value="Balinese">Balinese</option>
+								<option value="Bengal">Bengal</option>
+								<option value="Birman">Birman</option>
+								<option value="Bobtail">Bobtail</option>
+								<option value="Bombay">Bombay</option>
+								<option value="British Shorthair">British Shorthair</option>
+								<option value="Burmese">Burmese</option>
+								<option value="Burmilla">Burmilla</option>
+								<option value="Calico">Calico</option>
+								<option value="Canadian Hairless">Canadian Hairless</option>
+								<option value="Chartreux">Chartreux</option>
+							</optgroup>
 						</select>
 					</div>
+
 					<div class="form-group">
 						<label for="animal-age">Age</label>
 						<input type="number" class="form-control" id="animal-age" name="animal-age" required>
