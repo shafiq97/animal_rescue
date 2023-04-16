@@ -12,10 +12,10 @@ if (session_status() == PHP_SESSION_NONE) {
     ?>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="view_animals.php">View Animals</a>
+        <a class="nav-link" href="dashboard.php">View Animals</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="dashboard.php">Dashboard</a>
+        <a class="nav-link" href="category_donation.php">Category donation</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="profile.php">Profile</a>

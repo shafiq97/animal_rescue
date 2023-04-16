@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="col-md-4 offset-md-4">
                 <img src="https://static.vecteezy.com/system/resources/previews/006/470/722/original/pet-shop-logo-design-template-modern-animal-icon-label-for-store-veterinary-clinic-hospital-shelter-business-services-flat-illustration-background-with-dog-cat-and-horse-free-vector.jpg"
                     alt="Animal Logo" class="logo">
-                <h2 class="text-center mb-4">User Login</h2>
+                <h2 class="text-center mb-4">Admin Login</h2>
                 <form method="post" action="login.php" class="form-signin">
                     <div class="form-label-group">
                         <input type="text" id="username" name="username" class="form-control" placeholder="Username"
@@ -84,7 +84,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <button class="btn btn-lg btn-primary btn-block btn-login" type="submit">Login</button>
                     <div class="text-center mt-3">
-                        <a href="register.php">Create an account</a>
+                        <!-- <a href="register.php">Create an account</a> -->
+                        <a href="../user/login.php" class="text-center mb-4">User Login</a>
                     </div>
                 </form>
             </div>

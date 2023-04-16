@@ -1,3 +1,19 @@
+<?php
+$host     = "localhost";
+$username = "root";
+$password = "";
+$dbname   = "animal_rescue";
+
+// Create connection
+$conn = mysqli_connect($host, $username, $password, $dbname);
+
+// Check connection
+if (!$conn) {
+	die("Connection failed: " . mysqli_connect_error());
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,11 +113,22 @@
 					</div>
 					<div class="form-group">
 						<label for="code_category">code category for apply donation</label>
-						<select name="code_category" class="form-control" name="code_category" id="">
-							<option value="1">1</option>
-							<option value="2">2</option>
+						<select name="code_category" class="form-control" id="code_category">
+							<?php
+							// Retrieve categories from the database
+							$query  = "SELECT * FROM category_donation";
+							$result = mysqli_query($conn, $query);
+							while ($row = mysqli_fetch_assoc($result)) {
+								$selected = '';
+								if ($row['id'] == $category_donation[0]['code_category']) {
+									$selected = 'selected';
+								}
+								echo "<option value='" . $row['id'] . "' $selected>" . $row['name'] . "</option>";
+							}
+							?>
 						</select>
 					</div>
+
 					<div class="form-group">
 						<label for="animal-description">Description</label>
 						<textarea class="form-control" id="animal-description" name="animal-description" rows="3"
