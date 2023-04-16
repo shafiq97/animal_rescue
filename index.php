@@ -62,13 +62,13 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">User Dashboard</a>
+    <!-- <a class="navbar-brand" href="#">User Dashboard</a> -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <?php
-    include('header.php');
+    include('user/header.php');
     ?>
   </nav>
 
@@ -101,8 +101,8 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             <div class="col-md-6">
               <a href="animal_profile.php?id=<?php echo $animal['id'] ?>">
                 <div class="card" style="width: 20vw;">
-                  <img style="width: 20vw; height: 50vh;" class="card-image-top" src="<?php echo $animal['image_path']; ?>"
-                    alt="<?php echo $animal['name']; ?>">
+                  <img style="width: 20vw; height: 50vh;" class="card-image-top"
+                    src="<?php echo 'user/' . $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>">
                   <div class="card-body">
                     <h5 class="card-title">
                       <?php echo $animal['name']; ?>
@@ -134,15 +134,15 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                       Donation Amount:
                       <?php echo $animal['medical_adopt_fee']; ?>
                     </p>
-                    <form action="medical_fund.php">
+                    <!-- <form action="medical_fund.php">
                       <div class="form-group">
                         <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
                         <a href="medical_fund.php?id=<?php echo $animal['id'] ?>"
                           onclick="return confirm('Are you sure?')" class='btn btn-warning'>Medical Fund</a>
                       </div>
-                    </form>
+                    </form> -->
 
-                    <?php
+                    <!-- <?php
                     $found = false;
                     foreach ($donations as $donation) {
                       if ($donation['animal_id'] == $animal['id']) {
@@ -165,7 +165,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                       <?php
 
                     }
-                    ?>
+                    ?> -->
                   </div>
                 </div>
               </a>
@@ -176,7 +176,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
               echo "</div>";
             }
           endforeach;
-          if ($count % 2 != 0) {
+          if ($count % 3 != 0) {
             echo "</div>";
           }
           ?>
@@ -193,7 +193,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     document.getElementById("logout-btn").addEventListener("click", function (event) {
       event.preventDefault();
       if (confirm("Are you sure you want to logout?")) {
-        window.location.href = "logout.php";
+        window.location.href = "user/logout.php";
       }
     });
   </script>

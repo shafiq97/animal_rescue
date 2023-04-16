@@ -25,6 +25,23 @@
 						</select>
 					</div>
 					<div class="form-group">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" name="isMedical" id="isMedical">
+							<label class="form-check-label" for="isMedical">
+								Need medical fee
+							</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label id="medical_adopt_fee">Adoption Fee</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">$</span>
+							</div>
+							<input type="number" class="form-control" name="medical_adopt_fee" min="0" step="0.01" required>
+						</div>
+					</div>
+					<div class="form-group">
 						<label for="animal-status">Type</label>
 						<select name="pet_type" class="form-control" id="">
 							<option value="dog">Dog</option>
@@ -54,7 +71,12 @@
 					</div>
 					<div class="form-group">
 						<label for="color">Color</label>
-						<input type="color" class="form-control" id="color" name="color" required>
+						<select name="color" class="form-control" id="">
+							<option value="black">Black</option>
+							<option value="grey">Grey</option>
+							<option value="orange">Orange</option>
+							<option value="mix">Mix color</option>
+						</select>
 					</div>
 					<div class="form-group">
 						<label for="maturing_size">Size at maturing</label>
@@ -90,16 +112,6 @@
 						<input type="file" class="form-control-file" id="animal-image" name="animal-image" required>
 					</div>
 					<div class="form-group">
-						<label for="medical_adopt_fee">Medical or Adoption Fee</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text">$</span>
-							</div>
-							<input type="number" class="form-control" id="medical_adopt_fee" name="medical_adopt_fee" min="0"
-								step="0.01" required>
-						</div>
-					</div>
-					<div class="form-group">
 						<label for="role">My Role</label>
 						<select name="role" class="form-control" name="role" id="">
 							<option value="rescuer">rescuer</option>
@@ -124,5 +136,18 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script>
+		const isMedicalCheckbox = document.getElementById('isMedical');
+		const medicalFeeLabel = document.getElementById('medical_adopt_fee');
+
+		isMedicalCheckbox.addEventListener('change', function () {
+			if (this.checked) {
+				medicalFeeLabel.textContent = 'Medical fee';
+			} else {
+				medicalFeeLabel.textContent = 'Adoption fee';
+			}
+		});
+	</script>
+
 </body>
 </html>
