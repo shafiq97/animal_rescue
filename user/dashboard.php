@@ -28,7 +28,7 @@ if (!$conn) {
 
 // Retrieve images from the database
 // Retrieve animals from the database
-$sql     = 'SELECT * FROM animals where isMedical = 0';
+$sql     = 'SELECT * FROM animals where isMedical = 0 and approval = "approved"';
 $result  = mysqli_query($conn, $sql);
 $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 

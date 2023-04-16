@@ -28,7 +28,7 @@ if (!$conn) {
 
 // Retrieve images from the database
 // Retrieve animals from the database
-$sql     = 'SELECT * FROM animals where isMedical = 1';
+$sql     = 'SELECT * FROM animals where isMedical = 1 and approval = "approved"';
 $result  = mysqli_query($conn, $sql);
 $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -101,8 +101,8 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             <div class="col-md-6">
               <a href="animal_profile.php?id=<?php echo $animal['id'] ?>">
                 <div class="card" style="width: 20vw;">
-                  <img style="width: 20vw; height: 50vh;" class="card-image-top" src="<?php echo $animal['image_path']; ?>"
-                    alt="<?php echo $animal['name']; ?>">
+                  <img style="width: 20vw; height: 50vh;" class="card-image-top"
+                    src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>">
                   <div class="card-body">
                     <h5 class="card-title">
                       <?php echo $animal['name']; ?>
