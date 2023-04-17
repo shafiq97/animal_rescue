@@ -18,10 +18,13 @@ if (session_status() == PHP_SESSION_NONE) {
         <a class="nav-link" href="category_donation.php">Category donation</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="donation_list.php">Donation List</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="profile.php">Profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="q_list.php">Questionnaire</a>
+        <a class="nav-link" href="questionnaire.php">Questionnaire</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Settings</a>

@@ -24,10 +24,10 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 $user_id = $_SESSION['id'];
 
 // prepare and execute the SQL query to retrieve the user's donations
-$sql    = "SELECT * FROM donations inner join category_donation on donations.category_id = category_donation.id WHERE user_id='$user_id'";
+$sql    = "SELECT * FROM donations inner join category_donation on donations.category_id = category_donation.id";
 $result = mysqli_query($conn, $sql);
 
-$sql2    = "SELECT * FROM medical_funds WHERE user_id='$user_id'";
+$sql2    = "SELECT * FROM medical_funds";
 $result2 = mysqli_query($conn, $sql2);
 
 // close the database connection
@@ -55,13 +55,10 @@ mysqli_close($conn);
     include('header.php');
     ?>
   </nav>
-
-
-
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-12">
-        <h2>Your Donations</h2>
+        <h2>Donation List</h2>
         <?php if (mysqli_num_rows($result) > 0): ?>
           <table id="donationTable" class="table table-striped table-bordered mt-4" style="width:100%">
             <thead>
@@ -70,6 +67,7 @@ mysqli_close($conn);
                 <th scope="col">Category</th>
                 <th scope="col">Admin Approval</th>
                 <th scope="col">Receipt</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -84,7 +82,12 @@ mysqli_close($conn);
                   <td>
                     <?php echo $row['admin_approval']; ?>
                   </td>
-                  <td><a href="<?php echo $row['receipt_path']; ?>" target="_blank">View</a></td>
+                  <td><a href="../user/<?php echo $row['receipt_path']; ?>" target="_blank">View</a></td>
+                  <td>
+                    <?php if ($row['admin_approval'] != "approved"): ?>
+                      <a class="btn btn-primary" href="update_donation_status.php?id=<?php echo $row['id']; ?>">Approve</a>
+                    <?php endif; ?>
+                  </td>
                 </tr>
               <?php endwhile; ?>
             </tbody>
@@ -99,7 +102,7 @@ mysqli_close($conn);
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-12">
-        <h2>Your Medical Fund Donations</h2>
+        <h2>Medical Fund List</h2>
         <?php if (mysqli_num_rows($result2) > 0): ?>
           <table id="donationTable2" class="table table-striped table-bordered mt-4" style="width:100%">
             <thead>
@@ -122,7 +125,13 @@ mysqli_close($conn);
                   <td>
                     <?php echo $row['admin_approval']; ?>
                   </td>
-                  <td><a href="<?php echo $row['receipt_path']; ?>" target="_blank">View</a></td>
+                  <td><a href="../user/<?php echo $row['receipt_path']; ?>" target="_blank">View</a></td>
+                  <td>
+                    <?php if ($row['admin_approval'] != "approved"): ?>
+                      <a class="btn btn-primary"
+                        href="update_medical_fund_status.php?id=<?php echo $row['id']; ?>">Approve</a>
+                    <?php endif; ?>
+                  </td>
                 </tr>
               <?php endwhile; ?>
             </tbody>
