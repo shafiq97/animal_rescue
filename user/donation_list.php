@@ -27,7 +27,7 @@ $user_id = $_SESSION['id'];
 $sql    = "SELECT * FROM donations inner join category_donation on donations.category_id = category_donation.id WHERE user_id='$user_id'";
 $result = mysqli_query($conn, $sql);
 
-$sql2    = "SELECT * FROM medical_funds WHERE user_id='$user_id'";
+$sql2    = "SELECT * FROM medical_funds inner join animals on animals.id = medical_funds.animal_id WHERE medical_funds.user_id='$user_id'";
 $result2 = mysqli_query($conn, $sql2);
 
 // close the database connection
@@ -114,7 +114,7 @@ mysqli_close($conn);
               <?php while ($row = mysqli_fetch_assoc($result2)): ?>
                 <tr>
                   <td>
-                    <?php echo $row['animal_id']; ?>
+                    <?php echo $row['name']; ?>
                   </td>
                   <td>RM
                     <?php echo $row['total_amount']; ?>
