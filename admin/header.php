@@ -27,7 +27,7 @@ if (session_status() == PHP_SESSION_NONE) {
         <a class="nav-link" href="questionnaire.php">Questionnaire</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Settings</a>
+        <a class="nav-link" href="user_settings.php">User Settings</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
