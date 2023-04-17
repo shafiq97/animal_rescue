@@ -50,3 +50,12 @@ if (session_status() == PHP_SESSION_NONE) {
   }
   ?>
 </div>
+
+<!-- <script>
+  document.getElementById("logout-btn").addEventListener("click", function (event) {
+    event.preventDefault();
+    if (confirm("Are you sure you want to logout?")) {
+      window.location.href = "logout.php";
+    }
+  });
+</script> -->

@@ -51,6 +51,7 @@ if (!$conn) {
 					<div class="form-group">
 						<label id="code-category-label" for="animal-code-category">Code Category</label>
 						<select name="code_category" class="form-control" id="code_category">
+							<option value="">Please select</option>
 							<?php
 							// Retrieve categories from the database
 							$query  = "SELECT * FROM category_donation";
