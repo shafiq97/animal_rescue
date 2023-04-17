@@ -35,6 +35,7 @@ mysqli_close($conn);
   </nav>
   <div class="container">
     <h1>View Questions</h1>
+    <a href="view_answer.php">Questionnaire report</a>
     <table class="table table-bordered">
       <thead>
         <tr>
