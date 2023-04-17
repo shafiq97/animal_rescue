@@ -26,10 +26,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $phone       = $_POST['phone'];
   $bank_acc_no = $_POST['bank_acc_no'];
 
+  // File upload handling
+  $target_dir    = "profile/";
+  $target_file   = $target_dir . basename($_FILES["profile_photo"]["name"]);
+  $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+  move_uploaded_file($_FILES["profile_photo"]["tmp_name"], $target_file);
+
   // prepare and execute the SQL query to insert the user into the database
-  $stmt = $conn->prepare("INSERT INTO users (username, email, password, name, user_country, user_state, user_city, user_nophone, bank_acc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-  $stmt->bind_param("sssssssss", $username, $email, $password, $name, $country, $state, $city, $phone, $bank_acc_no);
+  $stmt = $conn->prepare("INSERT INTO users (username, email, password, name, user_country, user_state, user_city, user_nophone, bank_acc, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+  $stmt->bind_param("ssssssssss", $username, $email, $password, $name, $country, $state, $city, $phone, $bank_acc_no, $target_file);
   $stmt->execute();
+
 
   // set the user as logged in
   $_SESSION['loggedin'] = true;

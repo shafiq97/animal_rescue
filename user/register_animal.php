@@ -49,6 +49,23 @@ if (!$conn) {
 						</div>
 					</div>
 					<div class="form-group">
+						<label id="code-category-label" for="animal-code-category">Code Category</label>
+						<select name="code_category" class="form-control" id="code_category">
+							<?php
+							// Retrieve categories from the database
+							$query  = "SELECT * FROM category_donation";
+							$result = mysqli_query($conn, $query);
+							while ($row = mysqli_fetch_assoc($result)) {
+								$selected = '';
+								if ($row['id'] == $category_donation[0]['code_category']) {
+									$selected = 'selected';
+								}
+								echo "<option value='" . $row['id'] . "' $selected>" . $row['name'] . "</option>";
+							}
+							?>
+						</select>
+					</div>
+					<div class="form-group">
 						<label id="medical_adopt_fee">Adoption Fee</label>
 						<div class="input-group">
 							<div class="input-group-prepend">
@@ -151,23 +168,7 @@ if (!$conn) {
 							<option value="not_sure">not sure</option>
 						</select>
 					</div>
-					<div class="form-group">
-						<label for="code_category">code category for apply donation</label>
-						<select name="code_category" class="form-control" id="code_category">
-							<?php
-							// Retrieve categories from the database
-							$query  = "SELECT * FROM category_donation";
-							$result = mysqli_query($conn, $query);
-							while ($row = mysqli_fetch_assoc($result)) {
-								$selected = '';
-								if ($row['id'] == $category_donation[0]['code_category']) {
-									$selected = 'selected';
-								}
-								echo "<option value='" . $row['id'] . "' $selected>" . $row['name'] . "</option>";
-							}
-							?>
-						</select>
-					</div>
+
 
 					<div class="form-group">
 						<label for="location" class="">Location</label>
@@ -238,6 +239,23 @@ if (!$conn) {
 			}
 		});
 	</script>
+	<script>
+		const codeCategoryLabel = document.getElementById('code-category-label');
+		const codeCategorySelect = document.getElementById('code_category'); // Corrected the id here
 
+		// Disable the dropdown by default
+		codeCategoryLabel.classList.add('disabled');
+		codeCategorySelect.disabled = true;
+
+		isMedicalCheckbox.addEventListener('change', function () {
+			if (isMedicalCheckbox.checked) {
+				codeCategoryLabel.classList.remove('disabled');
+				codeCategorySelect.disabled = false;
+			} else {
+				codeCategoryLabel.classList.add('disabled');
+				codeCategorySelect.disabled = true;
+			}
+		});
+	</script>
 </body>
 </html>
