@@ -15,6 +15,9 @@ if (session_status() == PHP_SESSION_NONE) {
         <a class="nav-link" href="register_animal.php">Register Animal</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="manage_animal.php">Manage Animal</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="dashboard.php">Dashboard</a>
       </li>
       <li class="nav-item">

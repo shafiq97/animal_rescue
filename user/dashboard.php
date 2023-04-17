@@ -78,6 +78,32 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
   </style>
   </head>
   <body>
+    <!-- Modal -->
+    <div class="modal fade" id="animalModal" tabindex="-1" role="dialog" aria-labelledby="animalModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="animalModalLabel">Animal Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h3>Contact information</h3>
+            <!-- <p id="animalId"></p> -->
+            <p id="animalName"></p>
+            <p id="userContact"></p>
+            <p id="userEmail"></p>
+            <p id="userName"></p>
+            <p id="userPhone"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">User Dashboard</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -211,6 +237,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
               $result      = mysqli_query($conn, $sql);
               $animals     = mysqli_fetch_all($result, MYSQLI_ASSOC);
             }
+
             $count = 0;
             foreach ($animals as $animal):
               if ($count % 2 == 0) {
@@ -218,42 +245,43 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
               }
               ?>
               <div class="col-md-6">
-                <a href="animal_profile.php?id=<?php echo $animal['id'] ?>">
-                  <div class="card" style="width: 20vw;">
-                    <img style="width: 20vw; height: 50vh;" class="card-image-top"
-                      src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <?php echo $animal['name']; ?>
-                      </h5>
-                      <p class="card-text">
-                        <?php echo $animal['description']; ?>
-                      </p>
-                      <p class="card-text">
-                        Age:
-                        <?php echo $animal['age']; ?> years old
-                      </p>
-                      <p class="card-text">
-                        Gender:
-                        <?php echo $animal['gender']; ?>
-                      </p>
-                      <p class="card-text">
-                        Breed:
-                        <?php echo $animal['breed']; ?>
-                      </p>
-                      <p class="card-text">
-                        Maturing Size:
-                        <?php echo $animal['maturing_size']; ?>
-                      </p>
-                      <p class="card-text">
-                        Vaccinated:
-                        <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
-                      </p>
-                      <p class="card-text">
-                        Adoption Fee:
-                        <?php echo $animal['medical_adopt_fee']; ?>
-                      </p>
-                      <!-- <form action="medical_fund.php">
+
+                <div class="card" style="width: 20vw;">
+                  <img style="width: 20vw; height: 50vh;" class="card-image-top animal-img"
+                    src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>"
+                    data-animal-id="<?php echo $animal['id']; ?>">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <?php echo $animal['name']; ?>
+                    </h5>
+                    <p class="card-text">
+                      <?php echo $animal['description']; ?>
+                    </p>
+                    <p class="card-text">
+                      Age:
+                      <?php echo $animal['age']; ?> years old
+                    </p>
+                    <p class="card-text">
+                      Gender:
+                      <?php echo $animal['gender']; ?>
+                    </p>
+                    <p class="card-text">
+                      Breed:
+                      <?php echo $animal['breed']; ?>
+                    </p>
+                    <p class="card-text">
+                      Maturing Size:
+                      <?php echo $animal['maturing_size']; ?>
+                    </p>
+                    <p class="card-text">
+                      Vaccinated:
+                      <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
+                    </p>
+                    <p class="card-text">
+                      Adoption Fee:
+                      <?php echo $animal['medical_adopt_fee']; ?>
+                    </p>
+                    <!-- <form action="medical_fund.php">
                       <div class="form-group">
                         <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
                         <a href="medical_fund.php?id=<?php echo $animal['id'] ?>"
@@ -261,33 +289,32 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                       </div>
                     </form> -->
 
-                      <!-- <?php
-                      $found = false;
-                      foreach ($donations as $donation) {
-                        if ($donation['animal_id'] == $animal['id']) {
-                          $found = true;
-                          ?>
+                    <!-- <?php
+                    $found = false;
+                    foreach ($donations as $donation) {
+                      if ($donation['animal_id'] == $animal['id']) {
+                        $found = true;
+                        ?>
                         <div class="progress mt-4">
                           <div class="progress-bar bg-success" role="progressbar"
                             style="width: <?php echo (double) $donation['total_amount'] / (double) $animal['medical_adopt_fee'] * 100 ?>%;"
                             aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo round((double) $donation['total_amount'] / (double) $animal['medical_adopt_fee'] * 100) ?>%</div>
                         </div>
                         <?php
-                        }
                       }
-                      if (!$found) {
-                        ?>
+                    }
+                    if (!$found) {
+                      ?>
                       <div class="progress mt-4">
                         <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="25"
                           aria-valuemin="0" aria-valuemax="100">0%</div>
                       </div>
                       <?php
 
-                      }
-                      ?> -->
-                    </div>
+                    }
+                    ?> -->
                   </div>
-                </a>
+                </div>
               </div>
               <?php
               $count++;
@@ -320,6 +347,30 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
       $(document).ready(function () {
         $('#location-select').select2();
       });
+    </script>
+    <script>
+      $(document).on('click', '.animal-img', function () {
+        var animalId = $(this).data('animal-id');
+        $.ajax({
+          url: 'get_animal.php',
+          type: 'GET',
+          data: { id: animalId },
+          success: function (data) {
+            // Update the modal with the animal information
+            $('#animalModalLabel').text(data.animal_name);
+            $('#animalId').text(data.id);
+            $('#animalName').text(data.animal_names);
+            $('#userContact').text(data.username);
+            $('#userEmail').text(data.email);
+            $('#userPhone').text(data.user_nophone);
+            $('#animalModal').modal('show');
+          },
+          error: function (xhr, status, error) {
+            console.log(error);
+          }
+        });
+      });
+
     </script>
   </body>
 </html>
