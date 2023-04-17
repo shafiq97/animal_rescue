@@ -76,6 +76,7 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
   <!-- Display animals in a table -->
   <div class="container" style="width: 100%">
     <div class="col">
+      <a class="btn btn-primary m-3" href="category_donation_add.php">Add Category</a>
       <table id="categoryTable" class="display">
         <thead>
           <tr>

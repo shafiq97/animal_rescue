@@ -20,6 +20,19 @@ $sql               = "SELECT * FROM category_donation where id = '$id'";
 $result            = mysqli_query($conn, $sql);
 $category_donation = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+if (isset($_POST['insert'])) {
+  $category_name = $_POST['category_name'];
+
+  $sql = "INSERT INTO category_donation (name) VALUES ('$category_name')";
+
+  if (mysqli_query($conn, $sql)) {
+    echo '<script>document.getElementById("alert").innerHTML = "Category inserted successfully."; document.getElementById("alert").style.display = "block";</script>';
+    header("location: category_donation.php");
+  } else {
+    echo "Error inserting category: " . mysqli_error($conn);
+  }
+}
+
 
 if (isset($_POST['update'])) {
   $category_name = $_POST['category_name'];
