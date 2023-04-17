@@ -68,14 +68,16 @@ mysqli_close($conn);
               <tr>
                 <th scope="col">Amount</th>
                 <th scope="col">Category</th>
+                <th scope="col">Admin Approval</th>
                 <th scope="col">Receipt</th>
               </tr>
             </thead>
             <tbody>
               <?php while ($row = mysqli_fetch_assoc($result)): ?>
                 <tr>
-                  <td>$<?php echo $row['amount']; ?></td>
+                  <td>RM <?php echo $row['amount']; ?></td>
                   <td><?php echo $row['name']; ?></td>
+                  <td><?php echo $row['admin_approval']; ?></td>
                   <td><a href="<?php echo $row['receipt_path']; ?>" target="_blank">View</a></td>
                 </tr>
               <?php endwhile; ?>
@@ -98,7 +100,7 @@ mysqli_close($conn);
               <tr>
                 <th scope="col">Animal</th>
                 <th scope="col">Amount</th>
-                <th scope="col">Category</th>
+                <th scope="col">Admin Aprroval</th>
                 <th scope="col">Receipt</th>
               </tr>
             </thead>
@@ -106,8 +108,8 @@ mysqli_close($conn);
               <?php while ($row = mysqli_fetch_assoc($result2)): ?>
                 <tr>
                   <td><?php echo $row['animal_id']; ?></td>
-                  <td>RM<?php echo $row['total_amount']; ?></td>
-                  <td><?php echo $row['code_category']; ?></td>
+                  <td>RM <?php echo $row['total_amount']; ?></td>
+                  <td><?php echo $row['admin_approval']; ?></td>
                   <td><a href="<?php echo $row['receipt_path']; ?>" target="_blank">View</a></td>
                 </tr>
               <?php endwhile; ?>
