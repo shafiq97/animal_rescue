@@ -96,13 +96,13 @@ mysqli_close($conn);
     <p>Maturing Size: <?php echo $animal['maturing_size']; ?></p>
     <p>Vaccinated: <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?></p>
     <p>Donation Amount: <?php echo $animal['medical_adopt_fee']; ?></p>
-    <form action="medical_fund.php">
+    <!-- <form action="medical_fund.php">
       <div class="form-group">
         <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
         <a href="medical_fund.php?id=<?php echo $animal['id'] ?>" onclick="return confirm('Are you sure?')"
           class='btn btn-warning'>Medical Fund</a>
       </div>
-    </form>
+    </form> -->
   </body>
 </html>
 
