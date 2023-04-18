@@ -21,6 +21,8 @@ if (isset($_GET['id'])) {
   exit;
 }
 
+// die($id);
+
 // Update the donation status in the database
 $query  = "UPDATE donations SET admin_approval = 'approved' WHERE id = '$id'";
 $result = mysqli_query($conn, $query);

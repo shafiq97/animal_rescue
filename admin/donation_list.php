@@ -24,7 +24,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 $user_id = $_SESSION['id'];
 
 // prepare and execute the SQL query to retrieve the user's donations
-$sql    = "SELECT * FROM donations inner join category_donation on donations.category_id = category_donation.id";
+$sql    = "SELECT *,donations.id as donation_id FROM donations inner join category_donation on donations.category_id = category_donation.id";
 $result = mysqli_query($conn, $sql);
 
 $sql2    = "SELECT * FROM medical_funds";
@@ -85,7 +85,7 @@ mysqli_close($conn);
                   <td><a href="../user/<?php echo $row['receipt_path']; ?>" target="_blank">View</a></td>
                   <td>
                     <?php if ($row['admin_approval'] != "approved"): ?>
-                      <a class="btn btn-primary" href="update_donation_status.php?id=<?php echo $row['id']; ?>">Approve</a>
+                      <a class="btn btn-primary" href="update_donation_status.php?id=<?php echo $row['donation_id']; ?>">Approve</a>
                     <?php endif; ?>
                   </td>
                 </tr>
