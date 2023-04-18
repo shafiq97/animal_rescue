@@ -57,6 +57,9 @@ if (session_status() == PHP_SESSION_NONE) {
       <li class="nav-item mr-3">
         <a href="user/login.php" onclick="return confirm('Are you sure?')" class='btn btn-primary'>Donate</a>
       </li>
+      <li class="nav-item mr-3">
+        <a href="user/login.php" onclick="return confirm('Are you sure?')" class='btn btn-light'>Login</a>
+      </li>
     </ul>
     <?php
   }
