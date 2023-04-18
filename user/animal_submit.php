@@ -31,12 +31,14 @@ if (isset($_POST['code_category'])) {
 } else {
   $codeCategory = 0;
 }
+$health = mysqli_real_escape_string($conn, $_POST['health']);
 
 $animalDescription = mysqli_real_escape_string($conn, $_POST['animal-description']);
 $medicalAdoptFee   = mysqli_real_escape_string($conn, $_POST['medical_adopt_fee']);
 $role              = mysqli_real_escape_string($conn, $_POST['role']);
 $location          = mysqli_real_escape_string($conn, $_POST['location']);
 $isMedical         = 0;
+
 
 // die($isMedical);
 
@@ -96,7 +98,7 @@ if ($uploadOk == 0) {
 $image   = $targetFile;
 $user_id = $_SESSION['id'];
 // insert data into database
-$sql = "INSERT INTO animals (name, status, type, gender, breed, age, color, maturing_size, vaccinated, category_id, description, image_path, medical_adopt_fee, role, user_id, isMedical) VALUES ('$animalName', '$petStatus', '$petType', '$petGender', '$breed', '$animalAge', '$color', '$maturingSize', '$vaccinated', '$codeCategory', '$animalDescription', '$image', '$medicalAdoptFee', '$role', '$user_id', '$isMedical')";
+$sql = "INSERT INTO animals (name, status, type, gender, breed, age, color, maturing_size, vaccinated, category_id, description, image_path, medical_adopt_fee, role, user_id, isMedical, location, health) VALUES ('$animalName', '$petStatus', '$petType', '$petGender', '$breed', '$animalAge', '$color', '$maturingSize', '$vaccinated', '$codeCategory', '$animalDescription', '$image', '$medicalAdoptFee', '$role', '$user_id', '$isMedical', '$location', '$health')";
 
 // Execute the SQL query
 if ($conn->query($sql) === TRUE) {

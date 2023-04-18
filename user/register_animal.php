@@ -87,6 +87,14 @@ if (!$conn) {
 						</select>
 					</div>
 					<div class="form-group">
+						<label for="">Health Condition</label>
+						<select name="health" class="form-control" id="">
+							<option value="">Select health condition</option>
+							<option value="good">Good</option>
+							<option value="bad">Bad</option>
+						</select>
+					</div>
+					<div class="form-group">
 						<label for="animal-breed">Breed</label>
 						<select name="breed" class="form-control" id="breed">
 						</select>
@@ -99,8 +107,6 @@ if (!$conn) {
 							<option value="mixed">Mixed</option>
 						</select>
 					</div>
-
-
 					<div class="form-group">
 						<label for="animal-age">Age</label>
 						<input type="number" class="form-control" id="animal-age" name="animal-age" required>
