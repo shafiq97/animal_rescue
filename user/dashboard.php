@@ -246,8 +246,8 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
               ?>
               <div class="col-md-6">
 
-                <div class="card" style="width: 20vw;">
-                  <img style="width: 20vw; height: 50vh;" class="card-image-top animal-img"
+                <div class="card" style="width: 30vw;">
+                  <img style="width: 30vw; height: 50vh;" class="card-image-top animal-img"
                     src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>"
                     data-animal-id="<?php echo $animal['id']; ?>">
                   <div class="card-body">
