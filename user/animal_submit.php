@@ -16,16 +16,22 @@ if ($conn->connect_error) {
 }
 
 // escape user inputs for security
-$animalName        = mysqli_real_escape_string($conn, $_POST['animal-name']);
-$petStatus         = mysqli_real_escape_string($conn, $_POST['pet_status']);
-$petType           = mysqli_real_escape_string($conn, $_POST['pet_type']);
-$petGender         = mysqli_real_escape_string($conn, $_POST['pet_gender']);
-$breed             = mysqli_real_escape_string($conn, $_POST['breed']);
-$animalAge         = mysqli_real_escape_string($conn, $_POST['animal-age']);
-$color             = mysqli_real_escape_string($conn, $_POST['color']);
-$maturingSize      = mysqli_real_escape_string($conn, $_POST['maturing_size']);
-$vaccinated        = mysqli_real_escape_string($conn, $_POST['vaccinated']);
-$codeCategory      = mysqli_real_escape_string($conn, $_POST['code_category']);
+$animalName   = mysqli_real_escape_string($conn, $_POST['animal-name']);
+$petStatus    = mysqli_real_escape_string($conn, $_POST['pet_status']);
+$petType      = mysqli_real_escape_string($conn, $_POST['pet_type']);
+$petGender    = mysqli_real_escape_string($conn, $_POST['pet_gender']);
+$breed        = mysqli_real_escape_string($conn, $_POST['breed']);
+$animalAge    = mysqli_real_escape_string($conn, $_POST['animal-age']);
+$color        = mysqli_real_escape_string($conn, $_POST['color']);
+$maturingSize = mysqli_real_escape_string($conn, $_POST['maturing_size']);
+$vaccinated   = mysqli_real_escape_string($conn, $_POST['vaccinated']);
+
+if (isset($_POST['code_category'])) {
+  $codeCategory = mysqli_real_escape_string($conn, $_POST['code_category']);
+} else {
+  $codeCategory = 0;
+}
+
 $animalDescription = mysqli_real_escape_string($conn, $_POST['animal-description']);
 $medicalAdoptFee   = mysqli_real_escape_string($conn, $_POST['medical_adopt_fee']);
 $role              = mysqli_real_escape_string($conn, $_POST['role']);
