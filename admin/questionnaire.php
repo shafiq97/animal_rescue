@@ -41,9 +41,9 @@
 				<label>Choice 4:</label>
 				<input type="text" class="form-control" name="choice_4" required>
 			</div>
-			<div class="form-group">
+			<div style="display: none;" class="form-group">
 				<label>Answer:</label>
-				<input type="text" class="form-control" name="answer" required>
+				<input type="hidden" class="form-control" name="answer" value="" >
 			</div>
 			<button type="submit" class="btn btn-primary">Add Question</button>
 		</form>
