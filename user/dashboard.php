@@ -30,10 +30,12 @@ if (!$conn) {
 // Retrieve animals from the database
 if (isset($_POST['search'])) {
   $pet_type = $_POST['pet-type'];
+  $location = $_POST['location'];
   $sql      = "SELECT * FROM animals 
   WHERE isMedical = 0 
   AND approval    = 'approved' 
   AND type        = '$pet_type'
+  AND location = '$location'
   ";
 } else {
   $sql = "SELECT * FROM animals WHERE isMedical = 0 AND approval = 'approved'";

@@ -18,12 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $age               = $_POST['age'];
   $gender            = $_POST['gender'];
   $breed             = $_POST['breed'];
+  $location          = $_POST['location'];
+  $health            = $_POST['health'];
   $maturing_size     = $_POST['maturing_size'];
   $vaccinated        = $_POST['vaccinated'] == 'Yes' ? 1 : 0;
   $medical_adopt_fee = $_POST['medical_adopt_fee'];
 
+
   // Update the animal data in the database using a raw SQL query
-  $query = "UPDATE animals SET name='$name', description='$description', age='$age', gender='$gender', breed='$breed', maturing_size='$maturing_size', vaccinated='$vaccinated', medical_adopt_fee='$medical_adopt_fee' WHERE id='$id'";
+  $query = "UPDATE animals SET name='$name', description='$description', age='$age', gender='$gender', breed='$breed', maturing_size='$maturing_size', vaccinated='$vaccinated', medical_adopt_fee='$medical_adopt_fee', health='$health', location='$location' WHERE id='$id'";
 
   // Execute the query
   $result = mysqli_query($conn, $query);
@@ -33,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     die('Error: ' . mysqli_error($conn));
   } else {
     echo 'Animal data has been updated.';
-    header("location: animal_profile.php?id=".$id);
+    header("location: animal_profile.php?id=" . $id);
   }
 
   // Close the database connection

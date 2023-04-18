@@ -80,7 +80,7 @@ mysqli_close($conn);
       width: 80%;
     }
 
-    input[type="text"],
+    input[type="text"],select,
     textarea {
       display: block;
       width: 80%;
@@ -123,6 +123,37 @@ mysqli_close($conn);
 
     <label for="age">Age:</label>
     <input type="text" name="age" id="age" value="<?php echo $animal['age']; ?>">
+
+    <label for="location" class="">Location</label>
+      <select name="location" class="" id="location-select">
+        <option selected value="<?php echo $animal['location'] ?>"><?php echo $animal['location'] ?></option>
+        <option value="johor">Johor</option>
+        <option value="kedah">Kedah</option>
+        <option value="kelantan">Kelantan</option>
+        <option value="melaka">Melaka</option>
+        <option value="negeri sembilan">Negeri Sembilan</option>
+        <option value="pahang">Pahang</option>
+        <option value="perak">Perak</option>
+        <option value="perlis">Perlis</option>
+        <option value="penang">Penang</option>
+        <option value="sabah">Sabah</option>
+        <option value="sarawak">Sarawak</option>
+        <option value="selangor">Selangor</option>
+        <option value="terengganu">Terengganu</option>
+        <option value="wilayah persekutuan kuala lumpur">Wilayah Persekutuan Kuala Lumpur</option>
+        <option value="wilayah persekutuan labuan">Wilayah Persekutuan Labuan</option>
+        <option value="wilayah persekutuan putrajaya">Wilayah Persekutuan Putrajaya</option>
+      </select>
+
+    <label for="age">Age:</label>
+    <input type="text" name="age" id="age" value="<?php echo $animal['age']; ?>">
+
+    <label for="health">Health:</label>
+    <select name="health" id="">
+      <option selected value="<?php echo $animal['health']; ?>"><?php echo $animal['health']; ?></option>
+      <option value="good">Good</option>
+      <option value="bad">Bad</option>
+    </select>
 
     <label for="gender">Gender:</label>
     <input type="text" name="gender" id="gender" value="<?php echo $animal['gender']; ?>">
