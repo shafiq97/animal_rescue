@@ -91,8 +91,9 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
           </div>
           <div class="modal-body">
             <h3>Contact information</h3>
-            <!-- <p id="animalId"></p> -->
+            <p id="animalId"></p>
             <p id="animalName"></p>
+            <p id="animalDescription"></p>
             <p id="userContact"></p>
             <p id="userEmail"></p>
             <p id="userName"></p>
@@ -254,9 +255,9 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                     <h5 class="card-title">
                       <?php echo $animal['name']; ?>
                     </h5>
-                    <p class="card-text">
+                    <!-- <p class="card-text">
                       <?php echo $animal['description']; ?>
-                    </p>
+                    </p> -->
                     <p class="card-text">
                       Age:
                       <?php echo $animal['age']; ?> years old
@@ -351,15 +352,18 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     <script>
       $(document).on('click', '.animal-img', function () {
         var animalId = $(this).data('animal-id');
+        console.log(animalId);
         $.ajax({
           url: 'get_animal.php',
           type: 'GET',
           data: { id: animalId },
           success: function (data) {
             // Update the modal with the animal information
+            console.log(data.animal_name);
             $('#animalModalLabel').text(data.animal_name);
             $('#animalId').text(data.id);
             $('#animalName').text(data.animal_names);
+            $('#animalDescription').text(data.description);
             $('#userContact').text(data.username);
             $('#userEmail').text(data.email);
             $('#userPhone').text(data.user_nophone);

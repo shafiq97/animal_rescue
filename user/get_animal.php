@@ -13,9 +13,9 @@ if ($conn->connect_error) {
 }
 
 // retrieve animal data from database
-$sql = "SELECT animals.*, users.*, animals.name as animal_name FROM animals inner join users on animals.user_id = users.id";
+$sql = "SELECT animals.*, users.*, animals.name as animal_name FROM animals inner join users on animals.user_id = users.id where animals.id = ?";
 $stmt = $conn->prepare($sql);
-// $stmt->bind_param("i", $animal_id);
+$stmt->bind_param("i", $animal_id);
 $animal_id = $_GET["id"];
 $stmt->execute();
 $result = $stmt->get_result();
