@@ -124,7 +124,17 @@ mysqli_close($conn);
   </style>
 </head>
 
-<body style="margin: 50px;">
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- <a class="navbar-brand" href="#">User Dashboard</a> -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <?php
+    include('header.php');
+    ?>
+  </nav>
   <h1>
     <?php echo $animal['name']; ?> - Animal Profile
   </h1>
@@ -196,7 +206,7 @@ mysqli_close($conn);
   </div>
   <div class="container">
     <div class="col">
-      <h2 class="mt-3" >Medical Funds Record</h2>
+      <h2 class="mt-3">Medical Funds Record</h2>
       <table id="medical_funds_table" border="1" cellpadding="10" cellspacing="0">
         <thead>
           <tr>
@@ -226,11 +236,11 @@ mysqli_close($conn);
         </tbody>
       </table>
     </div>
-    </div>
-    <script>
-      $(document).ready(function () {
-        $('#medical_funds_table').DataTable();
-      });
-    </script>
+  </div>
+  <script>
+    $(document).ready(function () {
+      $('#medical_funds_table').DataTable();
+    });
+  </script>
 </body>
 </html>

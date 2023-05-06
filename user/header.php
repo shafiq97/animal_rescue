@@ -12,13 +12,13 @@ if (session_status() == PHP_SESSION_NONE) {
     ?>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
+        <a class="nav-link" href="dashboard.php">Dashboard</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="register_animal.php">Register Animal</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="manage_animal.php">Manage Animal</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="dashboard.php">Dashboard</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="search.php">Search</a>
@@ -66,10 +66,10 @@ if (session_status() == PHP_SESSION_NONE) {
   ?>
 </div>
 <script>
-    document.getElementById("logout-btn").addEventListener("click", function (event) {
-      event.preventDefault();
-      if (confirm("Are you sure you want to logout?")) {
-        window.location.href = "logout.php";
-      }
-    });
-  </script>
+  document.getElementById("logout-btn").addEventListener("click", function (event) {
+    event.preventDefault();
+    if (confirm("Are you sure you want to logout?")) {
+      window.location.href = "logout.php";
+    }
+  });
+</script>
