@@ -109,7 +109,8 @@ if (!$conn) {
 					</div>
 					<div class="form-group">
 						<label for="animal-age">Age</label>
-						<input type="number" class="form-control" id="animal-age" name="animal-age" required>
+						<input type="text" class="form-control" id="animal-age" name="animal-age" required>
+						<small>Month/Year</small>
 					</div>
 					<div class="form-group">
 						<label for="color">Color</label>
