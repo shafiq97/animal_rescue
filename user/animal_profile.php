@@ -146,7 +146,6 @@ mysqli_close($conn);
         <option value="wilayah persekutuan labuan">Wilayah Persekutuan Labuan</option>
         <option value="wilayah persekutuan putrajaya">Wilayah Persekutuan Putrajaya</option>
       </select>
-
       <label for="age">Age (month/year):</label>
       <input type="text" name="age" id="age" value="<?php echo $animal['age']; ?>">
 
@@ -175,17 +174,13 @@ mysqli_close($conn);
       <label for="medical_adopt_fee">Donation Amount:</label>
       <input type="text" name="medical_adopt_fee" id="medical_adopt_fee"
         value="<?php echo $animal['medical_adopt_fee']; ?>">
-
       <input type="submit" value="Update" class="btn">
       <a class="btn" href="dashboard.php">Back</a>
     </form>
   </div>
-
   <div id="medical_history">
     <table>
-      
     </table>
   </div>
-
 </body>
 </html>
