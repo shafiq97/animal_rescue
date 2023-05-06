@@ -53,6 +53,7 @@ mysqli_close($conn);
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -106,7 +107,7 @@ mysqli_close($conn);
       border: 1px solid #ccc;
     }
 
-    .btn {
+    /* .btn {
       background-color: #FFC107;
       color: #4d4d4d;
       border-radius: 4px;
@@ -119,11 +120,11 @@ mysqli_close($conn);
 
     .btn:hover {
       background-color: #FFA000;
-    }
+    } */
   </style>
 </head>
 
-<body>
+<body style="margin: 50px;">
   <h1>
     <?php echo $animal['name']; ?> - Animal Profile
   </h1>
@@ -187,15 +188,15 @@ mysqli_close($conn);
       <input type="text" name="vaccinated" id="vaccinated" value="<?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>">
 
       <label for="medical_adopt_fee">Donation Amount:</label>
-      <input type="text" name="medical_adopt_fee" id="medical_adopt_fee"
+      <input class="mb-3" type="text" name="medical_adopt_fee" id="medical_adopt_fee"
         value="<?php echo $animal['medical_adopt_fee']; ?>">
-      <input type="submit" value="Update" class="btn">
-      <a class="btn" href="dashboard.php">Back</a>
+      <input type="submit" value="Update" class="btn btn-success">
+      <a class="btn btn-warning" href="dashboard.php">Back</a>
     </form>
   </div>
   <div class="container">
-    <div class="row">
-      <h2>Medical Funds</h2>
+    <div class="col">
+      <h2 class="mt-3" >Medical Funds Record</h2>
       <table id="medical_funds_table" border="1" cellpadding="10" cellspacing="0">
         <thead>
           <tr>
