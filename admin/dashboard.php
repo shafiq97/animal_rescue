@@ -60,6 +60,12 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
       width: 200px;
       height: 200px;
     }
+
+    .scrollable-table {
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -76,116 +82,126 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
   <!-- Display animals in a table -->
   <div class="container" style="width: 100%">
     <div class="col">
-      <table id="animal-table" class="display">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <!-- <th>Age (month/year)</th> -->
-            <!-- <th>Description</th> -->
-            <th>Image</th>
-            <!-- <th>Donation Amount</th> -->
-            <!-- <th>Status</th> -->
-            <!-- <th>Created At</th> -->
-            <th>User ID</th>
-            <th>Animal Type</th>
-            <!-- <th>Gender</th> -->
-            <!-- <th>Breed</th> -->
-            <!-- <th>Category ID</th> -->
-            <!-- <th>Color</th> -->
-            <!-- <th>Animal Condition</th> -->
-            <!-- <th>Location</th> -->
-            <!-- <th>Health</th> -->
-            <!-- <th>Maturing Size</th> -->
-            <!-- <th>Vaccinated</th> -->
-            <!-- <th>Medical Adopt Fee</th> -->
-            <!-- <th>Role</th> -->
-            <!-- <th>Is Medical</th> -->
-            <th>Action</th>
-            <th>View</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($animals as $animal) { ?>
+      <div class="scrollable-table">
+
+        <table id="animal-table" class="display">
+          <thead>
             <tr>
-              <td>
-                <?php echo $animal['name']; ?>
-              </td>
-              <!-- <td>
+              <th>Name</th>
+              <!-- <th>Age (month/year)</th> -->
+              <!-- <th>Description</th> -->
+              <th>Image</th>
+              <!-- <th>Donation Amount</th> -->
+              <!-- <th>Status</th> -->
+              <!-- <th>Created At</th> -->
+              <th>User ID</th>
+              <th>Animal Type</th>
+              <!-- <th>Gender</th> -->
+              <!-- <th>Breed</th> -->
+              <!-- <th>Category ID</th> -->
+              <!-- <th>Color</th> -->
+              <!-- <th>Animal Condition</th> -->
+              <!-- <th>Location</th> -->
+              <!-- <th>Health</th> -->
+              <!-- <th>Maturing Size</th> -->
+              <!-- <th>Vaccinated</th> -->
+              <!-- <th>Medical Adopt Fee</th> -->
+              <!-- <th>Role</th> -->
+              <!-- <th>Is Medical</th> -->
+              <th>Action</th>
+              <th>View</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($animals as $animal) { ?>
+              <tr>
+                <td>
+                  <?php echo $animal['name']; ?>
+                </td>
+                <!-- <td>
                 <?php echo $animal['age']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['description']; ?>
               </td> -->
-              <td><img class="fill-image" src="<?php echo '../user/' . $animal['image_path']; ?>"></td>
-              <!-- <td>
+                <td><img class="fill-image" src="<?php echo '../user/' . $animal['image_path']; ?>"></td>
+                <!-- <td>
                 <?php echo $animal['donation_amount']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['status']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['created_at']; ?>
               </td> -->
-              <td>
-                <?php echo $animal['user_id']; ?>
-              </td>
-              <td>
-                <?php echo $animal['type']; ?>
-              </td>
-              <!-- <td>
+                <td>
+                  <?php echo $animal['user_id']; ?>
+                </td>
+                <td>
+                  <?php echo $animal['type']; ?>
+                </td>
+                <!-- <td>
                 <?php echo $animal['gender']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['breed']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['category_id']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['color']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['animal_condition']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['location']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['health']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['maturing_size']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['vaccinated']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['medical_adopt_fee']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['role']; ?>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <?php echo $animal['isMedical']; ?>
               </td> -->
-              <td>
-                <?php if ($animal['approval'] == 'approved'): ?>
-                  Approved
-                <?php else: ?>
-                  <form method="POST" action="update_approval.php">
-                    <input type="hidden" name="id" value="<?php echo $animal['id']; ?>">
-                    <input type="hidden" name="approval" value="approved">
-                    <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-primary">Approve</button>
-                  </form>
-                <?php endif; ?>
-              </td>
-              <td>
-                <a class="btn btn-success" href="animal_profile.php?id=<?php echo $animal['id'] ?>">View</a>
-              </td>
-            </tr>
-          <?php } ?>
-        </tbody>
-      </table>
+                <td>
+                  <?php if ($animal['approval'] == 'approved'): ?>
+                    Approved
+                  <?php else: ?>
+                    <form method="POST" action="update_approval.php">
+                      <input type="hidden" name="id" value="<?php echo $animal['id']; ?>">
+                      <input type="hidden" name="approval" value="approved">
+                      <button onclick="return confirm('Are you sure?')" type="submit"
+                        class="btn btn-primary">Approve</button>
+                    </form>
+                  <?php endif; ?>
+                </td>
+                <td>
+                  <a class="btn btn-success" href="animal_profile.php?id=<?php echo $animal['id'] ?>">View</a>
+                </td>
+                <td>
+                  <a class="btn btn-danger"
+                    onclick="return confirm('Are you sure you want to delete this animal record?')"
+                    href="delete_animal.php?id=<?php echo $animal['id'] ?>">Delete</a>
+                </td>
+              </tr>
+            <?php } ?>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
