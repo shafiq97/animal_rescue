@@ -80,27 +80,28 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <thead>
           <tr>
             <th>Name</th>
-            <th>Age</th>
-            <th>Description</th>
+            <!-- <th>Age</th> -->
+            <!-- <th>Description</th> -->
             <th>Image</th>
-            <th>Donation Amount</th>
-            <th>Status</th>
-            <th>Created At</th>
+            <!-- <th>Donation Amount</th> -->
+            <!-- <th>Status</th> -->
+            <!-- <th>Created At</th> -->
             <th>User ID</th>
-            <th>Type</th>
-            <th>Gender</th>
-            <th>Breed</th>
-            <th>Category ID</th>
-            <th>Color</th>
-            <th>Animal Condition</th>
-            <th>Location</th>
-            <th>Health</th>
-            <th>Maturing Size</th>
-            <th>Vaccinated</th>
-            <th>Medical Adopt Fee</th>
-            <th>Role</th>
-            <th>Is Medical</th>
+            <th>Animal Type</th>
+            <!-- <th>Gender</th> -->
+            <!-- <th>Breed</th> -->
+            <!-- <th>Category ID</th> -->
+            <!-- <th>Color</th> -->
+            <!-- <th>Animal Condition</th> -->
+            <!-- <th>Location</th> -->
+            <!-- <th>Health</th> -->
+            <!-- <th>Maturing Size</th> -->
+            <!-- <th>Vaccinated</th> -->
+            <!-- <th>Medical Adopt Fee</th> -->
+            <!-- <th>Role</th> -->
+            <!-- <th>Is Medical</th> -->
             <th>Action</th>
+            <th>View</th>
           </tr>
         </thead>
         <tbody>
@@ -109,64 +110,64 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
               <td>
                 <?php echo $animal['name']; ?>
               </td>
-              <td>
+              <!-- <td>
                 <?php echo $animal['age']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['description']; ?>
-              </td>
+              </td> -->
               <td><img class="fill-image" src="<?php echo '../user/' . $animal['image_path']; ?>"></td>
-              <td>
+              <!-- <td>
                 <?php echo $animal['donation_amount']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['status']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['created_at']; ?>
-              </td>
+              </td> -->
               <td>
                 <?php echo $animal['user_id']; ?>
               </td>
               <td>
                 <?php echo $animal['type']; ?>
               </td>
-              <td>
+              <!-- <td>
                 <?php echo $animal['gender']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['breed']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['category_id']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['color']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['animal_condition']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['location']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['health']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['maturing_size']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['vaccinated']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['medical_adopt_fee']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['role']; ?>
-              </td>
-              <td>
+              </td> -->
+              <!-- <td>
                 <?php echo $animal['isMedical']; ?>
-              </td>
+              </td> -->
               <td>
                 <?php if ($animal['approval'] == 'approved'): ?>
                   Approved
@@ -178,11 +179,13 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
                   </form>
                 <?php endif; ?>
               </td>
+              <td>
+                <a class="btn btn-success" href="animal_profile.php?id=<?php echo $animal['id'] ?>">View</a>
+              </td>
             </tr>
           <?php } ?>
         </tbody>
       </table>
-
     </div>
   </div>
 
