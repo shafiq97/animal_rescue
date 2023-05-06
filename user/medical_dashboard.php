@@ -39,9 +39,6 @@ ORDER BY total_donations DESC';
 $result2   = mysqli_query($conn, $sql2);
 $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
-
-
-
 // Close the database connection
 // mysqli_close($conn);
 ?>
@@ -150,21 +147,13 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                         ?>
                         <div class="progress mt-4">
                           <div class="progress-bar bg-success" role="progressbar"
-                            style="width: <?php echo (double) $donation['total_amount'] / (double) $animal['medical_adopt_fee'] * 100 ?>%;"
-                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo round((double) $donation['total_amount'] / (double) $animal['medical_adopt_fee'] * 100) ?>%</div>
+                            style="width: <?php echo (double) $donation['total_donations'] / (double) $animal['medical_adopt_fee'] * 100 ?>%;"
+                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo round((double) $donation['total_donations'] / (double) $animal['medical_adopt_fee'] * 100) ?>%</div>
                         </div>
                         <?php
                       }
                     }
-                    if (!$found) {
-                      ?>
-                      <div class="progress mt-4">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="25"
-                          aria-valuemin="0" aria-valuemax="100">0%</div>
-                      </div>
-                      <?php
 
-                    }
                     ?>
                   </div>
                 </div>

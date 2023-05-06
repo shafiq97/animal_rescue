@@ -168,7 +168,7 @@ mysqli_close($conn);
     <input disabled type="text" name="admin_approval" id="admin_approval" value="<?php echo $animal['approval']; ?>">
 
     <label for="vaccinated">Vaccinated:</label>
-    <input type="text" name="vaccinated" id="v    accinated"
+    <input type="text" name="vaccinated" id="vaccinated"
       value="<?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>">
 
     <label for="medical_adopt_fee">Donation Amount:</label>
