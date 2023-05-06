@@ -80,7 +80,8 @@ mysqli_close($conn);
       width: 80%;
     }
 
-    input[type="text"],select,
+    input[type="text"],
+    select,
     textarea {
       display: block;
       width: 80%;
@@ -111,20 +112,21 @@ mysqli_close($conn);
   <h1>
     <?php echo $animal['name']; ?> - Animal Profile
   </h1>
-  <form action="update_animal.php" method="post">
+  <div style="display: flex">
     <img src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>">
-    <input type="hidden" name="id" value="<?php echo $animal['id']; ?>">
+    <form action="update_animal.php" method="post">
+      <input type="hidden" name="id" value="<?php echo $animal['id']; ?>">
 
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name" value="<?php echo $animal['name']; ?>">
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" value="<?php echo $animal['name']; ?>">
 
-    <label for="description">Description:</label>
-    <textarea name="description" id="description" rows="5"><?php echo $animal['description']; ?></textarea>
+      <label for="description">Description:</label>
+      <textarea name="description" id="description" rows="5"><?php echo $animal['description']; ?></textarea>
 
-    <label for="age">Age (month/year):</label>
-    <input type="text" name="age" id="age" value="<?php echo $animal['age']; ?>">
+      <label for="age">Age (month/year):</label>
+      <input type="text" name="age" id="age" value="<?php echo $animal['age']; ?>">
 
-    <label for="location" class="">Location</label>
+      <label for="location" class="">Location</label>
       <select name="location" class="" id="location-select">
         <option selected value="<?php echo $animal['location'] ?>"><?php echo $animal['location'] ?></option>
         <option value="johor">Johor</option>
@@ -145,39 +147,45 @@ mysqli_close($conn);
         <option value="wilayah persekutuan putrajaya">Wilayah Persekutuan Putrajaya</option>
       </select>
 
-    <label for="age">Age (month/year):</label>
-    <input type="text" name="age" id="age" value="<?php echo $animal['age']; ?>">
+      <label for="age">Age (month/year):</label>
+      <input type="text" name="age" id="age" value="<?php echo $animal['age']; ?>">
 
-    <label for="health">Health:</label>
-    <select name="health" id="">
-      <option selected value="<?php echo $animal['health']; ?>"><?php echo $animal['health']; ?></option>
-      <option value="good">Good</option>
-      <option value="bad">Bad</option>
-    </select>
+      <label for="health">Health:</label>
+      <select name="health" id="">
+        <option selected value="<?php echo $animal['health']; ?>"><?php echo $animal['health']; ?></option>
+        <option value="good">Good</option>
+        <option value="bad">Bad</option>
+      </select>
 
-    <label for="gender">Gender:</label>
-    <input type="text" name="gender" id="gender" value="<?php echo $animal['gender']; ?>">
+      <label for="gender">Gender:</label>
+      <input type="text" name="gender" id="gender" value="<?php echo $animal['gender']; ?>">
 
-    <label for="breed">Breed:</label>
-    <input type="text" name="breed" id="breed" value="<?php echo $animal['breed']; ?>">
+      <label for="breed">Breed:</label>
+      <input type="text" name="breed" id="breed" value="<?php echo $animal['breed']; ?>">
 
-    <label for="maturing_size">Maturing Size:</label>
-    <input type="text" name="maturing_size" id="maturing_size" value="<?php echo $animal['maturing_size']; ?>">
+      <label for="maturing_size">Maturing Size:</label>
+      <input type="text" name="maturing_size" id="maturing_size" value="<?php echo $animal['maturing_size']; ?>">
 
-    <label for="admin_approval">Admin Approval:</label>
-    <input disabled type="text" name="admin_approval" id="admin_approval" value="<?php echo $animal['approval']; ?>">
+      <label for="admin_approval">Admin Approval:</label>
+      <input disabled type="text" name="admin_approval" id="admin_approval" value="<?php echo $animal['approval']; ?>">
 
-    <label for="vaccinated">Vaccinated:</label>
-    <input type="text" name="vaccinated" id="vaccinated"
-      value="<?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>">
+      <label for="vaccinated">Vaccinated:</label>
+      <input type="text" name="vaccinated" id="vaccinated" value="<?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>">
 
-    <label for="medical_adopt_fee">Donation Amount:</label>
-    <input type="text" name="medical_adopt_fee" id="medical_adopt_fee"
-      value="<?php echo $animal['medical_adopt_fee']; ?>">
+      <label for="medical_adopt_fee">Donation Amount:</label>
+      <input type="text" name="medical_adopt_fee" id="medical_adopt_fee"
+        value="<?php echo $animal['medical_adopt_fee']; ?>">
 
-    <input type="submit" value="Update" class="btn">
-    <a class="btn" href="dashboard.php">Back</a>
+      <input type="submit" value="Update" class="btn">
+      <a class="btn" href="dashboard.php">Back</a>
+    </form>
+  </div>
 
-  </form>
+  <div id="medical_history">
+    <table>
+      
+    </table>
+  </div>
+
 </body>
 </html>
