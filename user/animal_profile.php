@@ -138,8 +138,8 @@ mysqli_close($conn);
   <h1>
     <?php echo $animal['name']; ?> - Animal Profile
   </h1>
-  <div style="display: flex">
-  <img src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>" style="width: auto; height: 900px;">
+  <div>
+  <img src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>" style="width: auto; height: 900px; margin-bottom: 50px">
     <form action="update_animal.php" method="post">
       <input type="hidden" name="id" value="<?php echo $animal['id']; ?>">
 
