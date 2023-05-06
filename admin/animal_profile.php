@@ -121,7 +121,7 @@ mysqli_close($conn);
     <label for="description">Description:</label>
     <textarea name="description" id="description" rows="5"><?php echo $animal['description']; ?></textarea>
 
-    <label for="age">Age:</label>
+    <label for="age">Age (month/year):</label>
     <input type="text" name="age" id="age" value="<?php echo $animal['age']; ?>">
 
     <label for="location" class="">Location</label>
@@ -145,7 +145,7 @@ mysqli_close($conn);
         <option value="wilayah persekutuan putrajaya">Wilayah Persekutuan Putrajaya</option>
       </select>
 
-    <label for="age">Age:</label>
+    <label for="age">Age (month/year):</label>
     <input type="text" name="age" id="age" value="<?php echo $animal['age']; ?>">
 
     <label for="health">Health:</label>

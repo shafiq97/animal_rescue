@@ -108,7 +108,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                       <?php echo $animal['description']; ?>
                     </p>
                     <p class="card-text">
-                      Age:
+                      Age (month/year):
                       <?php echo $animal['age']; ?> years old
                     </p>
                     <p class="card-text">

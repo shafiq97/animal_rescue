@@ -71,7 +71,7 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <tr>
           <th>ID</th>
           <th>Name</th>
-          <th>Age</th>
+          <th>Age (month/year) (Month/Year)</th>
           <th>Image</th>
           <!-- <th>Donation Amount</th> -->
           <th>Status</th>

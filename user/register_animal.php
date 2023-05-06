@@ -108,7 +108,7 @@ if (!$conn) {
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="animal-age">Age</label>
+						<label for="animal-age">Age (month/year)</label>
 						<input type="text" class="form-control" id="animal-age" name="animal-age" required>
 						<small>Month/Year</small>
 					</div>

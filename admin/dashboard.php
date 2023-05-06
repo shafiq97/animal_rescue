@@ -80,7 +80,7 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <thead>
           <tr>
             <th>Name</th>
-            <!-- <th>Age</th> -->
+            <!-- <th>Age (month/year)</th> -->
             <!-- <th>Description</th> -->
             <th>Image</th>
             <!-- <th>Donation Amount</th> -->
