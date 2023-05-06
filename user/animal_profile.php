@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 // Connect to the database
 $host     = 'localhost';
 $user     = 'root';
@@ -29,6 +32,15 @@ if (!$animal) {
   exit;
 }
 
+// Retrieve the medical funds data from the database
+$query_funds  = "SELECT * FROM medical_funds WHERE animal_id = '$id'";
+$result_funds = mysqli_query($conn, $query_funds);
+if (!$result_funds) {
+  die('Error: ' . mysqli_error($conn));
+}
+$medical_funds = mysqli_fetch_all($result_funds, MYSQLI_ASSOC);
+
+
 // Close the database connection
 mysqli_close($conn);
 ?>
@@ -38,6 +50,9 @@ mysqli_close($conn);
   <title>
     <?php echo $animal['name']; ?> - Animal Profile
   </title>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -178,9 +193,43 @@ mysqli_close($conn);
       <a class="btn" href="dashboard.php">Back</a>
     </form>
   </div>
-  <div id="medical_history">
-    <table>
-    </table>
-  </div>
+  <div class="container">
+    <div class="row">
+      <h2>Medical Funds</h2>
+      <table id="medical_funds_table" border="1" cellpadding="10" cellspacing="0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Donor Id</th>
+            <th>Amount(RM)</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($medical_funds as $fund): ?>
+            <tr>
+              <td>
+                <?php echo $fund['id']; ?>
+              </td>
+              <td>
+                <?php echo $fund['user_id']; ?>
+              </td>
+              <td>
+                <?php echo $fund['total_amount']; ?>
+              </td>
+              <td>
+                <?php echo $fund['receive_date']; ?>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        $('#medical_funds_table').DataTable();
+      });
+    </script>
 </body>
 </html>
