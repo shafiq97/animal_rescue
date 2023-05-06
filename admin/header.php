@@ -35,6 +35,9 @@ if (session_status() == PHP_SESSION_NONE) {
       <li class="nav-item">
         <a class="nav-link" href="user_settings.php">User Settings</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="transaction_history.php">Transactions History</a>
+      </li>
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
