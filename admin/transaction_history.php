@@ -87,11 +87,11 @@ mysqli_close($conn);
                   </td>
                   <td>
                     <?php if ($row['admin_approval'] == "approved"): ?>
-                      <span class="amount-approved">- RM
+                      <span class="amount-pending">- RM
                         <?php echo $row['amount']; ?>
                       </span>
                     <?php else: ?>
-                      <span class="amount-pending">+ RM
+                      <span class="amount-approve">+ RM
                         <?php echo $row['amount']; ?>
                       </span>
                     <?php endif; ?>
