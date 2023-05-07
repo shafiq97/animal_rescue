@@ -1,201 +1,145 @@
-<?php
-// start the session
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-session_start();
-
-// check if the user is logged in
-// if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-//   // redirect to the login page
-//   header('Location: login.php');
-//   exit;
-// }
-
-// Database configuration
-$host     = 'localhost';
-$username = 'root';
-$password = '';
-$dbname   = 'animal_rescue';
-
-// Create connection
-$conn = mysqli_connect($host, $username, $password, $dbname);
-
-// Check connection
-if (!$conn) {
-  die('Connection failed: ' . mysqli_connect_error());
-}
-
-// Retrieve images from the database
-// Retrieve animals from the database
-$sql     = 'SELECT * FROM animals';
-$result  = mysqli_query($conn, $sql);
-$animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-$sql2      = 'SELECT *, SUM(total_amount) AS total_donations
-FROM medical_funds
-GROUP BY animal_id
-ORDER BY total_donations DESC';
-$result2   = mysqli_query($conn, $sql2);
-$donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
-
-
-
-
-// Close the database connection
-// mysqli_close($conn);
-?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en" >
+
 <head>
-  <title>User Dashboard</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <style>
-    .fill-image {
-      object-fit: cover;
-      height: 100%;
-      width: 100%;
-    }
-  </style>
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!-- <a class="navbar-brand" href="#">User Dashboard</a> -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <?php
-    include('user/header.php');
-    ?>
-  </nav>
+  <meta charset="UTF-8">
+  
 
-  <div class="container" style="height: 100%; overflow-y: scroll;">
-    <div class="row mt-5">
-      <div class="col-md-12">
-        <form method="GET" action="">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search animal" name="search">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="submit">Search</button>
-            </div>
-          </div>
-        </form>
-        <h2>Featured Animals</h2>
-        <div class="card-deck mt-4">
-          <?php
-          if (isset($_GET['search'])) {
-            $search_term = mysqli_real_escape_string($conn, $_GET['search']);
-            $sql         = "SELECT * FROM animals WHERE name LIKE '%{$search_term}%' or description LIKE '%{$search_term}%'";
-            $result      = mysqli_query($conn, $sql);
-            $animals     = mysqli_fetch_all($result, MYSQLI_ASSOC);
-          }
-          $count = 0;
-          foreach ($animals as $animal):
-            if ($count % 2 == 0) {
-              echo "<div class='row mt-4'>";
-            }
-            ?>
-            <div class="col-md-6">
-              <a href="animal_profile.php?id=<?php echo $animal['id'] ?>">
-                <div class="card" style="width: 20vw;">
-                  <img style="width: 20vw; height: 50vh;" class="card-image-top"
-                    src="<?php echo 'user/' . $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>">
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <?php echo $animal['name']; ?>
-                    </h5>
-                    <p class="card-text">
-                      <?php echo $animal['description']; ?>
-                    </p>
-                    <p class="card-text">
-                      Age (month/year) (month/year):
-                      <?php echo $animal['age']; ?>
-                    </p>
-                    <p class="card-text">
-                      Gender:
-                      <?php echo $animal['gender']; ?>
-                    </p>
-                    <p class="card-text">
-                      Breed:
-                      <?php echo $animal['breed']; ?>
-                    </p>
-                    <p class="card-text">
-                      Maturing Size:
-                      <?php echo $animal['maturing_size']; ?>
-                    </p>
-                    <p class="card-text">
-                      Vaccinated:
-                      <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
-                    </p>
-                    <p class="card-text">
-                      Donation Amount:
-                      <?php echo $animal['medical_adopt_fee']; ?>
-                    </p>
-                    <!-- <form action="medical_fund.php">
-                      <div class="form-group">
-                        <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
-                        <a href="medical_fund.php?id=<?php echo $animal['id'] ?>"
-                          onclick="return confirm('Are you sure?')" class='btn btn-warning'>Medical Fund</a>
-                      </div>
-                    </form> -->
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
 
-                    <!-- <?php
-                    $found = false;
-                    foreach ($donations as $donation) {
-                      if ($donation['animal_id'] == $animal['id']) {
-                        $found = true;
-                        ?>
-                        <div class="progress mt-4">
-                          <div class="progress-bar bg-success" role="progressbar"
-                            style="width: <?php echo (double) $donation['total_amount'] / (double) $animal['medical_adopt_fee'] * 100 ?>%;"
-                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo round((double) $donation['total_amount'] / (double) $animal['medical_adopt_fee'] * 100) ?>%</div>
-                        </div>
-                        <?php
-                      }
-                    }
-                    if (!$found) {
-                      ?>
-                      <div class="progress mt-4">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="25"
-                          aria-valuemin="0" aria-valuemax="100">0%</div>
-                      </div>
-                      <?php
+    <meta name="apple-mobile-web-app-title" content="CodePen">
 
-                    }
-                    ?> -->
-                  </div>
-                </div>
-              </a>
-            </div>
-            <?php
-            $count++;
-            if ($count % 2 == 0) {
-              echo "</div>";
-            }
-          endforeach;
-          if ($count % 3 != 0) {
-            echo "</div>";
-          }
-          ?>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <!-- Logout confirmation dialog -->
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
+
+
+
+  
+  <title>CodePen - Text hover effect</title>
+    <link rel="canonical" href="https://codepen.io/colloque/pen/poOLPg" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  
+  
+<style>
+@import url(https://fonts.googleapis.com/css?family=Dosis:300,400);
+
+body {
+  background-color:#222;
+  background: url('images/bc1.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.wrapper {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left:50%;
+  -webkit-transform: translate(-50%,-50%);
+}
+
+h1 a {
+  color: #222;
+  font-size: 2em;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  font-family: 'Dosis', sans-serif;
+}
+
+/*effect-underline*/
+a.effect-underline:after {
+	content: '';
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  height: 1em;
+  width: 100%;
+  border-bottom: 1px solid;
+  margin-top: 10px;
+  opacity: 0;
+	transition: opacity 0.35s, transform 0.35s;
+	transform: scale(0,1);
+}
+
+a.effect-underline:hover:after {
+  opacity: 1;
+	transform: scale(1);
+}
+
+/*effect-box*/
+a.effect-box:after,
+a.effect-box:before {
+	content: '';
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  height: 1em;
+  width: 100%;
+  margin-top: 10px;
+  opacity: 0;
+	transition: opacity 0.35s, transform 0.35s;
+	
+}
+
+a.effect-box:before {
+  border-left: 1px solid;
+  border-right: 1px solid;
+	transform: scale(1,0);
+}
+
+a.effect-box:after {
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+	transform: scale(0,1);
+}
+
+a.effect-box:hover:after,
+a.effect-box:hover:before {
+  opacity: 1;
+	transform: scale(1);
+}
+
+/* effect-shine */
+a.effect-shine:hover {
+  -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+  -webkit-mask-size: 200%;
+  -webkit-animation: shine 2s infinite;
+          animation: shine 2s infinite;
+}
+
+@-webkit-keyframes shine {
+  from {
+    -webkit-mask-position: 150%;
+  }
+  
+  to {
+    -webkit-mask-position: -50%;
+  }
+}
+</style>
+
   <script>
-    document.getElementById("logout-btn").addEventListener("click", function (event) {
-      event.preventDefault();
-      if (confirm("Are you sure you want to logout?")) {
-        window.location.href = "user/logout.php";
-      }
-    });
-  </script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+</head>
+
+<body translate="no">
+  <div class="wrapper">
+  <h1 align="center"><a href="index2.php" class="effect-underline">Animal Rescue</a></h1>
+  <!-- <h1 align="center"><a href="#" class="effect-box">box</a></h1>
+  <h1 align="center"><a href="#" class="effect-shine">shine</a></h1> -->
+</div>
+  
+  
+  
+  
 </body>
+
 </html>
