@@ -39,7 +39,7 @@ if (isset($_POST['search'])) {
 
   if (isset($_POST['pet-type']) && !empty($_POST['pet-type'])) {
     $pet_type = $_POST['pet-type'];
-    $sql .= " AND pet_type like '%$pet_type%' ";
+    $sql .= " AND type like '%$pet_type%' ";
   }
 
   if (isset($_POST['location']) && !empty($_POST['location'])) {
