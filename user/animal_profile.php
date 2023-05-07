@@ -33,7 +33,7 @@ if (!$animal) {
 }
 
 // Retrieve the medical funds data from the database
-$query_funds  = "SELECT * FROM medical_funds WHERE animal_id = '$id'";
+$query_funds  = "SELECT * FROM medical_funds inner join users on users.id = medical_funds.user_id  WHERE animal_id = '$id'";
 $result_funds = mysqli_query($conn, $query_funds);
 if (!$result_funds) {
   die('Error: ' . mysqli_error($conn));
@@ -139,7 +139,8 @@ mysqli_close($conn);
     <?php echo $animal['name']; ?> - Animal Profile
   </h1>
   <div>
-  <img src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>" style="width: auto; height: 900px; margin-bottom: 50px">
+    <img src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>"
+      style="width: auto; height: 900px; margin-bottom: 50px">
     <form action="update_animal.php" method="post">
       <input type="hidden" name="id" value="<?php echo $animal['id']; ?>">
 
@@ -210,8 +211,8 @@ mysqli_close($conn);
       <table id="medical_funds_table" border="1" cellpadding="10" cellspacing="0">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Donor Id</th>
+            <!-- <th>ID</th> -->
+            <th>Donor Name</th>
             <th>Amount(RM)</th>
             <th>Date</th>
           </tr>
@@ -219,11 +220,11 @@ mysqli_close($conn);
         <tbody>
           <?php foreach ($medical_funds as $fund): ?>
             <tr>
-              <td>
+              <!-- <td>
                 <?php echo $fund['id']; ?>
-              </td>
+              </td> -->
               <td>
-                <?php echo $fund['user_id']; ?>
+                <?php echo $fund['name']; ?>
               </td>
               <td>
                 <?php echo $fund['total_amount']; ?>
