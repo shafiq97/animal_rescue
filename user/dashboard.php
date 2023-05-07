@@ -29,18 +29,17 @@ if (!$conn) {
 // Retrieve images from the database
 // Retrieve animals from the database
 if (isset($_POST['search'])) {
-  if(isset($_POST['pet-type'])){
+  if (isset($_POST['pet-type'])) {
     $pet_type = $_POST['pet-type'];
-  }
-  else{
+  } else {
     $pet_type = '';
   }
   $location = $_POST['location'];
   $sql      = "SELECT * FROM animals 
   WHERE isMedical = 0 
   AND approval    = 'approved' 
-  AND type        = '$pet_type'
-  AND location = '$location'
+  or type like '%$pet_type%'
+  or location like '%$location%'
   ";
 } else {
   $sql = "SELECT * FROM animals WHERE isMedical = 0 AND approval = 'approved'";
