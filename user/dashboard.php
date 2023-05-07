@@ -190,6 +190,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             <label for="pet_status" class="col-sm-2 col-form-label">Pet status</label>
             <div class="col-sm-10">
               <select name="pet_status" class="form-control" name="" id="">
+                <option value="">Select Pet Status</option>
                 <option value="adoption">For Adoption</option>
                 <option value="lost">Lost</option>
                 <option value="found">Found</option>
@@ -201,6 +202,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             <label for="location" class="col-sm-2 col-form-label">Location</label>
             <div class="col-sm-10">
               <select name="location" class="form-control" id="location-select">
+                <option value="">Select Location</option>
                 <option value="johor">Johor</option>
                 <option value="kedah">Kedah</option>
                 <option value="kelantan">Kelantan</option>
