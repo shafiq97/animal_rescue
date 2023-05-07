@@ -30,25 +30,37 @@ if (!$conn) {
 // Retrieve animals from the database
 if (isset($_POST['search'])) {
   $location = $_POST['location'];
-  if (isset($_POST['pet-type'])) {
+
+  // TODO: check isset and not empty for each search field and concatenate the sql query
+  // the field: pet-type, location, breed, pet_status
+  $sql = "SELECT * FROM animals 
+  WHERE isMedical = 0
+  AND approval    = 'approved' ";
+
+  if (isset($_POST['pet-type']) && !empty($_POST['pet-type'])) {
     $pet_type = $_POST['pet-type'];
-    $sql      = "SELECT * FROM animals 
-    WHERE isMedical = 0 
-    AND approval    = 'approved' 
-    AND type like '%$pet_type%'
-    AND location like '%$location%'
-    ";
-  } else {
-    $pet_type = '';
-    $sql      = "SELECT * FROM animals 
-    WHERE isMedical = 0 
-    AND approval    = 'approved'
-    AND location like '%$location%'
-    ";
+    $sql .= " AND pet_type like '%$pet_type%' ";
   }
+
+  if (isset($_POST['location']) && !empty($_POST['location'])) {
+    $location = $_POST['location'];
+    $sql .= " AND location like '%$location%' ";
+  }
+
+  if (isset($_POST['breed']) && !empty($_POST['breed'])) {
+    $breed = $_POST['breed'];
+    $sql .= " AND breed like '%$breed%' ";
+  }
+
+  if (isset($_POST['pet_status']) && !empty($_POST['pet_status'])) {
+    $pet_status = $_POST['pet_status'];
+    $sql .= " AND pet_status like '%$pet_status%' ";
+  }
+
 } else {
   $sql = "SELECT * FROM animals WHERE isMedical = 0 AND approval = 'approved'";
 }
+
 $result  = mysqli_query($conn, $sql);
 $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
