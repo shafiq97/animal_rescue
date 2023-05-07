@@ -54,7 +54,7 @@ if (isset($_POST['search'])) {
 
   if (isset($_POST['pet_status']) && !empty($_POST['pet_status'])) {
     $pet_status = $_POST['pet_status'];
-    $sql .= " AND pet_status like '%$pet_status%' ";
+    $sql .= " AND status like '%$pet_status%' ";
   }
 
 } else {
