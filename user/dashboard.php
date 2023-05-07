@@ -187,14 +187,6 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             <div class="col-sm-10">
               <select name="breed" id="breed" class="form-control">
                 <option value="">-- Select Breed --</option>
-                <option value="Labrador Retriever">Labrador Retriever</option>
-                <option value="German Shepherd">German Shepherd</option>
-                <option value="Golden Retriever">Golden Retriever</option>
-                <option value="Bulldog">Bulldog</option>
-                <option value="Beagle">Beagle</option>
-                <option value="Poodle">Poodle</option>
-                <option value="Rottweiler">Rottweiler</option>
-                <option value="Yorkshire Terrier">Yorkshire Terrier</option>
               </select>
             </div>
           </div>
@@ -400,6 +392,65 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
         });
       });
 
+    </script>
+    <script>
+      const breedSelect = document.getElementById('breed');
+
+      const radioButtons = document.querySelectorAll('input[type="radio"][name="pet-type"]');
+      radioButtons.forEach(radioButton => {
+        radioButton.addEventListener('change', function () {
+          const breedSelect = document.getElementById('breed');
+          breedSelect.innerHTML = ''; // clear all options
+          if (this.value === 'dog') {
+            addOption('', 'Select dog breed');
+            addOption('Mixed Breed', 'Mixed Breed');
+            addOption('Affenpinscher', 'Affenpinscher');
+            addOption('Afghan Hound', 'Afghan Hound');
+            addOption('Airedale Terrier', 'Airedale Terrier');
+            addOption('Akbash', 'Akbash');
+            addOption('Akita', 'Akita');
+            addOption('Alaskan Malamute', 'Alaskan Malamute');
+            addOption('American Bulldog', 'American Bulldog');
+            addOption('American Eskimo Dog', 'American Eskimo Dog');
+            addOption('American Hairless Terrier', 'American Hairless Terrier');
+            addOption('American Staffordshire Terrier', 'American Staffordshire Terrier');
+            addOption('American Water Spaniel', 'American Water Spaniel');
+            addOption('Anatolian Shepherd', 'Anatolian Shepherd');
+            addOption('Appenzell Mountain Dog', 'Appenzell Mountain Dog');
+            addOption('Australian Cattle Dog/Blue Heeler', 'Australian Cattle Dog/Blue Heeler');
+            addOption('Australian Kelpie', 'Australian Kelpie');
+            addOption('Australian Shepherd', 'Australian Shepherd');
+            addOption('Australian Terrier', 'Australian Terrier');
+          } else if (this.value === 'cat') {
+            addOption('', 'Select cat breed');
+            addOption('Domestic Short Hair', 'Domestic Short Hair');
+            addOption('Domestic Medium Hair', 'Domestic Medium Hair');
+            addOption('Domestic Long Hair', 'Domestic Long Hair');
+            addOption('Abyssinian', 'Abyssinian');
+            addOption('American Curl', 'American Curl');
+            addOption('American Shorthair', 'American Shorthair');
+            addOption('American Wirehair', 'American Wirehair');
+            addOption('Applehead Siamese', 'Applehead Siamese');
+            addOption('Balinese', 'Balinese');
+            addOption('Bengal', 'Bengal');
+            addOption('Birman', 'Birman');
+            addOption('Bobtail', 'Bobtail');
+            addOption('Bombay', 'Bombay');
+            addOption('British Shorthair', 'British Shorthair');
+            addOption('Burmese', 'Burmese');
+            addOption('Burmilla', 'Burmilla');
+            addOption('Calico', 'Calico');
+            addOption('Canadian Hairless', 'Canadian Hairless');
+            addOption('Chartreux', 'Chartreux');
+          }
+        });
+      });
+      function addOption(value, text) {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = text;
+        breedSelect.appendChild(option);
+      }
     </script>
   </body>
 </html>
