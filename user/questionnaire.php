@@ -19,6 +19,10 @@
   </nav>
   <div class="container">
     <h1>Answer Questionnaire</h1>
+    <div class="progress  mb-3" style="position: sticky; top: 50px; z-index:99999">
+      <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0"
+        aria-valuemax="100"></div>
+    </div>
     <form method="post" action="submit_answers.php">
       <?php
       // Connect to the MySQL database
@@ -40,6 +44,8 @@
           if (!is_null($row["choice_1"]) || !is_null($row["choice_2"]) || !is_null($row["choice_3"]) || !is_null($row["choice_4"]) || !is_null($row["choice_5"]) || !is_null($row["choice_6"]) || !is_null($row["choice_7"])) {
             $all_null = false;
           }
+          echo '<div class="card mb-3 shadow">';
+          echo '<div class="card-body">';
           echo '<h3>' . $row["question"] . '</h3>';
           if (!$all_null) {
             echo '<div class="form-group">';
@@ -58,6 +64,8 @@
             echo '<input type="text" name="answer[' . $row["id"] . ']" class="form-control" required>';
             echo '</div>';
           }
+          echo '</div>'; // Close card-body
+          echo '</div>'; // Close card
         }
       } else {
         echo "No questions found.";
@@ -78,5 +86,19 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      // Calculate the total number of questions
+      var totalQuestions = $('input[type="radio"]').length / 7;
+
+      // Update the progress bar whenever a radio button is selected
+      $('input[type="radio"]').change(function () {
+        var answeredQuestions = $('input[type="radio"]:checked').length;
+        var progress = (answeredQuestions / totalQuestions) * 100;
+
+        $('.progress-bar').css('width', progress + '%').attr('aria-valuenow', progress);
+      });
+    });
+  </script>
 </body>
 </html>
