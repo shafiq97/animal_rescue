@@ -27,11 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (mysqli_num_rows($result) == 1) {
         // verify the password
         // set the user as logged in
-        $row                  = mysqli_fetch_assoc($result);
-        $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $username;
-        $_SESSION['email']    = $row['email'];
-        $_SESSION['id']       = $row['id'];
+        $row                         = mysqli_fetch_assoc($result);
+        $_SESSION['loggedin']        = true;
+        $_SESSION['username']        = $username;
+        $_SESSION['email']           = $row['email'];
+        $_SESSION['id']              = $row['id'];
+        $_SESSION['profile_picture'] = $row['profile_picture'];
         // redirect to the dashboard
         if ($row['role'] == 'admin') {
             header('Location: ../admin/dashboard.php');

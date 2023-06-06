@@ -6,6 +6,15 @@ if (session_status() == PHP_SESSION_NONE) {
 
 ?>
 
+<style>
+  .profile-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+</style>
+
 <div class="collapse navbar-collapse" id="navbarNav">
   <?php
   if (isset($_SESSION['loggedin'])) {
@@ -37,6 +46,14 @@ if (session_status() == PHP_SESSION_NONE) {
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
+      <li class="nav-item mr-3">
+        <a class="nav-link" href="">Welcome
+          <?php echo $_SESSION['username'] ?>
+        </a>
+      </li>
+      <li class="nav-item mr-3">
+        <img class="profile-image" src="<?php echo $_SESSION['profile_picture'] ?>" alt="">
+      </li>
       <li class="nav-item mr-3">
         <a href="donate.php" onclick="return confirm('Are you sure?')" class='btn btn-primary'>Donate</a>
       </li>
