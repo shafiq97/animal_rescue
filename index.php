@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="UTF-8">
-  rr
 
   <link rel="apple-touch-icon" type="image/png"
     href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
@@ -19,13 +18,16 @@
 
 
   <!-- Add jQuery library -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+  <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
     crossorigin="anonymous"></script>
 
   <!-- Add Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- Add Bootstrap JavaScript -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
@@ -45,9 +47,18 @@
 
     body {
       background-color: #222;
-      background: url('images/bc1.png') no-repeat center center fixed;
+      background: url('images/bc2.jpg') no-repeat center center fixed;
       background-size: cover;
     }
+
+    .navbar {
+      background-color: #7B3F00;
+    }
+
+    .navbar .nav-link {
+      color: white !important;
+    }
+
 
     .wrapper {
       display: block;
@@ -144,32 +155,56 @@
 
 
 
+
+
 </head>
 
 <body translate="no">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-      <a class="navbar-brand" href="#">Animal Rescue</a>
+      <a class="navbar-brand" style="color: white" href="#">Animal Rescue</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbar">
-        <ul class="navbar-nav mr-auto text-right">
-          <li class="nav-item active">
+        <ul class="navbar-nav mr-auto text-right justify-content-between w-100">
+          <li class="nav-item flex-fill">
             <a class="nav-link" href="#">Home</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item flex-fill">
             <a class="nav-link" href="index2.php">Find a Pet</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item flex-fill">
             <a class="nav-link" href="user/login.php">Manage Pet</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item flex-fill">
             <a class="nav-link" href="user/login.php">List of Animal</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item flex-fill">
             <a class="nav-link" href="user/login.php">Donate</a>
+          </li>
+          <li class="nav-item dropdown flex-fill">
+            <a class="nav-link dropdown-toggle" href="#" id="petsDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Pets
+            </a>
+            <div class="dropdown-menu" aria-labelledby="petsDropdown">
+              <a class="dropdown-item" href="#">Dogs</a>
+              <a class="dropdown-item" href="#">Cats</a>
+              <a class="dropdown-item" href="#">Birds</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown flex-fill">
+            <a class="nav-link dropdown-toggle" href="#" id="adoptionDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Adoption
+            </a>
+            <div class="dropdown-menu" aria-labelledby="adoptionDropdown">
+              <a class="dropdown-item" href="#">Process</a>
+              <a class="dropdown-item" href="#">Requirements</a>
+              <a class="dropdown-item" href="#">Fees</a>
+            </div>
           </li>
         </ul>
       </div>
@@ -178,6 +213,9 @@
   <div class="wrapper">
     <h1 align="center"><a href="index2.php" class="effect-underline">Animal Rescue</a></h1>
   </div>
+
+
+
 </body>
 
 </html>
