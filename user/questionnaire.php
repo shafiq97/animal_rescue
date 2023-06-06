@@ -40,33 +40,21 @@
       $result = $conn->query($sql);
       if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-          $all_null = true;
-          if (!is_null($row["choice_1"]) || !is_null($row["choice_2"]) || !is_null($row["choice_3"]) || !is_null($row["choice_4"]) || !is_null($row["choice_5"]) || !is_null($row["choice_6"]) || !is_null($row["choice_7"])) {
-            $all_null = false;
-          }
           echo '<div class="card mb-3 shadow">';
           echo '<div class="card-body">';
           echo '<h3>' . $row["question"] . '</h3>';
-          if (!$all_null) {
-            echo '<div class="form-group">';
-            echo '<input type="hidden" name="question_id[]" value="' . $row["id"] . '">';
-            echo '<label class="radio-inline"><input type="radio" name="answer[' . $row["id"] . ']" value="' . $row["choice_1"] . '" required> ' . $row["choice_1"] . '</label><br>';
-            echo '<label class="radio-inline"><input type="radio" name="answer[' . $row["id"] . ']" value="' . $row["choice_2"] . '" required> ' . $row["choice_2"] . '</label><br>';
-            echo '<label class="radio-inline"><input type="radio" name="answer[' . $row["id"] . ']" value="' . $row["choice_3"] . '" required> ' . $row["choice_3"] . '</label><br>';
-            echo '<label class="radio-inline"><input type="radio" name="answer[' . $row["id"] . ']" value="' . $row["choice_4"] . '" required> ' . $row["choice_4"] . '</label><br>';
-            echo '<label class="radio-inline"><input type="radio" name="answer[' . $row["id"] . ']" value="' . $row["choice_5"] . '" required> ' . $row["choice_5"] . '</label><br>';
-            echo '<label class="radio-inline"><input type="radio" name="answer[' . $row["id"] . ']" value="' . $row["choice_6"] . '" required> ' . $row["choice_6"] . '</label><br>';
-            echo '<label class="radio-inline"><input type="radio" name="answer[' . $row["id"] . ']" value="' . $row["choice_7"] . '" required> ' . $row["choice_7"] . '</label><br>';
-            echo '</div>';
-          } else {
-            // Display each question and its choices
-            echo '<div class="form-group">';
-            echo '<input type="text" name="answer[' . $row["id"] . ']" class="form-control" required>';
-            echo '</div>';
+          echo '<div class="form-group">';
+          echo '<input type="hidden" name="question_id[]" value="' . $row["id"] . '">';
+          for ($i = 1; $i <= 7; $i++) {
+            if (!is_null($row["choice_" . $i])) {
+              echo '<label class="radio-inline"><input type="radio" name="answer[' . $row["id"] . ']" value="' . $row["choice_" . $i] . '" required> ' . $row["choice_" . $i] . '</label><br>';
+            }
           }
+          echo '</div>';
           echo '</div>'; // Close card-body
           echo '</div>'; // Close card
         }
+
       } else {
         echo "No questions found.";
       }

@@ -20,9 +20,9 @@ if (session_status() == PHP_SESSION_NONE) {
       <li class="nav-item">
         <a class="nav-link" href="manage_animal.php">Manage Animal</a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="search.php">Search</a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" href="donation_list.php">Donation List</a>
       </li>

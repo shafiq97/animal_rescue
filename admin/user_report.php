@@ -52,6 +52,16 @@ if (isset($_GET['delete_id'])) {
   </nav>
   <div class="container mt-5">
     <h1 class="text-center mb-4">User List</h1>
+    <?php
+    // Query to get total number of users
+    $query_count  = "SELECT COUNT(*) as total FROM users WHERE role = 'user'";
+    $result_count = mysqli_query($conn, $query_count);
+    $row_count    = mysqli_fetch_assoc($result_count);
+    $total_users  = $row_count['total'];
+
+    // Display total users
+    echo "<h3>Total users: $total_users</h3>";
+    ?>
     <table id="user-table" class="table table-striped table-bordered" style="width:100%">
       <thead>
         <tr>
@@ -66,12 +76,11 @@ if (isset($_GET['delete_id'])) {
           <th>Name</th>
           <th>State</th>
           <th>Role</th>
-          <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <?php
-        $query  = "SELECT * FROM users";
+        $query  = "SELECT * FROM users where role = 'user'";
         $result = mysqli_query($conn, $query);
         while ($row = mysqli_fetch_assoc($result)) {
           echo "<tr>";
@@ -86,7 +95,6 @@ if (isset($_GET['delete_id'])) {
           echo "<td>" . $row['name'] . "</td>";
           echo "<td>" . $row['user_state'] . "</td>";
           echo "<td>" . $row['role'] . "</td>";
-          echo "<td><a href='user_settings.php?delete_id=" . $row['id'] . "' class='btn btn-danger'>Delete</a></td>";
           echo "</tr>";
         }
         ?>

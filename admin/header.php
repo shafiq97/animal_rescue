@@ -29,7 +29,19 @@ if (session_status() == PHP_SESSION_NONE) {
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="questionnaire.php">Add Question</a>
-          <a class="dropdown-item" href="view_answer.php">View User Answer</a>
+          <!-- <a class="dropdown-item" href="view_answer.php">View User Answer</a> -->
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Report
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="medical_fund_report.php">Medical Fund</a>
+          <a class="dropdown-item" href="donation_report.php">Donation</a>
+          <a class="dropdown-item" href="animal_report.php">Animal</a>
+          <a class="dropdown-item" href="user_report.php">User Report</a>
+          <!-- <a class="dropdown-item" href="view_answer.php">View User Answer</a> -->
         </div>
       </li>
       <li class="nav-item">

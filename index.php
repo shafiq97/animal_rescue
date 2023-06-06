@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-rr
+  rr
 
   <link rel="apple-touch-icon" type="image/png"
     href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
@@ -147,41 +147,36 @@ rr
 </head>
 
 <body translate="no">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
-    <a class="navbar-brand" href="#">Animal Rescue</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">Animal Rescue</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse" id="navbar">
-      <ul class="navbar-nav mr-auto text-right">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="index2.php">Find a Pet</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="user/login.php">Manage Pet</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="user/login.php">List of Animal</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="user/login.php">Donate</a>
-        </li>
-      </ul>
+      <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto text-right">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index2.php">Find a Pet</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="user/login.php">Manage Pet</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="user/login.php">List of Animal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="user/login.php">Donate</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
-
-
-
+  </nav>
   <div class="wrapper">
     <h1 align="center"><a href="index2.php" class="effect-underline">Animal Rescue</a></h1>
-    <!-- <h1 align="center"><a href="#" class="effect-box">box</a></h1>
-  <h1 align="center"><a href="#" class="effect-shine">shine</a></h1> -->
   </div>
 </body>
 
