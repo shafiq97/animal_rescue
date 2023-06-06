@@ -35,25 +35,57 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <head>
   <title>User Dashboard</title>
   <!-- Bootstrap CSS -->
+  <script>
+    function confirmDeactivation(animalId) {
+      Swal.fire({
+        title: 'Confirm Deactivation',
+        text: 'Are you sure you want to deactivate this animal?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Deactivate',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // User clicked "Deactivate", perform the deletion
+          window.location.href = 'delete_animal.php?id=' + animalId;
+        }
+      });
+    }
+  </script>
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- DataTables CSS -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+  <!-- SweetAlert CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.min.css">
 
-  <!-- jQuery -->
-
-  <!-- DataTables JS -->
-  <script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+  <!-- SweetAlert JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.all.min.js"></script>
 
   <style>
-    .fill-image {
+    .card-img-top {
+      width: 100%;
+      height: 15vw;
       object-fit: cover;
-      width: 200px;
+    }
+
+    .animal-image {
+      object-fit: cover;
       height: 200px;
+      /* Adjust as needed */
+      width: 100%;
     }
   </style>
 </head>
+<!-- ... -->
+<!-- ... -->
 <body>
+  <?php if ($_GET['message'] === 'success'): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      Record deleted successfully.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <?php endif; ?>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">User Dashboard</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -64,112 +96,57 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
     include('header.php');
     ?>
   </nav>
-  <!-- Display animals in a table -->
-  <div class="container" style="width: 100%">
-    <table id="animals-table" class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Age (month/year) (Month/Year)</th>
-          <th>Image</th>
-          <!-- <th>Donation Amount</th> -->
-          <th>Status</th>
-          <th>Created At</th>
-          <th>User ID</th>
-          <th>Type</th>
-          <th>Gender</th>
-          <th>Breed</th>
-          <th>Category ID</th>
-          <th>Color</th>
-          <th>Animal Condition</th>
-          <th>Location</th>
-          <th>Health</th>
-          <th>Maturing Size</th>
-          <th>Vaccinated</th>
-          <th>Medical Adoption Fee</th>
-          <th>Role</th>
-          <th>Is Medical</th>
-          <th>Approval</th>
-          <th>Manage</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($animals as $animal): ?>
-          <tr>
-            <td>
-              <?php echo $animal['id']; ?>
-            </td>
-            <td>
-              <?php echo $animal['name']; ?>
-            </td>
-            <td>
-              <?php echo $animal['age']; ?>
-            </td>
-            <td><img src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>" class="fill-image">
-            </td>
-            <!-- <td>
-              <?php echo $animal['donation_amount']; ?>
-            </td> -->
-            <td>
-              <?php echo $animal['status']; ?>
-            </td>
-            <td>
-              <?php echo $animal['created_at']; ?>
-            </td>
-            <td>
-              <?php echo $animal['user_id']; ?>
-            </td>
-            <td>
-              <?php echo $animal['type']; ?>
-            </td>
-            <td>
-              <?php echo $animal['gender']; ?>
-            </td>
-            <td>
-              <?php echo $animal['breed']; ?>
-            </td>
-            <td>
-              <?php echo $animal['category_id']; ?>
-            </td>
-            <td>
-              <?php echo $animal['color']; ?>
-            </td>
-            <td>
-              <?php echo $animal['animal_condition']; ?>
-            </td>
-            <td>
-              <?php echo $animal['location']; ?>
-            </td>
-            <td>
-              <?php echo $animal['health']; ?>
-            </td>
-            <td>
-              <?php echo $animal['maturing_size']; ?>
-            </td>
-            <td>
-              <?php echo $animal['vaccinated']; ?>
-            </td>
-            <td>
-              <?php echo $animal['medical_adopt_fee']; ?>
-            </td>
-            <td>
-              <?php echo $animal['role']; ?>
-            </td>
-            <td>
-              <?php echo $animal['isMedical']; ?>
-            </td>
-            <td>
-              <?php echo $animal['approval']; ?>
-            </td>
-            <td>
-              <a class="btn btn-primary" href="animal_profile.php?id=<?php echo $animal['id'] ?>">Edit</a>
-            </td>
-          </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
-  </div>
+  <!-- Display animals in a card layout -->
+  <div class="container">
+    <div class="row">
+      <?php foreach ($animals as $animal): ?>
+        <div class="col-12">
+          <div class="card mb-3">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>"
+                  class="animal-image img-fluid rounded-start">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title">
+                        <?php echo $animal['name']; ?>
+                      </h5>
+                      <p class="card-text">Name:
+                        <?php echo $animal['name']; ?>
+                      </p>
+                      <p class="card-text">Breed:
+                        <?php echo $animal['breed']; ?>
+                      </p>
+                      <p class="card-text">Status:
+                        <?php echo $animal['status']; ?>
+                      </p>
+                      <p class="card-text">Gender:
+                        <?php echo $animal['gender']; ?>
+                      </p>
+                      <p class="card-text">Age:
+                        <?php echo $animal['age']; ?>
+                      </p>
+                      <p class="card-text">Posted On:
+                        <?php echo $animal['created_at']; ?>
+                      </p>
+                    </div>
+                    <div>
+                      <a href="animal_profile.php?id=<?php echo $animal['id'] ?>"
+                        class="btn btn-primary d-block mb-2">Edit</a>
+                      <a href="#" class="btn btn-danger d-block"
+                        onclick="confirmDeactivation(<?php echo $animal['id']; ?>)">Deactivate</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
   </div>
 
   <!-- Logout confirmation dialog -->
