@@ -45,11 +45,20 @@
           echo '<h3>' . $row["question"] . '</h3>';
           echo '<div class="form-group">';
           echo '<input type="hidden" name="question_id[]" value="' . $row["id"] . '">';
+
+          $allChoicesAreNull = true;
           for ($i = 1; $i <= 7; $i++) {
             if (!is_null($row["choice_" . $i])) {
               echo '<label class="radio-inline"><input type="radio" name="answer[' . $row["id"] . ']" value="' . $row["choice_" . $i] . '" required> ' . $row["choice_" . $i] . '</label><br>';
+              $allChoicesAreNull = false;
             }
           }
+
+          // If all choices are null, show an input box
+          if ($allChoicesAreNull) {
+            echo '<input type="text" name="open_answer[' . $row["id"] . ']" class="form-control" placeholder="Your answer" required>';
+          }
+
           echo '</div>';
           echo '</div>'; // Close card-body
           echo '</div>'; // Close card
