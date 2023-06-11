@@ -268,7 +268,8 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             }
             ?>
             <div class="col-md-6 p-3">
-              <div class="card" style="background-color: blanchedalmond;">
+              <div class="card clickable-card" style="background-color: blanchedalmond;"
+                onclick="window.location.href='animal_details.php?id=<?php echo $animal['id']; ?>'">
                 <div class="row no-gutters">
                   <div class="col-md-6">
                     <img height="300px" src="<?php echo $animal['image_path']; ?>" class="card-img"
@@ -338,6 +339,12 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
           </nav>
         </div>
       </div>
+    </div>
+
+    </div>
+
+    </div>
+
     </div>
 
     </div>
