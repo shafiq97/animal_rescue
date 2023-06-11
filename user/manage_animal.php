@@ -78,7 +78,7 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <!-- ... -->
 <!-- ... -->
 <body>
-  <?php if ($_GET['message'] === 'success'): ?>
+  <?php if (isset($_GET['message']) && $_GET['message'] === 'success'): ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
       Record deleted successfully.
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
