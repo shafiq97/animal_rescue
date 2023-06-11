@@ -76,37 +76,6 @@ mysqli_close($conn);
       height: auto;
     }
 
-    p {
-      font-size: 18px;
-      line-height: 1.5;
-      color: #4d4d4d;
-      margin-bottom: 20px;
-    }
-
-    form {
-      text-align: center;
-    }
-
-    label {
-      display: block;
-      text-align: left;
-      font-size: 16px;
-      color: #4d4d4d;
-      margin: 10px auto;
-      width: 80%;
-    }
-
-    input[type="text"],
-    select,
-    textarea {
-      display: block;
-      width: 80%;
-      margin: 0 auto;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-    }
-
     /* .btn {
       background-color: #FFC107;
       color: #4d4d4d;
@@ -135,75 +104,158 @@ mysqli_close($conn);
     include('header.php');
     ?>
   </nav>
-  <h1>
-    <?php echo $animal['name']; ?> - Animal Profile
-  </h1>
+
   <div>
-    <img style="height: 400px;" src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>"
-      style="width: auto; height: 900px; margin-bottom: 50px">
-    <form action="update_animal.php" method="post">
-      <input type="hidden" name="id" value="<?php echo $animal['id']; ?>">
+    <div class="container mb-3">
+      <div class="card">
+        <div class="card-header">
+          <h1>
+            <?php echo $animal['name']; ?> - Animal Profile
+          </h1>
+        </div>
+        <div class="card-body">
+          <img style="height: 400px;" src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>"
+            style="width: auto; height: 900px; margin-bottom: 50px">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <form action="update_animal.php" method="post" class="needs-validation" novalidate>
+        <input type="hidden" name="id" value="<?php echo $animal['id']; ?>">
 
-      <label for="name">Name:</label>
-      <input type="text" name="name" id="name" value="<?php echo $animal['name']; ?>">
+        <div class="form-group">
+          <label for="name">Name:
+            <?php echo $animal['name']; ?>
+          </label>
+          <input type="text" class="form-control" name="name" id="name" required>
+          <div class="invalid-feedback">Please enter the name.</div>
+        </div>
 
-      <label for="description">Description:</label>
-      <textarea name="description" id="description" rows="5"><?php echo $animal['description']; ?></textarea>
+        <div class="form-group">
+          <label for="description">Description: </label>
+          <textarea class="form-control" name="description" id="description" rows="5"
+            required><?php echo $animal['description']; ?></textarea>
+          <div class="invalid-feedback">Please enter the description.</div>
+        </div>
 
-      <label for="age">Age (month/year):</label>
-      <input type="text" name="age" id="age" value="<?php echo $animal['age']; ?>">
+        <div class="form-group">
+          <label for="age">Age (month/year):
+            <?php echo $animal['age']; ?>
+          </label>
+          <input type="text" class="form-control" name="age" id="age" value="" required>
+          <div class="invalid-feedback">Please enter the age.</div>
+        </div>
 
-      <label for="location" class="">Location</label>
-      <select name="location" class="" id="location-select">
-        <option selected value="<?php echo $animal['location'] ?>"><?php echo $animal['location'] ?></option>
-        <option value="johor">Johor</option>
-        <option value="kedah">Kedah</option>
-        <option value="kelantan">Kelantan</option>
-        <option value="melaka">Melaka</option>
-        <option value="negeri sembilan">Negeri Sembilan</option>
-        <option value="pahang">Pahang</option>
-        <option value="perak">Perak</option>
-        <option value="perlis">Perlis</option>
-        <option value="penang">Penang</option>
-        <option value="sabah">Sabah</option>
-        <option value="sarawak">Sarawak</option>
-        <option value="selangor">Selangor</option>
-        <option value="terengganu">Terengganu</option>
-        <option value="wilayah persekutuan kuala lumpur">Wilayah Persekutuan Kuala Lumpur</option>
-        <option value="wilayah persekutuan labuan">Wilayah Persekutuan Labuan</option>
-        <option value="wilayah persekutuan putrajaya">Wilayah Persekutuan Putrajaya</option>
-      </select>
-      <label for="age">Age (month/year):</label>
-      <input type="text" name="age" id="age" value="<?php echo $animal['age']; ?>">
+        <div class="form-group">
+          <label for="location">Location:
+            <?php echo $animal['location'] ?>
+          </label>
+          <select class="form-control" name="location" id="location-select" required>
+            <option selected value=""></option>
+            <option value="johor">Johor</option>
+            <option value="kedah">Kedah</option>
+            <option value="kelantan">Kelantan</option>
+            <option value="melaka">Melaka</option>
+            <option value="negeri sembilan">Negeri Sembilan</option>
+            <option value="pahang">Pahang</option>
+            <option value="perak">Perak</option>
+            <option value="perlis">Perlis</option>
+            <option value="penang">Penang</option>
+            <option value="sabah">Sabah</option>
+            <option value="sarawak">Sarawak</option>
+            <option value="selangor">Selangor</option>
+            <option value="terengganu">Terengganu</option>
+            <option value="wilayah persekutuan kuala lumpur">Wilayah Persekutuan Kuala Lumpur</option>
+            <option value="wilayah persekutuan labuan">Wilayah Persekutuan Labuan</option>
+            <option value="wilayah persekutuan putrajaya">Wilayah Persekutuan Putrajaya</option>
+          </select>
+          <div class="invalid-feedback">Please select a location.</div>
+        </div>
 
-      <label for="health">Health:</label>
-      <select name="health" id="">
-        <option selected value="<?php echo $animal['health']; ?>"><?php echo $animal['health']; ?></option>
-        <option value="good">Good</option>
-        <option value="bad">Bad</option>
-      </select>
+        <div class="form-group">
+          <label for="health">Health:</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="health" id="good" value="good" <?php echo $animal['health'] == 'good' ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="good">Good</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="health" id="bad" value="bad" <?php echo $animal['health'] == 'bad' ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="bad">Bad</label>
+          </div>
+        </div>
 
-      <label for="gender">Gender:</label>
-      <input type="text" name="gender" id="gender" value="<?php echo $animal['gender']; ?>">
 
-      <label for="breed">Breed:</label>
-      <input type="text" name="breed" id="breed" value="<?php echo $animal['breed']; ?>">
 
-      <label for="maturing_size">Maturing Size:</label>
-      <input type="text" name="maturing_size" id="maturing_size" value="<?php echo $animal['maturing_size']; ?>">
+        <div class="form-group">
+          <label for="gender">Gender:</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="gender" id="male" value="male" <?php echo $animal['gender'] == 'male' ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="male">Male</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="gender" id="female" value="female" <?php echo $animal['gender'] == 'female' ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="female">Female</label>
+          </div>
+        </div>
 
-      <label for="admin_approval">Admin Approval:</label>
-      <input disabled type="text" name="admin_approval" id="admin_approval" value="<?php echo $animal['approval']; ?>">
 
-      <label for="vaccinated">Vaccinated:</label>
-      <input type="text" name="vaccinated" id="vaccinated" value="<?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>">
+        <div class="form-group">
+          <label for="breed">Breed:</label>
+          <input type="text" class="form-control" name="breed" id="breed" value="<?php echo $animal['breed']; ?>"
+            required>
+          <div class="invalid-feedback">Please enter the breed.</div>
+        </div>
 
-      <label for="medical_adopt_fee">Donation Amount:</label>
-      <input class="mb-3" type="text" name="medical_adopt_fee" id="medical_adopt_fee"
-        value="<?php echo $animal['medical_adopt_fee']; ?>">
-      <input type="submit" value="Update" class="btn btn-success">
-      <a class="btn btn-warning" href="dashboard.php">Back</a>
-    </form>
+        <div class="form-group">
+          <label for="maturing_size">Maturing Size:</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="maturing_size" id="large" value="large" <?php echo $animal['maturing_size'] == 'large' ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="large">Large</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="maturing_size" id="medium" value="medium" <?php echo $animal['maturing_size'] == 'medium' ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="medium">Medium</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="maturing_size" id="small" value="small" <?php echo $animal['maturing_size'] == 'small' ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="small">Small</label>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="admin_approval">Admin Approval:</label>
+          <input disabled type="text" class="form-control" name="admin_approval" id="admin_approval"
+            value="<?php echo $animal['approval']; ?>">
+        </div>
+
+        <div class="form-group">
+          <label for="vaccinated">Vaccinated:</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="vaccinated" id="yes" value="yes" <?php echo $animal['vaccinated'] == '0' ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="yes">Yes</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="vaccinated" id="no" value="no" <?php echo $animal['vaccinated'] == '1' ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="no">No</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="medical_adopt_fee">Donation Amount:
+            <?php echo $animal['medical_adopt_fee']; ?>
+          </label>
+          <input
+            class="form-control mb-3 <?php echo isset($_POST['medical_adopt_fee']) && empty($_POST['medical_adopt_fee']) ? 'is-invalid' : ''; ?>"
+            type="text" name="medical_adopt_fee" id="medical_adopt_fee"
+            value="<?php echo $animal['medical_adopt_fee']; ?>" required>
+          <div class="invalid-feedback">Please enter the donation amount.</div>
+        </div>
+
+        <input type="submit" value="Update" class="btn btn-success">
+        <a class="btn btn-warning" href="dashboard.php">Back</a>
+      </form>
+    </div>
   </div>
   <div class="container">
     <div class="col">

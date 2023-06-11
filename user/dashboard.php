@@ -237,7 +237,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
     <div class="container" style="height: 100%; overflow-y: scroll;">
       <div class="row mt-5">
-        <div class="col-md-12">
+        <div class="col-12">
           <form method="GET" action="">
             <div class="input-group mb-3">
               <input type="text" class="form-control" placeholder="Search animal" name="search">
@@ -247,107 +247,104 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             </div>
           </form>
           <h2>Featured Animals</h2>
-          <div class="card-deck mt-4">
-            <?php
-            if (isset($_GET['search'])) {
-              $search_term = mysqli_real_escape_string($conn, $_GET['search']);
-              $sql         = "SELECT * FROM animals WHERE name LIKE '%{$search_term}%' or description LIKE '%{$search_term}%'";
-              $result      = mysqli_query($conn, $sql);
-              $animals     = mysqli_fetch_all($result, MYSQLI_ASSOC);
+          <?php
+          // Set pagination variables
+          $items_per_page = 4; // Number of animals per page
+          $total_items    = count($animals); // Total number of animals
+          $total_pages    = ceil($total_items / $items_per_page); // Calculate total number of pages
+          
+          if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+            $current_page = max(1, min($_GET['page'], $total_pages)); // Get current page from query parameter
+          } else {
+            $current_page = 1; // Default to the first page
+          }
+          $offset            = ($current_page - 1) * $items_per_page; // Calculate offset for database query
+          $paginated_animals = array_slice($animals, $offset, $items_per_page); // Get the animals for the current page
+          
+          $column = 0;
+          foreach ($paginated_animals as $animal):
+            if ($column == 0) {
+              echo '<div class="row mt-4">';
             }
-
-            $count = 0;
-            foreach ($animals as $animal):
-              if ($count % 2 == 0) {
-                echo "<div class='row mt-4'>";
-              }
-              ?>
-              <div class="col-md-6">
-
-                <div class="card" style="width: 30vw;">
-                  <img style="width: 30vw; height: 50vh;" class="card-image-top animal-img"
-                    src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>"
-                    data-animal-id="<?php echo $animal['id']; ?>">
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <?php echo $animal['name']; ?>
-                    </h5>
-                    <!-- <p class="card-text">
-                      <?php echo $animal['description']; ?>
-                    </p> -->
-                    <p class="card-text">
-                      Age (month/year):
-                      <?php echo $animal['age']; ?> years old
-                    </p>
-                    <p class="card-text">
-                      Gender:
-                      <?php echo $animal['gender']; ?>
-                    </p>
-                    <p class="card-text">
-                      Breed:
-                      <?php echo $animal['breed']; ?>
-                    </p>
-                    <p class="card-text">
-                      Maturing Size:
-                      <?php echo $animal['maturing_size']; ?>
-                    </p>
-                    <p class="card-text">
-                      Vaccinated:
-                      <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
-                    </p>
-                    <p class="card-text">
-                      Adoption Fee:
-                      <?php echo $animal['medical_adopt_fee']; ?>
-                    </p>
-                    <!-- <form action="medical_fund.php">
-                      <div class="form-group">
-                        <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
-                        <a href="medical_fund.php?id=<?php echo $animal['id'] ?>"
-                          onclick="return confirm('Are you sure?')" class='btn btn-warning'>Medical Fund</a>
-                      </div>
-                    </form> -->
-
-                    <!-- <?php
-                    $found = false;
-                    foreach ($donations as $donation) {
-                      if ($donation['animal_id'] == $animal['id']) {
-                        $found = true;
-                        ?>
-                        <div class="progress mt-4">
-                          <div class="progress-bar bg-success" role="progressbar"
-                            style="width: <?php echo (double) $donation['total_amount'] / (double) $animal['medical_adopt_fee'] * 100 ?>%;"
-                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo round((double) $donation['total_amount'] / (double) $animal['medical_adopt_fee'] * 100) ?>%</div>
-                        </div>
-                        <?php
-                      }
-                    }
-                    if (!$found) {
-                      ?>
-                      <div class="progress mt-4">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="25"
-                          aria-valuemin="0" aria-valuemax="100">0%</div>
-                      </div>
-                      <?php
-
-                    }
-                    ?> -->
+            ?>
+            <div class="col-md-6 p-3">
+              <div class="card" style="background-color: blanchedalmond;">
+                <div class="row no-gutters">
+                  <div class="col-md-6">
+                    <img height="300px" src="<?php echo $animal['image_path']; ?>" class="card-img"
+                      alt="<?php echo $animal['name']; ?>">
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <?php echo $animal['name']; ?>
+                      </h5>
+                      <p class="card-text">Age (month/year):
+                        <?php echo $animal['age']; ?> years old
+                      </p>
+                      <p class="card-text">Gender:
+                        <?php echo $animal['gender']; ?>
+                      </p>
+                      <p class="card-text">Breed:
+                        <?php echo $animal['breed']; ?>
+                      </p>
+                      <p class="card-text">Maturing Size:
+                        <?php echo $animal['maturing_size']; ?>
+                      </p>
+                      <p class="card-text">Vaccinated:
+                        <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
+                      </p>
+                      <p class="card-text">Adoption Fee:
+                        <?php echo $animal['medical_adopt_fee']; ?>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <?php
-              $count++;
-              if ($count % 2 == 0) {
-                echo "</div>";
-              }
-            endforeach;
-            if ($count % 2 != 0) {
-              echo "</div>";
+            </div>
+            <?php
+            $column++;
+            if ($column == 2) {
+              echo '</div>';
+              $column = 0;
             }
-            ?>
-          </div>
+          endforeach;
+          if ($column == 1) {
+            echo '</div>';
+          }
+          ?>
+
+          <!-- Pagination links -->
+          <nav aria-label="Animal Pagination" class="mt-4">
+            <ul class="pagination justify-content-center">
+              <?php if ($current_page > 1): ?>
+                <li class="page-item">
+                  <a class="page-link" href="?page=<?php echo $current_page - 1; ?>">Previous</a>
+                </li>
+              <?php endif; ?>
+
+              <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                <li class="page-item <?php echo $i == $current_page ? 'active' : ''; ?>">
+                  <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                </li>
+              <?php endfor; ?>
+
+              <?php if ($current_page < $total_pages): ?>
+                <li class="page-item">
+                  <a class="page-link" href="?page=<?php echo $current_page + 1; ?>">Next</a>
+                </li>
+              <?php endif; ?>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
+
+    </div>
+
+
+
+
     <!-- Bootstrap JS -->
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
