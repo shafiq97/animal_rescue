@@ -46,6 +46,7 @@ mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>
     <?php echo $animal['name']; ?> - Animal Profile
@@ -96,8 +97,7 @@ mysqli_close($conn);
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <!-- <a class="navbar-brand" href="#">User Dashboard</a> -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <?php
@@ -107,6 +107,15 @@ mysqli_close($conn);
 
   <div>
     <div class="container mb-3">
+      <?php if (isset($_SESSION['animal_updated']) && $_SESSION['animal_updated']) : ?>
+        <div class="alert alert-success" role="alert">
+          Animal profile has been successfully updated!
+        </div>
+      <?php
+        // Reset the value
+        $_SESSION['animal_updated'] = false;
+      endif;
+      ?>
       <div class="card">
         <div class="card-header">
           <h1>
@@ -114,8 +123,7 @@ mysqli_close($conn);
           </h1>
         </div>
         <div class="card-body">
-          <img style="height: 400px;" src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>"
-            style="width: auto; height: 900px; margin-bottom: 50px">
+          <img style="height: 400px;" src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>" style="width: auto; height: 900px; margin-bottom: 50px">
         </div>
       </div>
     </div>
@@ -127,14 +135,13 @@ mysqli_close($conn);
           <label for="name">Name:
             <?php echo $animal['name']; ?>
           </label>
-          <input type="text" class="form-control" name="name" id="name" required>
+          <input value="<?php echo $animal['name']; ?>" type="text" class="form-control" name="name" id="name" required>
           <div class="invalid-feedback">Please enter the name.</div>
         </div>
 
         <div class="form-group">
           <label for="description">Description: </label>
-          <textarea class="form-control" name="description" id="description" rows="5"
-            required><?php echo $animal['description']; ?></textarea>
+          <textarea class="form-control" name="description" id="description" rows="5" required><?php echo $animal['description']; ?></textarea>
           <div class="invalid-feedback">Please enter the description.</div>
         </div>
 
@@ -142,7 +149,7 @@ mysqli_close($conn);
           <label for="age">Age (month/year):
             <?php echo $animal['age']; ?>
           </label>
-          <input type="text" class="form-control" name="age" id="age" value="" required>
+          <input value="<?php echo $animal['age']; ?>" type="text" class="form-control" name="age" id="age" value="" required>
           <div class="invalid-feedback">Please enter the age.</div>
         </div>
 
@@ -151,7 +158,7 @@ mysqli_close($conn);
             <?php echo $animal['location'] ?>
           </label>
           <select class="form-control" name="location" id="location-select" required>
-            <option selected value=""></option>
+            <option selected value="<?php echo $animal['location'] ?>"><?php echo $animal['location'] ?></option>
             <option value="johor">Johor</option>
             <option value="kedah">Kedah</option>
             <option value="kelantan">Kelantan</option>
@@ -184,8 +191,6 @@ mysqli_close($conn);
           </div>
         </div>
 
-
-
         <div class="form-group">
           <label for="gender">Gender:</label>
           <div class="form-check">
@@ -201,8 +206,7 @@ mysqli_close($conn);
 
         <div class="form-group">
           <label for="breed">Breed:</label>
-          <input type="text" class="form-control" name="breed" id="breed" value="<?php echo $animal['breed']; ?>"
-            required>
+          <input type="text" class="form-control" name="breed" id="breed" value="<?php echo $animal['breed']; ?>" required>
           <div class="invalid-feedback">Please enter the breed.</div>
         </div>
 
@@ -225,8 +229,7 @@ mysqli_close($conn);
 
         <div class="form-group">
           <label for="admin_approval">Admin Approval:</label>
-          <input disabled type="text" class="form-control" name="admin_approval" id="admin_approval"
-            value="<?php echo $animal['approval']; ?>">
+          <input disabled type="text" class="form-control" name="admin_approval" id="admin_approval" value="<?php echo $animal['approval']; ?>">
         </div>
 
         <div class="form-group">
@@ -245,10 +248,7 @@ mysqli_close($conn);
           <label for="medical_adopt_fee">Donation Amount:
             <?php echo $animal['medical_adopt_fee']; ?>
           </label>
-          <input
-            class="form-control mb-3 <?php echo isset($_POST['medical_adopt_fee']) && empty($_POST['medical_adopt_fee']) ? 'is-invalid' : ''; ?>"
-            type="text" name="medical_adopt_fee" id="medical_adopt_fee"
-            value="<?php echo $animal['medical_adopt_fee']; ?>" required>
+          <input class="form-control mb-3 <?php echo isset($_POST['medical_adopt_fee']) && empty($_POST['medical_adopt_fee']) ? 'is-invalid' : ''; ?>" type="text" name="medical_adopt_fee" id="medical_adopt_fee" value="<?php echo $animal['medical_adopt_fee']; ?>" required>
           <div class="invalid-feedback">Please enter the donation amount.</div>
         </div>
 
@@ -270,7 +270,7 @@ mysqli_close($conn);
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($medical_funds as $fund): ?>
+          <?php foreach ($medical_funds as $fund) : ?>
             <tr>
               <!-- <td>
                 <?php echo $fund['id']; ?>
@@ -291,9 +291,10 @@ mysqli_close($conn);
     </div>
   </div>
   <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
       $('#medical_funds_table').DataTable();
     });
   </script>
 </body>
+
 </html>

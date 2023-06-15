@@ -24,11 +24,19 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 $user_id = $_SESSION['id'];
 
 // prepare and execute the SQL query to retrieve the user's donations
-$sql    = "SELECT *,donations.id as donation_id FROM donations inner join category_donation on donations.category_id = category_donation.id";
-$result = mysqli_query($conn, $sql);
+$sql = "SELECT *, animals.name as animal_name FROM medical_funds 
+inner join animals on medical_funds.animal_id = animals.id
+inner join users on medical_funds.user_id = users.id";
 
-$sql2    = "SELECT * FROM medical_funds";
-$result2 = mysqli_query($conn, $sql2);
+if (isset($_GET['startDate']) && isset($_GET['endDate'])) {
+  $startDate = mysqli_real_escape_string($conn, $_GET['startDate']);
+  $endDate = mysqli_real_escape_string($conn, $_GET['endDate']);
+
+  // modify the SQL query to filter by the date range
+  $sql .= " WHERE date_approval_status BETWEEN '$startDate' AND '$endDate'";
+}
+
+$result = mysqli_query($conn, $sql);
 
 // close the database connection
 mysqli_close($conn);
@@ -36,8 +44,9 @@ mysqli_close($conn);
 
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Donation List</title>
+  <title>Medical Fund</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <!-- DataTables CSS -->
@@ -52,11 +61,11 @@ mysqli_close($conn);
     }
   </style>
 </head>
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Donation List</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">Medical Fund List</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <?php
@@ -66,55 +75,64 @@ mysqli_close($conn);
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-12">
-        <h2>Donation List</h2>
-        <?php if (mysqli_num_rows($result) > 0): ?>
+        <h2>Medical Fund List</h2>
+
+        <!-- Add this form for date filtering -->
+        <form method="GET" class="mb-3" action="transcation_history.php">
+          <label for="startDate">Start Date:</label>
+          <input type="date" id="startDate" name="startDate">
+
+          <label for="endDate">End Date:</label>
+          <input type="date" id="endDate" name="endDate">
+
+          <button type="submit">Filter</button>
+        </form>
+
+        <?php if (mysqli_num_rows($result) > 0) : ?>
           <table id="donationTable" class="table table-striped table-bordered mt-4" style="width:100%">
             <thead>
               <tr>
-                <th scope="col">User Id</th>
-                <th scope="col">Amount</th>
+                <th scope="col">User</th>
+                <th scope="col">Amount Donated</th>
+                <th scope="col">Pet Name</th>
+                <th scope="col">Date</th>
                 <!-- <th scope="col">Category</th> -->
                 <!-- <th scope="col">Admin Approval</th> -->
                 <th scope="col">Receipt</th>
-                <th scope="col">Action</th>
+                <th scope="col">Auto Deduction</th>
+                <!-- <th scope="col">Action</th> -->
               </tr>
             </thead>
             <tbody>
-              <?php while ($row = mysqli_fetch_assoc($result)): ?>
+              <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                 <tr>
                   <td>
-                    <?php echo $row['user_id']; ?>
+                    <?php echo $row['username']; ?>
                   </td>
                   <td>
-                    <?php if ($row['admin_approval'] == "approved"): ?>
-                      <span class="amount-pending">- RM
-                        <?php echo $row['amount']; ?>
-                      </span>
-                    <?php else: ?>
-                      <span class="amount-approve">+ RM
-                        <?php echo $row['amount']; ?>
-                      </span>
-                    <?php endif; ?>
+                    <span class="amount-pending"> + RM
+                      <?php echo $row['total_amount']; ?>
+                    </span>
                   </td>
-                  <!-- <td>
-                    <?php echo $row['name']; ?>
-                  </td> -->
-                  <!-- <td>
-                    <?php echo $row['admin_approval']; ?>
-                  </td> -->
+                  <td>
+                    <?php echo $row['animal_name']; ?>
+                  </td>
+                  <td>
+                    <?php echo $row['receive_date']; ?>
+                  </td>
                   <td><a href="../user/<?php echo $row['receipt_path']; ?>" target="_blank">View</a></td>
-                  <td>
-                    <?php if ($row['admin_approval'] != "approved"): ?>
-                      <a class="btn btn-primary"
-                        href="update_donation_status.php?id=<?php echo $row['donation_id']; ?>">Approve</a>
+                  <td>Auto deduct here</td>
+                  <!-- <td>
+                    <?php if ($row['admin_approval'] != "approved") : ?>
+                      <a class="btn btn-primary" href="update_donation_status.php?id=<?php echo $row['donation_id']; ?>">Approve</a>
                     <?php endif; ?>
-                  </td>
+                  </td> -->
                 </tr>
               <?php endwhile; ?>
             </tbody>
           </table>
-        <?php else: ?>
-          <p>You haven't made any donations yet.</p>
+        <?php else : ?>
+          <p>No Medical Funds Donation has been made</p>
         <?php endif; ?>
       </div>
     </div>
@@ -130,13 +148,13 @@ mysqli_close($conn);
   <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
 
   <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
       $('#donationTable').DataTable();
       $('#donationTable2').DataTable();
     });
   </script>
   <script>
-    document.getElementById("logout-btn").addEventListener("click", function (event) {
+    document.getElementById("logout-btn").addEventListener("click", function(event) {
       event.preventDefault();
       if (confirm("Are you sure you want to logout?")) {
         window.location.href = "logout.php";
@@ -145,4 +163,5 @@ mysqli_close($conn);
   </script>
 
 </body>
+
 </html>

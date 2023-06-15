@@ -1,4 +1,5 @@
 <?php
+session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -38,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (!$result) {
     die('Error: ' . mysqli_error($conn));
   } else {
+    $_SESSION['animal_updated'] = true;
     echo 'Animal data has been updated.';
     header("location: animal_profile.php?id=" . $id);
   }
@@ -47,4 +49,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
   echo 'No data received.';
 }
-?>

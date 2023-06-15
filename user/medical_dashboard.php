@@ -30,6 +30,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>User Dashboard</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -41,11 +42,11 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     }
   </style>
 </head>
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">User Dashboard</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <?php
@@ -74,16 +75,15 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             $animals     = mysqli_fetch_all($result, MYSQLI_ASSOC);
           }
           $count = 0;
-          foreach ($animals as $animal):
+          foreach ($animals as $animal) :
             if ($count % 2 == 0) {
               echo "<div class='row mt-4'>";
             }
-            ?>
-            <div class="col-md-6">
+          ?>
+            <div class="col-lg-6">
               <a href="animal_profile.php?id=<?php echo $animal['id'] ?>">
                 <div class="card" style="width: 20vw;">
-                  <img style="width: 20vw; height: 50vh;" class="card-image-top"
-                    src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>">
+                  <img style="width: 100%; height: 50vh;" class="card-image-top" src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>">
                   <div class="card-body">
                     <h5 class="card-title">
                       <?php echo $animal['name']; ?>
@@ -121,7 +121,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                     foreach ($donations as $donation) {
                       if ($donation['animal_id'] == $animal['id']) {
                         $found              = true;
-                        $donationPercentage = (double) $donation['total_donations'] / (double) $animal['medical_adopt_fee'] * 100;
+                        $donationPercentage = (float) $donation['total_donations'] / (float) $animal['medical_adopt_fee'] * 100;
                         break;
                       }
                     }
@@ -129,28 +129,23 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                     <form action="medical_fund.php">
                       <div class="form-group">
                         <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
-                        <a href="<?php echo $donationPercentage >= 100 ? '#' : 'medical_fund.php?id=' . $animal['id'] ?>"
-                          class='<?php echo $donationPercentage >= 100 ? 'btn btn-warning disabled' : 'btn btn-warning' ?>'
-                          onclick="<?php echo $donationPercentage < 100 ? 'return confirm(\'Are you sure?\')' : '' ?>"
-                          <?php echo $donationPercentage >= 100 ? 'disabled' : '' ?>>Medical Fund</a>
+                        <a href="<?php echo $donationPercentage >= 100 ? '#' : 'medical_fund.php?id=' . $animal['id'] ?>" class='<?php echo $donationPercentage >= 100 ? 'btn btn-warning disabled' : 'btn btn-warning' ?>' onclick="<?php echo $donationPercentage < 100 ? 'return confirm(\'Are you sure?\')' : '' ?>" <?php echo $donationPercentage >= 100 ? 'disabled' : '' ?>>Medical Fund</a>
                       </div>
                     </form>
                     <?php
                     if ($found) {
-                      ?>
+                    ?>
                       <div class="progress mt-4">
-                        <div class="progress-bar bg-success" role="progressbar"
-                          style="width: <?php echo $donationPercentage ?>%;" aria-valuenow="25" aria-valuemin="0"
-                          aria-valuemax="100"><?php echo round($donationPercentage) ?>%</div>
+                        <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $donationPercentage ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo round($donationPercentage) ?>%</div>
                       </div>
-                      <?php
+                    <?php
                     }
                     ?>
                   </div>
                 </div>
               </a>
             </div>
-            <?php
+          <?php
             $count++;
             if ($count % 2 == 0) {
               echo "</div>";
@@ -168,7 +163,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script>
-    document.getElementById("logout-btn").addEventListener("click", function (event) {
+    document.getElementById("logout-btn").addEventListener("click", function(event) {
       event.preventDefault();
       if (confirm("Are you sure you want to logout?")) {
         window.location.href = "logout.php";
@@ -176,4 +171,5 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     });
   </script>
 </body>
+
 </html>

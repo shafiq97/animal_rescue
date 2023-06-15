@@ -56,7 +56,6 @@ if (isset($_POST['search'])) {
     $pet_status = $_POST['pet_status'];
     $sql .= " AND status like '%$pet_status%' ";
   }
-
 } else {
   $sql = "SELECT * FROM animals WHERE isMedical = 0 AND approval = 'approved'";
 }
@@ -72,14 +71,13 @@ $result2   = mysqli_query($conn, $sql2);
 $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
 
-
-
 // Close the database connection
 // mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>User Dashboard</title>
   <!-- Bootstrap CSS -->
@@ -89,6 +87,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 </head>
+
 <body>
   </head>
 
@@ -100,10 +99,10 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     }
   </style>
   </head>
+
   <body>
     <!-- Modal -->
-    <div class="modal fade" id="animalModal" tabindex="-1" role="dialog" aria-labelledby="animalModalLabel"
-      aria-hidden="true">
+    <div class="modal fade" id="animalModal" tabindex="-1" role="dialog" aria-labelledby="animalModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -130,8 +129,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">User Dashboard</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <?php
@@ -252,7 +250,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
           $items_per_page = 4; // Number of animals per page
           $total_items    = count($animals); // Total number of animals
           $total_pages    = ceil($total_items / $items_per_page); // Calculate total number of pages
-          
+
           if (isset($_GET['page']) && is_numeric($_GET['page'])) {
             $current_page = max(1, min($_GET['page'], $total_pages)); // Get current page from query parameter
           } else {
@@ -260,20 +258,18 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
           }
           $offset            = ($current_page - 1) * $items_per_page; // Calculate offset for database query
           $paginated_animals = array_slice($animals, $offset, $items_per_page); // Get the animals for the current page
-          
+
           $column = 0;
-          foreach ($paginated_animals as $animal):
+          foreach ($paginated_animals as $animal) :
             if ($column == 0) {
               echo '<div class="row mt-4">';
             }
-            ?>
+          ?>
             <div class="col-md-6 p-3">
-              <div class="card clickable-card" style="background-color: blanchedalmond;"
-                onclick="window.location.href='animal_details.php?id=<?php echo $animal['id']; ?>'">
+              <div class="card clickable-card" style="background-color: blanchedalmond;" onclick="window.location.href='animal_details.php?id=<?php echo $animal['id']; ?>'">
                 <div class="row no-gutters">
                   <div class="col-md-6">
-                    <img height="300px" src="<?php echo $animal['image_path']; ?>" class="card-img"
-                      alt="<?php echo $animal['name']; ?>">
+                    <img height="300px" src="<?php echo $animal['image_path']; ?>" class="card-img" alt="<?php echo $animal['name']; ?>">
                   </div>
                   <div class="col-md-6">
                     <div class="card-body">
@@ -303,7 +299,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                 </div>
               </div>
             </div>
-            <?php
+          <?php
             $column++;
             if ($column == 2) {
               echo '</div>';
@@ -318,19 +314,19 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
           <!-- Pagination links -->
           <nav aria-label="Animal Pagination" class="mt-4">
             <ul class="pagination justify-content-center">
-              <?php if ($current_page > 1): ?>
+              <?php if ($current_page > 1) : ?>
                 <li class="page-item">
                   <a class="page-link" href="?page=<?php echo $current_page - 1; ?>">Previous</a>
                 </li>
               <?php endif; ?>
 
-              <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+              <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
                 <li class="page-item <?php echo $i == $current_page ? 'active' : ''; ?>">
                   <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
                 </li>
               <?php endfor; ?>
 
-              <?php if ($current_page < $total_pages): ?>
+              <?php if ($current_page < $total_pages) : ?>
                 <li class="page-item">
                   <a class="page-link" href="?page=<?php echo $current_page + 1; ?>">Next</a>
                 </li>
@@ -358,7 +354,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!-- Logout confirmation dialog -->
     <script>
-      document.getElementById("logout-btn").addEventListener("click", function (event) {
+      document.getElementById("logout-btn").addEventListener("click", function(event) {
         event.preventDefault();
         if (confirm("Are you sure you want to logout?")) {
           window.location.href = "logout.php";
@@ -366,19 +362,21 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
       });
     </script>
     <script>
-      $(document).ready(function () {
+      $(document).ready(function() {
         $('#location-select').select2();
       });
     </script>
     <script>
-      $(document).on('click', '.animal-img', function () {
+      $(document).on('click', '.animal-img', function() {
         var animalId = $(this).data('animal-id');
         console.log(animalId);
         $.ajax({
           url: 'get_animal.php',
           type: 'GET',
-          data: { id: animalId },
-          success: function (data) {
+          data: {
+            id: animalId
+          },
+          success: function(data) {
             // Update the modal with the animal information
             console.log(data.animal_name);
             $('#animalModalLabel').text(data.animal_name);
@@ -390,19 +388,18 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             $('#userPhone').text(data.user_nophone);
             $('#animalModal').modal('show');
           },
-          error: function (xhr, status, error) {
+          error: function(xhr, status, error) {
             console.log(error);
           }
         });
       });
-
     </script>
     <script>
       const breedSelect = document.getElementById('breed');
 
       const radioButtons = document.querySelectorAll('input[type="radio"][name="pet-type"]');
       radioButtons.forEach(radioButton => {
-        radioButton.addEventListener('change', function () {
+        radioButton.addEventListener('change', function() {
           const breedSelect = document.getElementById('breed');
           breedSelect.innerHTML = ''; // clear all options
           if (this.value === 'dog') {
@@ -449,6 +446,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
           }
         });
       });
+
       function addOption(value, text) {
         const option = document.createElement('option');
         option.value = value;
@@ -457,4 +455,5 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
       }
     </script>
   </body>
+
 </html>
