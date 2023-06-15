@@ -144,14 +144,6 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script>
-    document.getElementById("logout-btn").addEventListener("click", function(event) {
-      event.preventDefault();
-      if (confirm("Are you sure you want to logout?")) {
-        window.location.href = "logout.php";
-      }
-    });
-  </script>
 </body>
 
 </html>
