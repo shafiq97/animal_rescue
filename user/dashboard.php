@@ -265,45 +265,45 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
               echo '<div class="row mt-4">';
             }
           ?>
-            <div class="col-md-6 p-3">
-              <div class="card shadow clickable-card" style="width: 100%; background-color: blanchedalmond; height: auto; overflow: hidden; background-clip: border-box;">
-                <div class="row no-gutters">
-                  <div class="col-md-6">
-                    <div style="
+              <div class="col-md-6 p-3">
+                <div class="card shadow clickable-card" style="width: 100%; background-color: blanchedalmond; height: auto; overflow: hidden; background-clip: border-box;">
+                  <div class="row no-gutters" onclick="window.location.href='animal_profile.php?id=<?php echo $animal['id']; ?>';">
+                    <div class="col-md-6">
+                      <div style="
                       background-image: url('<?php echo $animal["image_path"]; ?>'); 
                       height: 100%; 
                       background-size: cover; 
                       background-position: center;">
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <?php echo $animal['name']; ?>
-                      </h5>
-                      <p class="card-text">Age (month/year):
-                        <?php echo $animal['age']; ?> years old
-                      </p>
-                      <p class="card-text">Gender:
-                        <?php echo $animal['gender']; ?>
-                      </p>
-                      <p class="card-text">Breed:
-                        <?php echo $animal['breed']; ?>
-                      </p>
-                      <p class="card-text">Maturing Size:
-                        <?php echo $animal['maturing_size']; ?>
-                      </p>
-                      <p class="card-text">Vaccinated:
-                        <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
-                      </p>
-                      <p class="card-text">Adoption Fee:
-                        <?php echo $animal['medical_adopt_fee']; ?>
-                      </p>
+                    <div class="col-md-6">
+                      <div class="card-body">
+                        <h5 class="card-title">
+                          <?php echo $animal['name']; ?>
+                        </h5>
+                        <p class="card-text">Age (month/year):
+                          <?php echo $animal['age']; ?> years old
+                        </p>
+                        <p class="card-text">Gender:
+                          <?php echo $animal['gender']; ?>
+                        </p>
+                        <p class="card-text">Breed:
+                          <?php echo $animal['breed']; ?>
+                        </p>
+                        <p class="card-text">Maturing Size:
+                          <?php echo $animal['maturing_size']; ?>
+                        </p>
+                        <p class="card-text">Vaccinated:
+                          <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
+                        </p>
+                        <p class="card-text">Adoption Fee:
+                          <?php echo $animal['medical_adopt_fee']; ?>
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
           <?php
             $column++;
             if ($column == 2) {
