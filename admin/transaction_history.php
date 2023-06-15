@@ -23,21 +23,25 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 // get the logged in user's ID
 $user_id = $_SESSION['id'];
 
-// prepare and execute the SQL query to retrieve the user's donations
-$sql = "SELECT *, animals.name as animal_name FROM medical_funds 
+$sql = "SELECT *, animals.name as animal_name, animals.id as animal_id, users.username as username, SUM(medical_funds.total_amount) as total_donation FROM medical_funds 
 inner join animals on medical_funds.animal_id = animals.id
-inner join users on medical_funds.user_id = users.id";
+inner join users on medical_funds.user_id = users.id
+GROUP BY animals.id, users.id";
 
 if (isset($_GET['startDate']) && isset($_GET['endDate'])) {
   $startDate = mysqli_real_escape_string($conn, $_GET['startDate']);
   $endDate = mysqli_real_escape_string($conn, $_GET['endDate']);
 
   // modify the SQL query to filter by the date range
-  $sql .= " WHERE date_approval_status BETWEEN '$startDate' AND '$endDate'";
+  $sql = "SELECT *, animals.name as animal_name, animals.id as animal_id, users.username as username, SUM(medical_funds.total_amount) as total_donation FROM medical_funds 
+  inner join animals on medical_funds.animal_id = animals.id
+  inner join users on medical_funds.user_id = users.id
+  WHERE DATE(receive_date) BETWEEN '$startDate' AND '$endDate'
+  GROUP BY animals.id, users.id";
 }
 
-$result = mysqli_query($conn, $sql);
 
+$result = mysqli_query($conn, $sql);
 // close the database connection
 mysqli_close($conn);
 ?>
@@ -78,14 +82,15 @@ mysqli_close($conn);
         <h2>Medical Fund List</h2>
 
         <!-- Add this form for date filtering -->
-        <form method="GET" class="mb-3" action="transcation_history.php">
+        <form method="GET" class="mb-3" action="transaction_history.php">
           <label for="startDate">Start Date:</label>
-          <input type="date" id="startDate" name="startDate">
+          <input type="date" id="startDate" name="startDate" required>
 
           <label for="endDate">End Date:</label>
-          <input type="date" id="endDate" name="endDate">
+          <input type="date" id="endDate" name="endDate" required>
 
-          <button type="submit">Filter</button>
+          <button class="btn btn-primary" type="submit">Filter</button>
+          <button class="btn btn-secondary" type="reset" value="Reset" onclick="window.location.href='transaction_history.php'">Reset</button>
         </form>
 
         <?php if (mysqli_num_rows($result) > 0) : ?>
@@ -96,39 +101,49 @@ mysqli_close($conn);
                 <th scope="col">Amount Donated</th>
                 <th scope="col">Pet Name</th>
                 <th scope="col">Date</th>
-                <!-- <th scope="col">Category</th> -->
-                <!-- <th scope="col">Admin Approval</th> -->
                 <th scope="col">Receipt</th>
+                <th scope="col">Medical Adopt Fee</th>
                 <th scope="col">Auto Deduction</th>
-                <!-- <th scope="col">Action</th> -->
               </tr>
             </thead>
-            <tbody>
-              <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-                <tr>
-                  <td>
-                    <?php echo $row['username']; ?>
-                  </td>
-                  <td>
-                    <span class="amount-pending"> + RM
-                      <?php echo $row['total_amount']; ?>
-                    </span>
-                  </td>
-                  <td>
-                    <?php echo $row['animal_name']; ?>
-                  </td>
-                  <td>
-                    <?php echo $row['receive_date']; ?>
-                  </td>
-                  <td><a href="../user/<?php echo $row['receipt_path']; ?>" target="_blank">View</a></td>
-                  <td>Auto deduct here</td>
-                  <!-- <td>
-                    <?php if ($row['admin_approval'] != "approved") : ?>
-                      <a class="btn btn-primary" href="update_donation_status.php?id=<?php echo $row['donation_id']; ?>">Approve</a>
-                    <?php endif; ?>
-                  </td> -->
-                </tr>
-              <?php endwhile; ?>
+            <tbody><?php
+                    // Define an array to keep track of the cumulative donation per animal and the user who fulfills the fee
+                    $cumulative_donations = [];
+
+                    // Iterate over the result set
+                    while ($row = mysqli_fetch_assoc($result)) {
+                      // Add current donation to cumulative total
+                      $animal_id = $row['animal_id'];
+                      if (!isset($cumulative_donations[$animal_id])) {
+                        $cumulative_donations[$animal_id] = ['total' => 0, 'user_id' => null];
+                      }
+                      $cumulative_donations[$animal_id]['total'] += $row['total_amount'];
+
+                      // Check if the cumulative total just reached or exceeded the medical adopt fee
+                      if ($cumulative_donations[$animal_id]['total'] >= $row['medical_adopt_fee'] && $cumulative_donations[$animal_id]['user_id'] === null) {
+                        // Record the user id and the date of donation
+                        $cumulative_donations[$animal_id]['user_id'] = $row['user_id'];
+                        $cumulative_donations[$animal_id]['date'] = $row['receive_date'];
+                      }
+
+                      // Print row, check if the user is the one who made the donation that fulfills the fee
+                      echo "<tr>";
+                      echo "<td>" . $row['username'] . "</td>";
+                      echo "<td><span class='amount-pending'> + RM" . $row['total_amount'] . "</span></td>";
+                      echo "<td>" . $row['animal_name'] . "</td>";
+                      echo "<td>" . $row['receive_date'] . "</td>";
+                      echo "<td><a href='../user/" . $row['receipt_path'] . "' target='_blank'>View</a></td>";
+                      echo "<td>" . $row['medical_adopt_fee'] . "</td>";
+                      echo "<td>";
+                      if ($cumulative_donations[$animal_id]['user_id'] === $row['user_id'] && $cumulative_donations[$animal_id]['date'] === $row['receive_date']) {
+                        echo "<span class='amount-approved'> - RM" . $row['medical_adopt_fee'] . "</span>";
+                      } else {
+                        echo '-';
+                      }
+                      echo "</td>";
+                      echo "</tr>";
+                    }
+                    ?>
             </tbody>
           </table>
         <?php else : ?>
