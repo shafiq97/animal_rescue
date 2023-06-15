@@ -56,6 +56,45 @@ if (isset($_POST['search'])) {
     $pet_status = $_POST['pet_status'];
     $sql .= " AND status like '%$pet_status%' ";
   }
+} else if (isset($_GET['search'])) {
+  $search = $_GET['search'];
+
+  $sql = "SELECT * FROM animals WHERE isMedical = 0 AND approval = 'approved'";
+
+  // Build the WHERE clause based on the search parameters
+  $conditions = [];
+
+  if (isset($_GET['pet-type']) && is_array($_GET['pet-type'])) {
+    $petTypes = array_map(function ($value) use ($conn) {
+      return mysqli_real_escape_string($conn, $value);
+    }, $_GET['pet-type']);
+    $petTypes = implode("', '", $petTypes);
+    $conditions[] = "type IN ('$petTypes')";
+  }
+
+  if (isset($_GET['states']) && is_array($_GET['states'])) {
+    $states = array_map(function ($value) use ($conn) {
+      return mysqli_real_escape_string($conn, $value);
+    }, $_GET['states']);
+    $states = implode("', '", $states);
+    $conditions[] = "location IN ('$states')";
+  }
+
+  // Append the conditions to the query if there are any
+  if (!empty($conditions)) {
+    $whereClause = implode(" AND ", $conditions);
+    $sql .= " AND $whereClause";
+  }
+
+  // Execute the SQL query
+  $result = mysqli_query($conn, $sql);
+
+  if ($result) {
+    $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
+  } else {
+    echo 'Error executing the query: ' . mysqli_error($conn);
+    $animals = [];
+  }
 } else {
   $sql = "SELECT * FROM animals WHERE isMedical = 0 AND approval = 'approved'";
 }
@@ -233,6 +272,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
       </div>
     </form>
 
+
     <div class="container" style="height: 100%; overflow-y: scroll;">
       <div class="row mt-5">
         <div class="col-12">
@@ -241,6 +281,120 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
               <input type="text" class="form-control" placeholder="Search animal" name="search">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="submit">Search</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="pet-type">Pet Type:</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="dog" value="dog">
+                    <label class="form-check-label" for="dog">Dog</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="cat" value="cat">
+                    <label class="form-check-label" for="cat">Cat</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="rabbit" value="rabbit">
+                    <label class="form-check-label" for="rabbit">Rabbit</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="hamster" value="hamster">
+                    <label class="form-check-label" for="hamster">Hamster</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="fish" value="fish">
+                    <label class="form-check-label" for="fish">Fish</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="bird" value="bird">
+                    <label class="form-check-label" for="bird">Bird</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="reptiles" value="reptiles">
+                    <label class="form-check-label" for="reptiles">Reptiles</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="small-and-furry" value="small-and-furry">
+                    <label class="form-check-label" for="small-and-furry">Small and Furry</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="states">States in Malaysia:</label>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="johor" value="johor">
+                        <label class="form-check-label" for="johor">Johor</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="kedah" value="kedah">
+                        <label class="form-check-label" for="kedah">Kedah</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="kelantan" value="kelantan">
+                        <label class="form-check-label" for="kelantan">Kelantan</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="melaka" value="melaka">
+                        <label class="form-check-label" for="melaka">Melaka</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="negeri-sembilan" value="negeri-sembilan">
+                        <label class="form-check-label" for="negeri-sembilan">Negeri Sembilan</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="pahang" value="pahang">
+                        <label class="form-check-label" for="pahang">Pahang</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="perak" value="perak">
+                        <label class="form-check-label" for="perak">Perak</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="wilayah-putrajaya" value="wilayah-putrajaya">
+                        <label class="form-check-label" for="wilayah-putrajaya">Wilayah Persekutuan Putrajaya</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="perlis" value="perlis">
+                        <label class="form-check-label" for="perlis">Perlis</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="penang" value="penang">
+                        <label class="form-check-label" for="penang">Penang</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="sabah" value="sabah">
+                        <label class="form-check-label" for="sabah">Sabah</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="sarawak" value="sarawak">
+                        <label class="form-check-label" for="sarawak">Sarawak</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="selangor" value="selangor">
+                        <label class="form-check-label" for="selangor">Selangor</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="terengganu" value="terengganu">
+                        <label class="form-check-label" for="terengganu">Terengganu</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="wilayah-kuala-lumpur" value="wilayah-kuala-lumpur">
+                        <label class="form-check-label" for="wilayah-kuala-lumpur">Wilayah Persekutuan Kuala Lumpur</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="wilayah-labuan" value="wilayah-labuan">
+                        <label class="form-check-label" for="wilayah-labuan">Wilayah Persekutuan Labuan</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </form>
@@ -265,45 +419,45 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
               echo '<div class="row mt-4">';
             }
           ?>
-              <div class="col-md-6 p-3">
-                <div class="card shadow clickable-card" style="width: 100%; background-color: blanchedalmond; height: auto; overflow: hidden; background-clip: border-box;">
-                  <div class="row no-gutters" onclick="window.location.href='animal_profile.php?id=<?php echo $animal['id']; ?>';">
-                    <div class="col-md-6">
-                      <div style="
+            <div class="col-md-6 p-3">
+              <div class="card shadow clickable-card" style="width: 100%; background-color: blanchedalmond; height: auto; overflow: hidden; background-clip: border-box;">
+                <div class="row no-gutters" onclick="window.location.href='animal_profile.php?id=<?php echo $animal['id']; ?>';">
+                  <div class="col-md-6">
+                    <div style="
                       background-image: url('<?php echo $animal["image_path"]; ?>'); 
                       height: 100%; 
                       background-size: cover; 
                       background-position: center;">
-                      </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="card-body">
-                        <h5 class="card-title">
-                          <?php echo $animal['name']; ?>
-                        </h5>
-                        <p class="card-text">Age (month/year):
-                          <?php echo $animal['age']; ?> years old
-                        </p>
-                        <p class="card-text">Gender:
-                          <?php echo $animal['gender']; ?>
-                        </p>
-                        <p class="card-text">Breed:
-                          <?php echo $animal['breed']; ?>
-                        </p>
-                        <p class="card-text">Maturing Size:
-                          <?php echo $animal['maturing_size']; ?>
-                        </p>
-                        <p class="card-text">Vaccinated:
-                          <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
-                        </p>
-                        <p class="card-text">Adoption Fee:
-                          <?php echo $animal['medical_adopt_fee']; ?>
-                        </p>
-                      </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <?php echo $animal['name']; ?>
+                      </h5>
+                      <p class="card-text">Age (month/year):
+                        <?php echo $animal['age']; ?> years old
+                      </p>
+                      <p class="card-text">Gender:
+                        <?php echo $animal['gender']; ?>
+                      </p>
+                      <p class="card-text">Breed:
+                        <?php echo $animal['breed']; ?>
+                      </p>
+                      <p class="card-text">Maturing Size:
+                        <?php echo $animal['maturing_size']; ?>
+                      </p>
+                      <p class="card-text">Vaccinated:
+                        <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
+                      </p>
+                      <p class="card-text">Adoption Fee:
+                        <?php echo $animal['medical_adopt_fee']; ?>
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
           <?php
             $column++;
             if ($column == 2) {
