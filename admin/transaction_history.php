@@ -23,10 +23,11 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 // get the logged in user's ID
 $user_id = $_SESSION['id'];
 
-$sql = "SELECT *, animals.name as animal_name, animals.id as animal_id, users.username as username, SUM(medical_funds.total_amount) as total_donation FROM medical_funds 
+$sql = "SELECT *, animals.name as animal_name, animals.id as animal_id, users.username as username, medical_funds.total_amount as donation FROM medical_funds 
 inner join animals on medical_funds.animal_id = animals.id
 inner join users on medical_funds.user_id = users.id
-GROUP BY animals.id, users.id";
+ORDER BY medical_funds.id";
+
 
 if (isset($_GET['startDate']) && isset($_GET['endDate'])) {
   $startDate = mysqli_real_escape_string($conn, $_GET['startDate']);
@@ -42,6 +43,22 @@ if (isset($_GET['startDate']) && isset($_GET['endDate'])) {
 
 
 $result = mysqli_query($conn, $sql);
+
+// Query for the total donations
+$sql_total_donations = "SELECT SUM(total_amount) as total_donations FROM medical_funds";
+$result_total_donations = mysqli_query($conn, $sql_total_donations);
+$row_total_donations = mysqli_fetch_assoc($result_total_donations);
+$total_donations = $row_total_donations['total_donations'];
+
+// Query for the total auto deductions (i.e., medical fees)
+$sql_total_medical_fees = "SELECT SUM(medical_adopt_fee) as total_medical_fees FROM animals WHERE id IN (SELECT DISTINCT animal_id FROM medical_funds)";
+$result_total_medical_fees = mysqli_query($conn, $sql_total_medical_fees);
+$row_total_medical_fees = mysqli_fetch_assoc($result_total_medical_fees);
+$total_medical_fees = $row_total_medical_fees['total_medical_fees'];
+
+$balance = $total_donations - $total_medical_fees;
+
+
 // close the database connection
 mysqli_close($conn);
 ?>
@@ -80,7 +97,7 @@ mysqli_close($conn);
     <div class="row">
       <div class="col-md-12">
         <h2>Medical Fund List</h2>
-
+        <h1 class="nav-link">Balance: RM<?php echo number_format($balance, 2); ?></h1>
         <!-- Add this form for date filtering -->
         <form method="GET" class="mb-3" action="transaction_history.php">
           <label for="startDate">Start Date:</label>
