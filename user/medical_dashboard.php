@@ -109,7 +109,9 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                     <form action="medical_fund.php">
                       <div class="form-group">
                         <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
-                        <a href="<?php echo $donationPercentage >= 100 ? '#' : 'medical_fund.php?id=' . $animal['id'] ?>" class='<?php echo $donationPercentage >= 100 ? 'btn btn-warning disabled' : 'btn btn-warning' ?>' onclick="<?php echo $donationPercentage < 100 ? 'return confirm(\'Are you sure?\')' : '' ?>" <?php echo $donationPercentage >= 100 ? 'disabled' : '' ?>>Medical Fund</a>
+                        <a href="<?php echo $donationPercentage >= 100 ? '#' : 'medical_fund.php?id=' . $animal['id'] ?>" class='<?php echo $donationPercentage >= 100 ? 'btn btn-success disabled' : 'btn btn-warning' ?>' onclick="<?php echo $donationPercentage < 100 ? 'return confirm(\'Are you sure?\')' : '' ?>" <?php echo $donationPercentage >= 100 ? 'disabled' : '' ?>>
+                          <?php echo $donationPercentage >= 100 ? 'Case Completed' : 'Medical Fund' ?>
+                        </a>
                       </div>
                     </form>
                     <?php
