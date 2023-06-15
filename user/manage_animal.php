@@ -76,7 +76,6 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
   </style>
 </head>
 <!-- ... -->
-<!-- ... -->
 <body>
   <?php if (isset($_GET['message']) && $_GET['message'] === 'success'): ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
