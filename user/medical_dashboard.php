@@ -66,55 +66,35 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
           </div>
         </form>
         <h2>Medical fund</h2>
-        <div class="card-deck mt-4">
-          <?php
-          if (isset($_GET['search'])) {
-            $search_term = mysqli_real_escape_string($conn, $_GET['search']);
-            $sql         = "SELECT * FROM animals WHERE (name LIKE '%{$search_term}%' or description LIKE '%{$search_term}%') and isMedical = 1";
-            $result      = mysqli_query($conn, $sql);
-            $animals     = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        <?php
+        $count = 0;
+        foreach ($animals as $animal) :
+          if ($count % 2 == 0) {
+            echo '<div class="row mt-4">';
           }
-          $count = 0;
-          foreach ($animals as $animal) :
-            if ($count % 2 == 0) {
-              echo "<div class='row mt-4'>";
-            }
-          ?>
-            <div class="col-lg-6">
-              <a href="animal_profile.php?id=<?php echo $animal['id'] ?>">
-                <div class="card" style="width: 20vw;">
-                  <img style="width: 100%; height: 50vh;" class="card-image-top" src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>">
+        ?>
+          <div class="col-md-6 p-3">
+            <div class="card shadow clickable-card" style="width: 100%; background-color: blanchedalmond; height: 450px; overflow: hidden; background-clip: border-box;">
+              <div class="row no-gutters">
+                <div class="col-md-6">
+                  <div style="
+                      background-image: url('<?php echo $animal["image_path"]; ?>'); 
+                      height: 100%; 
+                      background-size: cover; 
+                      background-position: center;">
+                  </div>
+                </div>
+                <div class="col-md-6">
                   <div class="card-body">
-                    <h5 class="card-title">
-                      <?php echo $animal['name']; ?>
-                    </h5>
-                    <p class="card-text">
-                      <?php echo $animal['description']; ?>
-                    </p>
-                    <p class="card-text">
-                      Age (month/year):
-                      <?php echo $animal['age']; ?> years old
-                    </p>
-                    <p class="card-text">
-                      Gender:
-                      <?php echo $animal['gender']; ?>
-                    </p>
-                    <p class="card-text">
-                      Breed:
-                      <?php echo $animal['breed']; ?>
-                    </p>
-                    <p class="card-text">
-                      Maturing Size:
-                      <?php echo $animal['maturing_size']; ?>
-                    </p>
-                    <p class="card-text">
-                      Vaccinated:
-                      <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
-                    </p>
-                    <p class="card-text">
-                      Medical Fee:
-                      <?php echo $animal['medical_adopt_fee']; ?>
-                    </p>
+                    <h5 class="card-title"><?php echo $animal['name']; ?></h5>
+                    <p class="card-text"><?php echo $animal['description']; ?></p>
+                    <p class="card-text">Age (month/year): <?php echo $animal['age']; ?> years old</p>
+                    <p class="card-text">Gender: <?php echo $animal['gender']; ?></p>
+                    <p class="card-text">Breed: <?php echo $animal['breed']; ?></p>
+                    <p class="card-text">Maturing Size: <?php echo $animal['maturing_size']; ?></p>
+                    <p class="card-text">Vaccinated: <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?></p>
+                    <p class="card-text">Medical Fee: <?php echo $animal['medical_adopt_fee']; ?></p>
+                    <!-- Rest of your code here... -->
                     <?php
                     $donationPercentage = 0;
                     $found              = false;
@@ -143,21 +123,23 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                     ?>
                   </div>
                 </div>
-              </a>
+              </div>
             </div>
-          <?php
-            $count++;
-            if ($count % 2 == 0) {
-              echo "</div>";
-            }
-          endforeach;
-          if ($count % 2 != 0) {
+          </div>
+        <?php
+          $count++;
+          if ($count % 2 == 0) {
             echo "</div>";
           }
-          ?>
-        </div>
+        endforeach;
+        if ($count % 2 != 0) {
+          echo "</div>";
+        }
+        ?>
       </div>
     </div>
+  </div>
+
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
