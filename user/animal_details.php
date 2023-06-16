@@ -31,7 +31,7 @@ if (isset($_GET['id'])) {
   $animal_id = mysqli_real_escape_string($conn, $_GET['id']);
 
   // Fetch the animal details from the database
-  $sql    = "SELECT * FROM animals inner join users on animals.user_id = users.id WHERE animals.id = '$animal_id'";
+  $sql    = "SELECT *, animals.name as animal_name FROM animals inner join users on animals.user_id = users.id WHERE animals.id = '$animal_id'";
   $result = mysqli_query($conn, $sql);
   $animal = mysqli_fetch_assoc($result);
 
@@ -94,12 +94,12 @@ mysqli_close($conn);
     <?php include('header.php'); ?>
   </nav>
 
-  <div class="container vertical-center">
+  <div class="container vertical-center mt-2">
     <?php if ($animal): ?>
       <div class="card">
         <div class="card-title mt-1" style="text-align: center">
           <h2>
-            <?php echo $animal['name']; ?>
+            <?php echo $animal['animal_name']; ?>
           </h2>
         </div>
         <div class="card-body">

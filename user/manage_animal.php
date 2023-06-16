@@ -32,9 +32,12 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>User Dashboard</title>
   <!-- Bootstrap CSS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
   <script>
     function confirmDeactivation(animalId) {
       Swal.fire({
@@ -76,8 +79,9 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
   </style>
 </head>
 <!-- ... -->
+
 <body>
-  <?php if (isset($_GET['message']) && $_GET['message'] === 'success'): ?>
+  <?php if (isset($_GET['message']) && $_GET['message'] === 'success') : ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
       Record deleted successfully.
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -87,24 +91,25 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
   <?php endif; ?>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">User Dashboard</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <?php
-    include('header.php');
-    ?>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <?php
+      include('header.php');
+      ?>
+    </div>
   </nav>
+
   <!-- Display animals in a card layout -->
   <div class="container">
     <div class="row">
-      <?php foreach ($animals as $animal): ?>
+      <?php foreach ($animals as $animal) : ?>
         <div class="col-12">
           <div class="card mb-3">
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>"
-                  class="animal-image img-fluid rounded-start">
+                <img src="<?php echo $animal['image_path']; ?>" alt="<?php echo $animal['name']; ?>" class="animal-image img-fluid rounded-start">
               </div>
               <div class="col-md-8">
                 <div class="card-body">
@@ -133,10 +138,8 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
                       </p>
                     </div>
                     <div>
-                      <a href="animal_profile.php?id=<?php echo $animal['id'] ?>"
-                        class="btn btn-primary d-block mb-2">Edit</a>
-                      <a href="#" class="btn btn-danger d-block"
-                        onclick="confirmDeactivation(<?php echo $animal['id']; ?>)">Deactivate</a>
+                      <a href="animal_profile.php?id=<?php echo $animal['id'] ?>" class="btn btn-primary d-block mb-2">Edit</a>
+                      <a href="#" class="btn btn-danger d-block" onclick="confirmDeactivation(<?php echo $animal['id']; ?>)">Deactivate</a>
                     </div>
                   </div>
                 </div>
@@ -150,12 +153,15 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
   <!-- Logout confirmation dialog -->
   <script>
-    document.getElementById("logout-btn").addEventListener("click", function (event) {
+    document.getElementById("logout-btn").addEventListener("click", function(event) {
       event.preventDefault();
       if (confirm("Are you sure you want to logout?")) {
         window.location.href = "logout.php";
       }
     });
   </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>
