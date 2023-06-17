@@ -56,7 +56,6 @@ if (isset($_POST['search'])) {
     $pet_status = $_POST['pet_status'];
     $sql .= " AND status like '%$pet_status%' ";
   }
-
 } else {
   $sql = "SELECT * FROM animals WHERE isMedical = 0 AND approval = 'approved'";
 }
@@ -80,6 +79,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>User Dashboard</title>
   <!-- Bootstrap CSS -->
@@ -88,15 +88,28 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-</head>
-<body>
-  </head>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+</head>
+
+<body>
   <style>
     .fill-image {
       object-fit: cover;
       height: 100%;
       width: 100%;
+    }
+
+
+    .fixed-form {
+      position: fixed;
+      left: 0px;
+      top: 60px;
+      width: 25%;
+      height: 100%;
+      overflow: auto;
+      box-sizing: border-box;
     }
 
     .navbar {
@@ -197,10 +210,10 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     }
   </style>
   </head>
+
   <body>
     <!-- Modal -->
-    <div class="modal fade" id="animalModal" tabindex="-1" role="dialog" aria-labelledby="animalModalLabel"
-      aria-hidden="true">
+    <div class="modal fade" id="animalModal" tabindex="-1" role="dialog" aria-labelledby="animalModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -250,8 +263,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
               <a class="nav-link" href="user/login.php">Donate</a>
             </li>
             <li class="nav-item dropdown flex-fill">
-              <a class="nav-link dropdown-toggle" href="#" id="petsDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="petsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Pets
               </a>
               <div class="dropdown-menu" aria-labelledby="petsDropdown">
@@ -261,8 +273,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
               </div>
             </li>
             <li class="nav-item dropdown flex-fill">
-              <a class="nav-link dropdown-toggle" href="#" id="adoptionDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="adoptionDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Adoption
               </a>
               <div class="dropdown-menu" aria-labelledby="adoptionDropdown">
@@ -357,9 +368,9 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                 <option value="sarawak">Sarawak</option>
                 <option value="selangor">Selangor</option>
                 <option value="terengganu">Terengganu</option>
-                <option value="wilayah persekutuan kuala lumpur">Wilayah Persekutuan Kuala Lumpur</option>
-                <option value="wilayah persekutuan labuan">Wilayah Persekutuan Labuan</option>
-                <option value="wilayah persekutuan putrajaya">Wilayah Persekutuan Putrajaya</option>
+                <option value="wilayah persekutuan kuala lumpur">Kuala Lumpur</option>
+                <option value="wilayah persekutuan labuan">Labuan</option>
+                <option value="wilayah persekutuan putrajaya">Putrajaya</option>
               </select>
             </div>
           </div>
@@ -382,6 +393,122 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                 <button class="btn btn-outline-secondary" type="submit">Search</button>
               </div>
             </div>
+            <div class="fixed-form">
+              <div class="col">
+                <div class="form-group">
+                  <label for="pet-type">Pet Type:</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="dog" value="dog">
+                    <label class="form-check-label" for="dog">Dog</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="cat" value="cat">
+                    <label class="form-check-label" for="cat">Cat</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="rabbit" value="rabbit">
+                    <label class="form-check-label" for="rabbit">Rabbit</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="hamster" value="hamster">
+                    <label class="form-check-label" for="hamster">Hamster</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="fish" value="fish">
+                    <label class="form-check-label" for="fish">Fish</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="bird" value="bird">
+                    <label class="form-check-label" for="bird">Bird</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="reptiles" value="reptiles">
+                    <label class="form-check-label" for="reptiles">Reptiles</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="pet-type[]" id="small-and-furry" value="small-and-furry">
+                    <label class="form-check-label" for="small-and-furry">Small and Furry</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="states">States in Malaysia:</label>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="johor" value="johor">
+                        <label class="form-check-label" for="johor">Johor</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="kedah" value="kedah">
+                        <label class="form-check-label" for="kedah">Kedah</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="kelantan" value="kelantan">
+                        <label class="form-check-label" for="kelantan">Kelantan</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="melaka" value="melaka">
+                        <label class="form-check-label" for="melaka">Melaka</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="negeri-sembilan" value="negeri-sembilan">
+                        <label class="form-check-label" for="negeri-sembilan">Negeri Sembilan</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="pahang" value="pahang">
+                        <label class="form-check-label" for="pahang">Pahang</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="perak" value="perak">
+                        <label class="form-check-label" for="perak">Perak</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="wilayah-putrajaya" value="wilayah-putrajaya">
+                        <label class="form-check-label" for="wilayah-putrajaya">Putrajaya</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="perlis" value="perlis">
+                        <label class="form-check-label" for="perlis">Perlis</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="penang" value="penang">
+                        <label class="form-check-label" for="penang">Penang</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="sabah" value="sabah">
+                        <label class="form-check-label" for="sabah">Sabah</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="sarawak" value="sarawak">
+                        <label class="form-check-label" for="sarawak">Sarawak</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="selangor" value="selangor">
+                        <label class="form-check-label" for="selangor">Selangor</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="terengganu" value="terengganu">
+                        <label class="form-check-label" for="terengganu">Terengganu</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="wilayah-kuala-lumpur" value="wilayah-kuala-lumpur">
+                        <label class="form-check-label" for="wilayah-kuala-lumpur">Kuala Lumpur</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="states[]" id="wilayah-labuan" value="wilayah-labuan">
+                        <label class="form-check-label" for="wilayah-labuan">Labuan</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary">
+                    Filter
+                  </button>
+                </div>
+              </div>
+            </div>
+
           </form>
           <h2>Featured Animals</h2>
           <?php
@@ -389,7 +516,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
           $items_per_page = 6; // Number of animals per page
           $total_items    = count($animals); // Total number of animals
           $total_pages    = ceil($total_items / $items_per_page); // Calculate total number of pages
-          
+
           if (isset($_GET['page']) && is_numeric($_GET['page'])) {
             $current_page = max(1, min($_GET['page'], $total_pages)); // Get current page from query parameter
           } else {
@@ -397,19 +524,18 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
           }
           $offset            = ($current_page - 1) * $items_per_page; // Calculate offset for database query
           $paginated_animals = array_slice($animals, $offset, $items_per_page); // Get the animals for the current page
-          
+
           $column = 0;
-          foreach ($paginated_animals as $animal):
+          foreach ($paginated_animals as $animal) :
             if ($column == 0) {
               echo '<div class="row mt-4">';
             }
-            ?>
+          ?>
             <div class="col-md-6 p-3">
               <div class="card" style="background-color: blanchedalmond;">
                 <div class="row no-gutters">
                   <div class="col-md-6">
-                    <img height="300px" src="<?php echo 'user/' . $animal['image_path']; ?>" class="card-img"
-                      alt="<?php echo $animal['name']; ?>">
+                    <img height="300px" src="<?php echo 'user/' . $animal['image_path']; ?>" class="card-img" alt="<?php echo $animal['name']; ?>">
                   </div>
                   <div class="col-md-6">
                     <div class="card-body">
@@ -439,7 +565,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                 </div>
               </div>
             </div>
-            <?php
+          <?php
             $column++;
             if ($column == 2) {
               echo '</div>';
@@ -454,19 +580,19 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
           <!-- Pagination links -->
           <nav aria-label="Animal Pagination" class="mt-4">
             <ul class="pagination justify-content-center">
-              <?php if ($current_page > 1): ?>
+              <?php if ($current_page > 1) : ?>
                 <li class="page-item">
                   <a class="page-link" href="?page=<?php echo $current_page - 1; ?>">Previous</a>
                 </li>
               <?php endif; ?>
 
-              <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+              <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
                 <li class="page-item <?php echo $i == $current_page ? 'active' : ''; ?>">
                   <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
                 </li>
               <?php endfor; ?>
 
-              <?php if ($current_page < $total_pages): ?>
+              <?php if ($current_page < $total_pages) : ?>
                 <li class="page-item">
                   <a class="page-link" href="?page=<?php echo $current_page + 1; ?>">Next</a>
                 </li>
@@ -479,16 +605,13 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
     </div>
 
-
-
-
     <!-- Bootstrap JS -->
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!-- Logout confirmation dialog -->
     <script>
-      document.getElementById("logout-btn").addEventListener("click", function (event) {
+      document.getElementById("logout-btn").addEventListener("click", function(event) {
         event.preventDefault();
         if (confirm("Are you sure you want to logout?")) {
           window.location.href = "logout.php";
@@ -496,19 +619,16 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
       });
     </script>
     <script>
-      $(document).ready(function () {
-        $('#location-select').select2();
-      });
-    </script>
-    <script>
-      $(document).on('click', '.animal-img', function () {
+      $(document).on('click', '.animal-img', function() {
         var animalId = $(this).data('animal-id');
         console.log(animalId);
         $.ajax({
           url: 'get_animal.php',
           type: 'GET',
-          data: { id: animalId },
-          success: function (data) {
+          data: {
+            id: animalId
+          },
+          success: function(data) {
             // Update the modal with the animal information
             console.log(data.animal_name);
             $('#animalModalLabel').text(data.animal_name);
@@ -520,19 +640,18 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             $('#userPhone').text(data.user_nophone);
             $('#animalModal').modal('show');
           },
-          error: function (xhr, status, error) {
+          error: function(xhr, status, error) {
             console.log(error);
           }
         });
       });
-
     </script>
     <script>
       const breedSelect = document.getElementById('breed');
 
       const radioButtons = document.querySelectorAll('input[type="radio"][name="pet-type"]');
       radioButtons.forEach(radioButton => {
-        radioButton.addEventListener('change', function () {
+        radioButton.addEventListener('change', function() {
           const breedSelect = document.getElementById('breed');
           breedSelect.innerHTML = ''; // clear all options
           if (this.value === 'dog') {
@@ -579,6 +698,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
           }
         });
       });
+
       function addOption(value, text) {
         const option = document.createElement('option');
         option.value = value;
@@ -587,4 +707,5 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
       }
     </script>
   </body>
+
 </html>
