@@ -23,10 +23,19 @@ if (!$conn) {
   die('Connection failed: ' . mysqli_connect_error());
 }
 $userId = $_SESSION['id'];
+
+$medicalFilter = '';
+if (isset($_GET['isMedical']) && $_GET['isMedical'] !== '') {
+  $isMedical = $_GET['isMedical'];
+  $medicalFilter = ' AND isMedical=' . $isMedical;
+}
+
 // Retrieve animals from the database
-$sql     = 'SELECT * FROM animals WHERE user_id=' . $userId . '';
+$sql = 'SELECT * FROM animals WHERE user_id=' . $userId . $medicalFilter;
 $result  = mysqli_query($conn, $sql);
 $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+
 
 ?>
 
@@ -103,6 +112,17 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
   <!-- Display animals in a card layout -->
   <div class="container">
+    <form method="GET" action="">
+      <div class="form-group">
+        <label for="filter">Filter by medical condition:</label>
+        <select id="filter" class="form-control" name="isMedical">
+          <option value="">Select</option>
+          <option value="1">Medical</option>
+          <option value="0">Non-medical</option>
+        </select>
+        <button type="submit" class="btn btn-primary mt-2">Apply filter</button>
+      </div>
+    </form>
     <div class="row">
       <?php foreach ($animals as $animal) : ?>
         <div class="col-12">
