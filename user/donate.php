@@ -24,6 +24,11 @@
         <form method="POST" action="process_donation.php" enctype="multipart/form-data">
           <!-- <input type="hidden" name='animal_id' value="<?php echo $_GET['id'] ?>"> -->
           <div class="form-group">
+            <img src="../images/QRCODE.png" alt="QRCODE">
+            <h4>Maybank</h4>
+            <h4>155393382874</h4>
+          </div>
+          <div class="form-group">
             <label for="amount">Amount(RM):</label>
             <input type="number" class="form-control" id="amount" name="amount" required>
           </div>

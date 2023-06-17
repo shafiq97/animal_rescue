@@ -136,6 +136,17 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
       height: 100%;
       width: 100%;
     }
+
+    .fixed-form {
+      position: fixed;
+      left: 40px;
+      top: 60px;
+      width: 25%;
+      height: 100%;
+      overflow: auto;
+      padding: 30px;
+      box-sizing: border-box;
+    }
   </style>
   </head>
 
@@ -283,8 +294,8 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                 <button class="btn btn-outline-secondary" type="submit">Search</button>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-6">
+            <div class="fixed-form">
+              <div class="col">
                 <div class="form-group">
                   <label for="pet-type">Pet Type:</label>
                   <div class="form-check">
@@ -320,12 +331,10 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                     <label class="form-check-label" for="small-and-furry">Small and Furry</label>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-6">
                 <div class="form-group">
                   <label for="states">States in Malaysia:</label>
                   <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="states[]" id="johor" value="johor">
                         <label class="form-check-label" for="johor">Johor</label>
@@ -358,8 +367,6 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                         <input class="form-check-input" type="checkbox" name="states[]" id="wilayah-putrajaya" value="wilayah-putrajaya">
                         <label class="form-check-label" for="wilayah-putrajaya">Wilayah Persekutuan Putrajaya</label>
                       </div>
-                    </div>
-                    <div class="col-sm-6">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="states[]" id="perlis" value="perlis">
                         <label class="form-check-label" for="perlis">Perlis</label>
@@ -395,7 +402,13 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                     </div>
                   </div>
                 </div>
+                <div class="form-group">
+                  <button class="btn btn-primary" >
+                    Filter
+                  </button>
+                </div>
               </div>
+              
             </div>
           </form>
           <h2>Featured Animals</h2>
