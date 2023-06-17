@@ -139,12 +139,11 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 
     .fixed-form {
       position: fixed;
-      left: 40px;
+      left: 0px;
       top: 60px;
       width: 25%;
       height: 100%;
       overflow: auto;
-      padding: 30px;
       box-sizing: border-box;
     }
   </style>
@@ -365,7 +364,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="states[]" id="wilayah-putrajaya" value="wilayah-putrajaya">
-                        <label class="form-check-label" for="wilayah-putrajaya">Wilayah Persekutuan Putrajaya</label>
+                        <label class="form-check-label" for="wilayah-putrajaya">Putrajaya</label>
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="states[]" id="perlis" value="perlis">
@@ -393,22 +392,22 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="states[]" id="wilayah-kuala-lumpur" value="wilayah-kuala-lumpur">
-                        <label class="form-check-label" for="wilayah-kuala-lumpur">Wilayah Persekutuan Kuala Lumpur</label>
+                        <label class="form-check-label" for="wilayah-kuala-lumpur">Kuala Lumpur</label>
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="states[]" id="wilayah-labuan" value="wilayah-labuan">
-                        <label class="form-check-label" for="wilayah-labuan">Wilayah Persekutuan Labuan</label>
+                        <label class="form-check-label" for="wilayah-labuan">Labuan</label>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-primary" >
+                  <button class="btn btn-primary">
                     Filter
                   </button>
                 </div>
               </div>
-              
+
             </div>
           </form>
           <h2>Featured Animals</h2>
