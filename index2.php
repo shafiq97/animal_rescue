@@ -56,6 +56,45 @@ if (isset($_POST['search'])) {
     $pet_status = $_POST['pet_status'];
     $sql .= " AND status like '%$pet_status%' ";
   }
+} else if (isset($_GET['search'])) {
+  $search = $_GET['search'];
+
+  $sql = "SELECT * FROM animals WHERE isMedical = 0 AND approval = 'approved'";
+
+  // Build the WHERE clause based on the search parameters
+  $conditions = [];
+
+  if (isset($_GET['pet-type']) && is_array($_GET['pet-type'])) {
+    $petTypes = array_map(function ($value) use ($conn) {
+      return mysqli_real_escape_string($conn, $value);
+    }, $_GET['pet-type']);
+    $petTypes = implode("', '", $petTypes);
+    $conditions[] = "type IN ('$petTypes')";
+  }
+
+  if (isset($_GET['states']) && is_array($_GET['states'])) {
+    $states = array_map(function ($value) use ($conn) {
+      return mysqli_real_escape_string($conn, $value);
+    }, $_GET['states']);
+    $states = implode("', '", $states);
+    $conditions[] = "location IN ('$states')";
+  }
+
+  // Append the conditions to the query if there are any
+  if (!empty($conditions)) {
+    $whereClause = implode(" AND ", $conditions);
+    $sql .= " AND $whereClause";
+  }
+
+  // Execute the SQL query
+  $result = mysqli_query($conn, $sql);
+
+  if ($result) {
+    $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
+  } else {
+    echo 'Error executing the query: ' . mysqli_error($conn);
+    $animals = [];
+  }
 } else {
   $sql = "SELECT * FROM animals WHERE isMedical = 0 AND approval = 'approved'";
 }
