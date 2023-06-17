@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+session_start();
 // Connect to the database
 $host     = 'localhost';
 $user     = 'root';
@@ -40,6 +41,14 @@ if (!$result_funds) {
 }
 $medical_funds = mysqli_fetch_all($result_funds, MYSQLI_ASSOC);
 
+$canEdit = "SELECT * FROM animals WHERE id = '$id'";
+$result = mysqli_query($conn, $canEdit);
+$edit_animal = mysqli_fetch_assoc($result);
+$edit_animal_user_id = $edit_animal['user_id'];
+
+$logged_in_user_id = $_SESSION['id'];
+
+
 
 // Close the database connection
 mysqli_close($conn);
@@ -55,6 +64,7 @@ mysqli_close($conn);
   <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -96,7 +106,7 @@ mysqli_close($conn);
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!-- <a class="navbar-brand" href="#">User Dashboard</a> -->
+    <a class="navbar-brand" href="#">User Dashboard</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -251,8 +261,9 @@ mysqli_close($conn);
           <input class="form-control mb-3 <?php echo isset($_POST['medical_adopt_fee']) && empty($_POST['medical_adopt_fee']) ? 'is-invalid' : ''; ?>" type="text" name="medical_adopt_fee" id="medical_adopt_fee" value="<?php echo $animal['medical_adopt_fee']; ?>" required>
           <div class="invalid-feedback">Please enter the donation amount.</div>
         </div>
-
-        <input type="submit" value="Update" class="btn btn-success">
+        <?php if ($logged_in_user_id == $_SESSION['id']) : ?>
+          <input type="submit" value="Update" class="btn btn-success">
+        <?php endif; ?>
         <a class="btn btn-warning" href="dashboard.php">Back</a>
       </form>
     </div>
@@ -295,6 +306,8 @@ mysqli_close($conn);
       $('#medical_funds_table').DataTable();
     });
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>
