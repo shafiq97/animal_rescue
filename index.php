@@ -4,35 +4,25 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="apple-touch-icon" type="image/png"
-    href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+  <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
 
   <meta name="apple-mobile-web-app-title" content="CodePen">
 
-  <link rel="shortcut icon" type="image/x-icon"
-    href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
 
-  <link rel="mask-icon" type="image/x-icon"
-    href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg"
-    color="#111" />
+  <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
 
 
   <!-- Add jQuery library -->
-  <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 
   <!-- Add Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
-    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- Add Bootstrap JavaScript -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
   <title>Welcome</title>
@@ -138,6 +128,11 @@
       animation: shine 2s infinite;
     }
 
+    .navbar-nav {
+      display: flex;
+      flex-direction: row;
+    }
+
     @-webkit-keyframes shine {
       from {
         -webkit-mask-position: 150%;
@@ -150,7 +145,7 @@
   </style>
 
   <script>
-    window.console = window.console || function (t) { };
+    window.console = window.console || function(t) {};
   </script>
 
 
@@ -185,8 +180,7 @@
             <a class="nav-link" href="user/login.php">Donate</a>
           </li>
           <li class="nav-item dropdown flex-fill">
-            <a class="nav-link dropdown-toggle" href="#" id="petsDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="petsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Pets
             </a>
             <div class="dropdown-menu" aria-labelledby="petsDropdown">
@@ -196,8 +190,7 @@
             </div>
           </li>
           <li class="nav-item dropdown flex-fill">
-            <a class="nav-link dropdown-toggle" href="#" id="adoptionDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="adoptionDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Adoption
             </a>
             <div class="dropdown-menu" aria-labelledby="adoptionDropdown">
@@ -206,16 +199,13 @@
               <a class="dropdown-item" href="#">Fees</a>
             </div>
           </li>
+          <li class="nav-item flex-fill">
+            <a class="btn btn-warning nav-link" href="user/login.php" style="margin-left: auto;">Login</a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
-  <div class="wrapper">
-    <h1 align="center"><a href="index2.php" class="effect-underline">Animal Rescue</a></h1>
-  </div>
-
-
-
 </body>
 
 </html>
