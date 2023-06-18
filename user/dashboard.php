@@ -137,6 +137,10 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
       width: 100%;
     }
 
+    #searcing-form {
+      margin-top: 100px;
+    }
+
     .fixed-form {
       position: fixed;
       left: 0px;
