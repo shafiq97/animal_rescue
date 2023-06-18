@@ -22,7 +22,7 @@ error_reporting(E_ALL);
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <a class="navbar-brand" href="#">Admin Reporting</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,6 +34,13 @@ error_reporting(E_ALL);
   </nav>
   <div class="container">
     <h1>Total Donations Approved per User</h1>
+    <div class="mb-3">
+      <label for="filter">Filter:</label>
+      <select id="filter" class="form-control" onchange="updateChart()">
+        <option value="week">Week</option>
+        <option value="month">Month</option>
+      </select>
+    </div>
     <canvas id="chart"></canvas>
   </div>
 
@@ -48,11 +55,19 @@ error_reporting(E_ALL);
     die("Connection failed: " . $conn->connect_error);
   }
 
-  // Get the total approved donations for each user
+  // Get the total approved donations for each user based on filter
+  $filter = isset($_GET['filter']) ? $_GET['filter'] : 'week';
   $sql    = "SELECT user_id, SUM(amount) as total_amount 
   FROM donations 
-  WHERE admin_approval = 'approved'
-  GROUP BY user_id";
+  WHERE admin_approval = 'approved'";
+  if ($filter === 'week') {
+    $sql .= " AND DATE(created_at) >= CURDATE() - INTERVAL DAYOFWEEK(CURDATE())+6 DAY
+    AND DATE(created_at) < CURDATE() - INTERVAL DAYOFWEEK(CURDATE())-1 DAY";
+  } else if ($filter === 'month') {
+    $sql .= " AND YEAR(created_at) = YEAR(CURDATE()) 
+    AND MONTH(created_at) = MONTH(CURDATE())";
+  }
+  $sql .= " GROUP BY user_id";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     $data = [
@@ -73,17 +88,30 @@ error_reporting(E_ALL);
   ?>
 
   <script>
+    var chart;
+
     $(document).ready(function () {
+      updateChart();
+    });
+
+    function updateChart() {
+      var filter = document.getElementById('filter').value;
+
       // Get the chart data from the PHP array
       var data = {
         labels: <?php echo json_encode($data['labels']); ?>,
         values: <?php echo json_encode($data['values']); ?>
       };
 
+      // Remove existing chart if it exists
+      if (chart) {
+        chart.destroy();
+      }
+
       // Generate chart
       var ctx = document.getElementById('chart').getContext('2d');
-      var chart = new Chart(ctx, {
-        type: 'bar',
+      chart = new Chart(ctx, {
+        type: 'line',
         data: {
           labels: data.labels,
           datasets: [{
@@ -91,7 +119,8 @@ error_reporting(E_ALL);
             data: data.values,
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
+            borderWidth: 1,
+            fill: false
           }]
         },
         options: {
@@ -113,8 +142,7 @@ error_reporting(E_ALL);
           }
         }
       });
-
-    });
+    }
   </script>
 </body>
 </html>

@@ -57,7 +57,7 @@ if (isset($_SESSION['username'])) {
     ?>
   </nav>
 
-  <div class="container">
+  <div class="container" style="margin-top: 100px;">
     <div class="row">
       <div class="col-md-12">
         <h1>Welcome,
