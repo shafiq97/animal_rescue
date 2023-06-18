@@ -163,23 +163,6 @@ mysqli_close($conn);
                 ?>
                 <?php echo $animal['medical_adopt_fee']; ?>
                 </p>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-md-12 d-flex justify-content-between align-items-center">
-              <button class="btn btn-warning">
-                <img src="<?php echo $animal['profile_picture']; ?>" alt="" style="width: 24px; height: 24px;"> <?php echo $animal['username']; ?>
-              </button>
-              <button class="btn btn-secondary">
-                <i class="fas fa-envelope"></i> <small>Send Email</small>
-              </button>
-              <button class="btn btn-success">
-                <i class="fas fa-phone"></i>
-                <?php echo $animal['user_nophone']; ?>
-              </button>
-              <button class="btn btn-primary" id="comment-button">
-                <i class="fas fa-comment"></i> Write Comment
-              </button>
               <?php
               $donationPercentage = 0;
               $found = false;
@@ -201,6 +184,27 @@ mysqli_close($conn);
               <?php
               }
               ?>
+            
+
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12 d-flex justify-content-between align-items-center">
+              <button class="btn btn-warning">
+                <img src="<?php echo $animal['profile_picture']; ?>" alt="" style="width: 24px; height: 24px;"> <?php echo $animal['username']; ?>
+              </button>
+              <button class="btn btn-secondary">
+                <i class="fas fa-envelope"></i> <small>Send Email</small>
+              </button>
+              <button class="btn btn-success">
+                <i class="fas fa-phone"></i>
+                <?php echo $animal['user_nophone']; ?>
+              </button>
+              <button class="btn btn-primary" id="comment-button">
+                <i class="fas fa-comment"></i> Write Comment
+              </button>
+
+
             </div>
           </div>
           <div class="row mt-3">
