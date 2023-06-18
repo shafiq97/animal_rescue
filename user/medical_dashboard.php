@@ -45,12 +45,19 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
       height: 100%;
       display: flex;
       flex-direction: column;
-      margin-bottom: 20px; /* Add margin between rows */
+      margin-bottom: 20px;
+      /* Add margin between rows */
     }
 
     .card-body {
       padding: 10px;
       flex-grow: 1;
+    }
+
+    .center-vertically {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
   </style>
 </head>
@@ -85,7 +92,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
           $count = 0;
           foreach ($animals as $animal) :
           ?>
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="card shadow clickable-card">
                 <div class="row no-gutters" onclick="window.location.href='animal_profile.php?id=<?php echo $animal['id']; ?>';">
                   <div class="col-md-4">
@@ -113,7 +120,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                       <p class="card-text">Medical Fee: <?php echo $animal['medical_adopt_fee']; ?></p>
                     </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-4 text-center center-vertically pr-3">
                     <?php
                     $donationPercentage = 0;
                     $found = false;
@@ -147,10 +154,9 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
               </div>
             </div>
           <?php
-            $count++;
-            if ($count % 2 == 0) {
-              echo '</div><div class="row mt-4">';
-            }
+
+            echo '</div><div class="row mt-4">';
+
           endforeach;
           ?>
         </div>
