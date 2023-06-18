@@ -25,7 +25,12 @@ $conn = mysqli_connect($host, $username, $password, $dbname);
 if (!$conn) {
   die('Connection failed: ' . mysqli_connect_error());
 }
-
+if (isset($_GET['id'])) {
+  $id = $_GET['id'];
+} else {
+  echo 'Animal ID not specified.';
+  exit;
+}
 // Retrieve the medical funds data from the database
 $query_funds  = "SELECT * FROM medical_funds inner join users on users.id = medical_funds.user_id  WHERE animal_id = '$id'";
 $result_funds = mysqli_query($conn, $query_funds);
