@@ -32,7 +32,7 @@ error_reporting(E_ALL);
     include('header.php');
     ?>
   </nav>
-  <div class="container" style="">
+  <div class="container" style="margin-top: 100px">
     <h1>Total Donations Approved per User</h1>
     <canvas id="chart"></canvas>
   </div>
