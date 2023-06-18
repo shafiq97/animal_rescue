@@ -25,7 +25,6 @@ GROUP BY animal_id
 ORDER BY total_donations DESC';
 $result2   = mysqli_query($conn, $sql2);
 $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
-
 ?>
 
 <!DOCTYPE html>
@@ -89,7 +88,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             <div class="col-md-6">
               <div class="card shadow clickable-card">
                 <div class="row no-gutters" onclick="window.location.href='animal_profile.php?id=<?php echo $animal['id']; ?>';">
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div style="
                       background-image: url('<?php echo $animal["image_path"]; ?>'); 
                       height: 100%; 
@@ -102,7 +101,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                       <img src="<?php echo $animal["image_path"]; ?>" alt="<?php echo $animal["name"]; ?>" class="fill-image">
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="card-body">
                       <h5 class="card-title"><?php echo $animal['name']; ?></h5>
                       <p class="card-text"><?php echo $animal['description']; ?></p>
@@ -112,36 +111,37 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                       <p class="card-text">Maturing Size: <?php echo $animal['maturing_size']; ?></p>
                       <p class="card-text">Vaccinated: <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?></p>
                       <p class="card-text">Medical Fee: <?php echo $animal['medical_adopt_fee']; ?></p>
-                      <!-- Rest of your code here... -->
-                      <?php
-                      $donationPercentage = 0;
-                      $found = false;
-                      foreach ($donations as $donation) {
-                        if ($donation['animal_id'] == $animal['id']) {
-                          $found = true;
-                          $donationPercentage = (float) $donation['total_donations'] / (float) $animal['medical_adopt_fee'] * 100;
-                          break;
-                        }
-                      }
-                      ?>
-                      <form action="medical_fund.php">
-                        <div class="form-group">
-                          <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
-                          <a href="<?php echo $donationPercentage >= 100 ? '#' : 'medical_fund.php?id=' . $animal['id'] ?>" class='<?php echo $donationPercentage >= 100 ? 'btn btn-success disabled' : 'btn btn-danger' ?>' onclick="<?php echo $donationPercentage < 100 ? 'return confirm(\'Are you sure?\')' : '' ?>" <?php echo $donationPercentage >= 100 ? 'disabled' : '' ?>>
-                            <?php echo $donationPercentage >= 100 ? 'Case Completed' : 'Need Help' ?>
-                          </a>
-                        </div>
-                      </form>
-                      <?php
-                      if ($found) {
-                      ?>
-                        <div class="progress mt-4">
-                          <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $donationPercentage ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo round($donationPercentage) ?>%</div>
-                        </div>
-                      <?php
-                      }
-                      ?>
                     </div>
+                  </div>
+                  <div class="col-md-4">
+                    <?php
+                    $donationPercentage = 0;
+                    $found = false;
+                    foreach ($donations as $donation) {
+                      if ($donation['animal_id'] == $animal['id']) {
+                        $found = true;
+                        $donationPercentage = (float) $donation['total_donations'] / (float) $animal['medical_adopt_fee'] * 100;
+                        break;
+                      }
+                    }
+                    ?>
+                    <form action="medical_fund.php">
+                      <div class="form-group">
+                        <input type="hidden" name='animal_id' value="<?php echo $animal['id'] ?>">
+                        <a href="<?php echo $donationPercentage >= 100 ? '#' : 'medical_fund.php?id=' . $animal['id'] ?>" class='<?php echo $donationPercentage >= 100 ? 'btn btn-success disabled' : 'btn btn-danger' ?>' onclick="<?php echo $donationPercentage < 100 ? 'return confirm(\'Are you sure?\')' : '' ?>" <?php echo $donationPercentage >= 100 ? 'disabled' : '' ?>>
+                          <?php echo $donationPercentage >= 100 ? 'Case Completed' : 'Need Help' ?>
+                        </a>
+                      </div>
+                    </form>
+                    <?php
+                    if ($found) {
+                    ?>
+                      <div class="progress mt-4">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $donationPercentage ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo round($donationPercentage) ?>%</div>
+                      </div>
+                    <?php
+                    }
+                    ?>
                   </div>
                 </div>
               </div>
@@ -164,4 +164,3 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 </body>
 
 </html>
-
