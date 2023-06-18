@@ -163,28 +163,28 @@ mysqli_close($conn);
                 ?>
                 <?php echo $animal['medical_adopt_fee']; ?>
                 </p>
-              <?php
-              $donationPercentage = 0;
-              $found = false;
-              foreach ($donations as $donation) {
-                if ($donation['animal_id'] == $_GET['id']) {
-                  $found = true;
-                  $donationPercentage = (float) $donation['total_donations'] / (float) $animal['medical_adopt_fee'] * 100;
-                  break;
+                <?php
+                $donationPercentage = 0;
+                $found = false;
+                foreach ($donations as $donation) {
+                  if ($donation['animal_id'] == $_GET['id']) {
+                    $found = true;
+                    $donationPercentage = (float) $donation['total_donations'] / (float) $animal['medical_adopt_fee'] * 100;
+                    break;
+                  }
                 }
-              }
-              ?>
-              <?php
-              if ($animal['isMedical'] == 1) {
-              ?>
-                <button class='<?php echo $donationPercentage >= 100 ? 'btn btn-success disabled' : 'btn btn-danger' ?>'>
-                  <i class="fa fa-money"></i>
-                  <?php echo $donationPercentage >= 100 ? 'Case Completed' : 'Need Help' ?>
-                </button>
-              <?php
-              }
-              ?>
-            
+                ?>
+                <?php
+                if ($animal['isMedical'] == 1) {
+                ?>
+                  <button class='<?php echo $donationPercentage >= 100 ? 'btn btn-success disabled' : 'btn btn-danger' ?>'>
+                    <i class="fa fa-money"></i>
+                    <?php echo $donationPercentage >= 100 ? 'Case Completed' : 'Need Help' ?>
+                  </button>
+                <?php
+                }
+                ?>
+
 
             </div>
           </div>
@@ -193,9 +193,9 @@ mysqli_close($conn);
               <button class="btn btn-warning">
                 <img src="<?php echo $animal['profile_picture']; ?>" alt="" style="width: 24px; height: 24px;"> <?php echo $animal['username']; ?>
               </button>
-              <button class="btn btn-secondary">
+              <a href="mailto:<?php echo $animal['email']; ?>" class="btn btn-secondary">
                 <i class="fas fa-envelope"></i> <small>Send Email</small>
-              </button>
+              </a>
               <button class="btn btn-success">
                 <i class="fas fa-phone"></i>
                 <?php echo $animal['user_nophone']; ?>
