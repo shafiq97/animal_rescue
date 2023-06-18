@@ -321,6 +321,9 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                 <a class="dropdown-item" href="#">Fees</a>
               </div>
             </li>
+            <li class="nav-item flex-fill">
+              <a class="btn btn-warning nav-link" href="user/login.php" style="margin-left: auto;">Login</a>
+            </li>
           </ul>
         </div>
       </div>
