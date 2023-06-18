@@ -145,7 +145,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
       position: fixed;
       left: 0px;
       top: 60px;
-      width: 25%;
+      width: 200px;
       height: 100%;
       overflow: auto;
       box-sizing: border-box;
