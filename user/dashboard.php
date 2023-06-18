@@ -140,7 +140,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     .fixed-form {
       position: fixed;
       left: 0px;
-      top: 60px;
+      top: 80px;
       width: 200px;
       height: 100%;
       overflow: auto;
@@ -176,7 +176,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
         </div>
       </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <a class="navbar-brand" href="#">User Dashboard</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

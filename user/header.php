@@ -1,9 +1,7 @@
 <?php
-
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-
 ?>
 
 <style>
@@ -18,25 +16,42 @@ if (session_status() == PHP_SESSION_NONE) {
     right: 0;
     left: auto;
   }
+
+  .dropdown-menu {
+    background-color: #7B3F00;
+  }
+
+  .navbar {
+    background-color: #7B3F00 !important;
+  }
+
+  .navbar a,
+  .navbar .nav-link {
+    color: white !important;
+  }
 </style>
 
 <div class="collapse navbar-collapse" id="navbarNav">
-  <?php
-  if (isset($_SESSION['loggedin'])) {
-  ?>
-    <ul class="navbar-nav mr-auto">
+  <ul class="navbar-nav mr-auto" style="color: white">
+    <?php if (isset($_SESSION['loggedin'])) { ?>
       <li class="nav-item">
         <a class="nav-link" href="dashboard.php">Dashboard</a>
       </li>
-
       <li class="nav-item">
         <a class="nav-link" href="questionnaire.php">Questionnaire</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Settings</a>
       </li>
-    </ul>
-    <ul class="navbar-nav ml-auto d-flex align-items-center">
+    <?php } else { ?>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Welcome!</a>
+      </li>
+    <?php } ?>
+  </ul>
+
+  <ul class="navbar-nav ml-auto align-items-center">
+    <?php if (isset($_SESSION['loggedin'])) { ?>
       <li class="nav-item mr-3">
         <a href="donate.php" onclick="return confirm('Are you sure?')" class='btn btn-primary'>Donate</a>
       </li>
@@ -57,26 +72,18 @@ if (session_status() == PHP_SESSION_NONE) {
           <a id="logout-btn" href="logout.php" class="dropdown-item my-2 my-sm-0">Logout</a>
         </div>
       </li>
-    </ul>
-
-  <?php
-  } else {
-  ?>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Welcome!</a>
-    </li>
-    <ul class="navbar-nav ml-auto">
+    <?php } else { ?>
       <li class="nav-item mr-3">
         <a href="user/login.php" onclick="return confirm('Are you sure?')" class='btn btn-primary'>Donate</a>
       </li>
       <li class="nav-item mr-3">
         <a href="user/login.php" onclick="return confirm('Are you sure?')" class='btn btn-light'>Login</a>
       </li>
-    </ul>
-  <?php
-  }
-  ?>
+    <?php } ?>
+  </ul>
 </div>
+
+
 <script>
   document.getElementById("logout-btn").addEventListener("click", function(event) {
     event.preventDefault();
