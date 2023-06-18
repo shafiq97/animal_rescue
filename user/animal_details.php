@@ -31,6 +31,13 @@ if (isset($_GET['id'])) {
   echo 'Animal ID not specified.';
   exit;
 }
+$sql2      = 'SELECT *, SUM(total_amount) AS total_donations
+FROM medical_funds
+GROUP BY animal_id
+ORDER BY total_donations DESC';
+$result2   = mysqli_query($conn, $sql2);
+$donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
+
 // Retrieve the medical funds data from the database
 $query_funds  = "SELECT * FROM medical_funds inner join users on users.id = medical_funds.user_id  WHERE animal_id = '$id'";
 $result_funds = mysqli_query($conn, $query_funds);
@@ -174,10 +181,22 @@ mysqli_close($conn);
                 <i class="fas fa-comment"></i> Write Comment
               </button>
               <?php
+              $donationPercentage = 0;
+              $found = false;
+              foreach ($donations as $donation) {
+                if ($donation['animal_id'] == $_GET['id']) {
+                  $found = true;
+                  $donationPercentage = (float) $donation['total_donations'] / (float) $animal['medical_adopt_fee'] * 100;
+                  break;
+                }
+              }
+              ?>
+              <?php
               if ($animal['isMedical'] == 1) {
               ?>
-                <button class="btn btn-light" id="comment-button">
-                  <i class="fas fa-comment"></i> Medical
+                <button class='<?php echo $donationPercentage >= 100 ? 'btn btn-success disabled' : 'btn btn-danger' ?>'>
+                  <i class="fa fa-money"></i>
+                  <?php echo $donationPercentage >= 100 ? 'Case Completed' : 'Need Help' ?>
                 </button>
               <?php
               }
