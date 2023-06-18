@@ -145,18 +145,21 @@ mysqli_close($conn);
           <label for="name">Name:
             <?php echo $animal['name']; ?>
           </label>
+          <input value="<?php echo $animal['name']; ?>" type="text" class="form-control" name="name" id="name" required>
           <div class="invalid-feedback">Please enter the name.</div>
         </div>
 
         <div class="form-group">
           <label for="description">Description: </label>
-          <?php echo $animal['description']; ?>
+          <textarea class="form-control" name="description" id="description" rows="5" required><?php echo $animal['description']; ?></textarea>
+          <div class="invalid-feedback">Please enter the description.</div>
         </div>
 
         <div class="form-group">
           <label for="age">Age (month/year):
             <?php echo $animal['age']; ?>
           </label>
+          <input value="<?php echo $animal['age']; ?>" type="text" class="form-control" name="age" id="age" value="" required>
           <div class="invalid-feedback">Please enter the age.</div>
         </div>
 
@@ -187,8 +190,15 @@ mysqli_close($conn);
         </div>
 
         <div class="form-group">
-          <label for="health">Health:</label> 
-          <?php echo $animal['health']; ?>
+          <label for="health">Health:</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="health" id="good" value="good" <?php echo $animal['health'] == 'good' ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="good">Good</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="health" id="bad" value="bad" <?php echo $animal['health'] == 'bad' ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="bad">Bad</label>
+          </div>
         </div>
 
         <div class="form-group">
@@ -239,7 +249,7 @@ mysqli_close($conn);
             <label class="form-check-label" for="yes">Yes</label>
           </div>
           <div class="form-check">
-            <input disabled class="form-check-input" type="radio" name="vaccinated" id="no" value="no" <?php echo $animal['vaccinated'] == '1' ? 'checked' : ''; ?>>
+            <input class="form-check-input" type="radio" name="vaccinated" id="no" value="no" <?php echo $animal['vaccinated'] == '1' ? 'checked' : ''; ?>>
             <label class="form-check-label" for="no">No</label>
           </div>
         </div>
@@ -248,8 +258,13 @@ mysqli_close($conn);
           <label for="medical_adopt_fee">Donation Amount:
             <?php echo $animal['medical_adopt_fee']; ?>
           </label>
-          <input disabled class="form-control mb-3 <?php echo isset($_POST['medical_adopt_fee']) && empty($_POST['medical_adopt_fee']) ? 'is-invalid' : ''; ?>" type="text" name="medical_adopt_fee" id="medical_adopt_fee" value="<?php echo $animal['medical_adopt_fee']; ?>" required>
+          <input class="form-control mb-3 <?php echo isset($_POST['medical_adopt_fee']) && empty($_POST['medical_adopt_fee']) ? 'is-invalid' : ''; ?>" type="text" name="medical_adopt_fee" id="medical_adopt_fee" value="<?php echo $animal['medical_adopt_fee']; ?>" required>
+          <div class="invalid-feedback">Please enter the donation amount.</div>
         </div>
+        <?php if ($logged_in_user_id == $_SESSION['id']) : ?>
+          <input type="submit" value="Update" class="btn btn-success">
+        <?php endif; ?>
+        <a class="btn btn-warning" href="dashboard.php">Back</a>
       </form>
     </div>
   </div>
