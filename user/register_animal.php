@@ -16,11 +16,13 @@ if (!$conn) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Register Animal</title>
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
+
 <body>
 	<div class="container mt-5 mb-5">
 		<div class="row">
@@ -165,8 +167,7 @@ if (!$conn) {
 					</div>
 					<div class="form-group">
 						<label for="animal-description">Description</label>
-						<textarea class="form-control" id="animal-description" name="animal-description" rows="3"
-							required></textarea>
+						<textarea class="form-control" id="animal-description" name="animal-description" rows="3" required></textarea>
 					</div>
 					<div class="form-group">
 						<label for="animal-image">Image</label>
@@ -182,8 +183,7 @@ if (!$conn) {
 					<div class="form-group form-check">
 						<div class="row">
 							<input type="checkbox" class="form-check-input" id="terms" required>
-							<h6 class="form-check-label" for="terms">I agree to Safe Paws <a target="_blank"
-									href="../terms_and_condition.php">terms and conditions</a></h6>
+							<h6 class="form-check-label" for="terms">I agree to Safe Paws <a target="_blank" href="../terms_and_condition.php">terms and conditions</a></h6>
 						</div>
 					</div>
 					<button type="submit" class="btn btn-block btn-primary">Submit</button>
@@ -201,7 +201,7 @@ if (!$conn) {
 		const isMedicalCheckbox = document.getElementById('isMedical');
 		const medicalFeeLabel = document.getElementById('medical_adopt_fee');
 
-		isMedicalCheckbox.addEventListener('change', function () {
+		isMedicalCheckbox.addEventListener('change', function() {
 			if (this.checked) {
 				medicalFeeLabel.textContent = 'Medical fee';
 			} else {
@@ -217,7 +217,7 @@ if (!$conn) {
 		codeCategoryLabel.classList.add('disabled');
 		codeCategorySelect.disabled = true;
 
-		isMedicalCheckbox.addEventListener('change', function () {
+		isMedicalCheckbox.addEventListener('change', function() {
 			if (isMedicalCheckbox.checked) {
 				codeCategoryLabel.classList.remove('disabled');
 				codeCategorySelect.disabled = false;
@@ -231,7 +231,7 @@ if (!$conn) {
 		const petTypeSelect = document.getElementById('pet_type');
 		const breedSelect = document.getElementById('breed');
 
-		petTypeSelect.addEventListener('change', function () {
+		petTypeSelect.addEventListener('change', function() {
 			breedSelect.innerHTML = ''; // clear all options
 
 			if (this.value === 'dog') {
@@ -273,6 +273,126 @@ if (!$conn) {
 				addOption('Calico', 'Calico');
 				addOption('Canadian Hairless', 'Canadian Hairless');
 				addOption('Chartreux', 'Chartreux');
+			} else if (this.value === 'rabbit') {
+				addOption('', 'Select Rabbit breed');
+				addOption('American', 'American');
+				addOption('American Fuzzy Lop', 'American Fuzzy Lop');
+				addOption('American Sable', 'American Sable');
+				addOption('Angora Rabbit', 'Angora Rabbit');
+				addOption('Belgian Hare', 'Belgian Hare');
+				addOption('Beveren', 'Beveren');
+				addOption('Britannia Petite', 'Britannia Petite');
+				addOption('Bunny Rabbit', 'Bunny Rabbit');
+				addOption('Californian', 'Californian');
+				addOption('Champagne DArgent', 'Champagne DArgent');
+				addOption('Checkered Giant', 'Checkered Giant');
+				addOption('Chinchilla', 'Chinchilla');
+				addOption('Cinnamon', 'Cinnamon');
+				addOption('Dutch', 'Dutch');
+				addOption('Dwarf', 'Dwarf');
+				addOption('New Zealand', 'New Zealand');
+				addOption('Mini Rex', 'Mini Rex');
+				addOption('Rex', 'Rex');
+				addOption('Rhinelander', 'Rhinelander');
+			} else if (this.value === 'hamster') {
+				addOption('', 'Select hamster breed');
+				addOption('Chinese Hamster', 'Chinese Hamster');
+				addOption('Eversmanns Hamster', 'Eversmanns Hamster');
+				addOption('Long-Tailed Hamster', 'Long-Tailed Hamster');
+				addOption('Migratory Hamster', 'Migratory Hamster');
+				addOption('Mouse-Like Hamster', 'Mouse-Like Hamster');
+				addOption('Rat Hamster', 'Rat Hamster');
+				addOption('Roborovskys Hamster', 'Roborovskys Hamster');
+				addOption('Rummanian Hamster', 'Rummanian Hamster');
+				addOption('Short Dwarf Hamster', 'Short Dwarf Hamster');
+				addOption('Striped Hairy Foot Russian Hamster', 'Striped Hairy Foot Russian Hamster');
+				addOption('Striped Hamster', 'Striped Hamster');
+				addOption('Syrian / Golden Hamster', 'Syrian / Golden Hamster');
+				addOption('Tibetan Hamsterham', 'Tibetan Hamsterham');
+
+			} else if (this.value === 'fish') {
+				addOption('', 'Select fish breed');
+				addOption('Arowanas', 'Arowanas');
+				addOption('Botia', 'Botia');
+				addOption('Catfish', 'Catfish');
+				addOption('Characins', 'Characins');
+				addOption('Cichlids', 'Cichlids');
+				addOption('Cyprinds', 'Cyprinds');
+				addOption('Goldfish', 'Goldfish');
+				addOption('Killifish', 'Killifish');
+				addOption('Koi', 'Koi');
+				addOption('Labyrinth Fish', 'Labyrinth Fish');
+				addOption('Livebearers', 'Livebearers');
+				addOption('Loaches', 'Loaches');
+				addOption('Perches', 'Perches');
+				addOption('Rainbowfish', 'Rainbowfish');
+
+			} else if (this.value === 'reptiles') {
+				addOption('', 'Select reptile type');
+				addOption('Frog', 'Frog');
+				addOption('Gecko', 'Gecko');
+				addOption('Hermit Crab', 'Hermit Crab');
+				addOption('Iguana', 'Iguana');
+				addOption('Lizard', 'Lizard');
+				addOption('Snake', 'Snake');
+				addOption('Tortoise', 'Tortoise');
+				addOption('Turtle', 'Turtle');
+			} else if (this.value === 'small_furry') {
+				addOption('', 'Select small and furry animal');
+				addOption('Chinchilla', 'Chinchilla');
+				addOption('Degu', 'Degu');
+				addOption('Ferret', 'Ferret');
+				addOption('Gerbil', 'Gerbil');
+				addOption('Guinea Pig', 'Guinea Pig');
+				addOption('Hamster', 'Hamster');
+				addOption('Hedgehog', 'Hedgehog');
+				addOption('Mouse', 'Mouse');
+				addOption('Prairie Dog', 'Prairie Dog');
+				addOption('Racoon', 'Racoon');
+				addOption('Rat', 'Rat');
+				addOption('Skunk', 'Skunk');
+				addOption('Sugar Glider', 'Sugar Glider');
+				addOption('Tarantula', 'Tarantula');
+			} else if (this.value === 'bird') {
+				addOption('', 'Select bird species');
+				addOption('African Grey', 'African Grey');
+				addOption('Amazon', 'Amazon');
+				addOption('Brotogeris', 'Brotogeris');
+				addOption('Budgie/Budgerigar', 'Budgie/Budgerigar');
+				addOption('Button Quail', 'Button Quail');
+				addOption('Caique', 'Caique');
+				addOption('Canary', 'Canary');
+				addOption('Chicken', 'Chicken');
+				addOption('Cockatiel', 'Cockatiel');
+				addOption('Cockatoo', 'Cockatoo');
+				addOption('Conure', 'Conure');
+				addOption('Dove', 'Dove');
+				addOption('Duck', 'Duck');
+				addOption('Eclectus', 'Eclectus');
+				addOption('Emu', 'Emu');
+				addOption('Finch', 'Finch');
+				addOption('Goose', 'Goose');
+				addOption('Guinea Fowl', 'Guinea Fowl');
+				addOption('Kakariki', 'Kakariki');
+				addOption('Lory/Lorikeet', 'Lory/Lorikeet');
+				addOption('Lovebird', 'Lovebird');
+				addOption('Macaw', 'Macaw');
+				addOption('Ostrich', 'Ostrich');
+				addOption('Parakeet', 'Parakeet');
+				addOption('Parrot', 'Parrot');
+				addOption('Parrotlet', 'Parrotlet');
+				addOption('Peacock/Pea Fowl', 'Peacock/Pea Fowl');
+				addOption('Pheasant', 'Pheasant');
+				addOption('Pigeon', 'Pigeon');
+				addOption('Pionus', 'Pionus');
+				addOption('Poicephalus/Senegal', 'Poicephalus/Senegal');
+				addOption('Quail', 'Quail');
+				addOption('Quaker Parakeet', 'Quaker Parakeet');
+				addOption('Rhea', 'Rhea');
+				addOption('Ringneck/Psittacula', 'Ringneck/Psittacula');
+				addOption('Rosella', 'Rosella');
+				addOption('Softbill (Other)', 'Softbill (Other)');
+				addOption('Swan', 'Swan');
 			}
 		});
 
@@ -285,4 +405,5 @@ if (!$conn) {
 	</script>
 
 </body>
+
 </html>
