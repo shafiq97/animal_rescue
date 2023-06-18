@@ -85,7 +85,8 @@ if (!$conn) {
 							<option value="cat">Cat</option>
 							<option value="rabbit">Rabbit</option>
 							<option value="hamster">Hamster</option>
-							<option value="bird">Bird</option>
+							<option value="small-and-furry">Bird</option>
+							<option value="reptiles">Reptiles</option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -337,7 +338,7 @@ if (!$conn) {
 				addOption('Snake', 'Snake');
 				addOption('Tortoise', 'Tortoise');
 				addOption('Turtle', 'Turtle');
-			} else if (this.value === 'small_furry') {
+			} else if (this.value === 'small-and-furry') {
 				addOption('', 'Select small and furry animal');
 				addOption('Chinchilla', 'Chinchilla');
 				addOption('Degu', 'Degu');
