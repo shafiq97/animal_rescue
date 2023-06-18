@@ -3,6 +3,13 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 session_start();
+// Array of breeds
+$breeds = array(
+  'dog' => array('Mixed Breed', 'Affenpinscher', 'Afghan Hound', 'Airedale Terrier', 'Akbash', 'Akita', 'Alaskan Malamute', 'American Bulldog', 'American Eskimo Dog', 'American Hairless Terrier', 'American Staffordshire Terrier', 'American Water Spaniel', 'Anatolian Shepherd', 'Appenzell Mountain Dog', 'Australian Cattle Dog/Blue Heeler', 'Australian Kelpie', 'Australian Shepherd', 'Australian Terrier'),
+  'cat' => array('Domestic Short Hair', 'Domestic Medium Hair', 'Domestic Long Hair', 'Abyssinian', 'American Curl', 'American Shorthair', 'American Wirehair', 'Applehead Siamese', 'Balinese', 'Bengal', 'Birman', 'Bobtail', 'Bombay', 'British Shorthair', 'Burmese', 'Burmilla', 'Calico', 'Canadian Hairless', 'Chartreux'),
+  'fish' => array('Betta', 'Goldfish', 'Guppy', 'Tetra', 'Angelfish', 'Barb', 'Cichlid', 'Catfish', 'Oscar', 'Shark', 'Pleco', 'Discus')
+);
+
 // Connect to the database
 $host     = 'localhost';
 $user     = 'root';
@@ -216,9 +223,19 @@ mysqli_close($conn);
 
         <div class="form-group">
           <label for="breed">Breed:</label>
-          <input type="text" class="form-control" name="breed" id="breed" value="<?php echo $animal['breed']; ?>" required>
-          <div class="invalid-feedback">Please enter the breed.</div>
+          <select class="form-control" name="breed" id="breed" required>
+            <?php
+            $breedOptions = $breeds[$animal['type']];
+            foreach ($breedOptions as $breedOption) {
+              $selected = $breedOption == $animal['breed'] ? 'selected' : '';
+              echo "<option value='$breedOption' $selected>$breedOption</option>";
+            }
+            ?>
+          </select>
+          <div class="invalid-feedback">Please select a breed.</div>
         </div>
+
+
 
         <div class="form-group">
           <label for="maturing_size">Maturing Size:</label>
