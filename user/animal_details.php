@@ -26,6 +26,14 @@ if (!$conn) {
   die('Connection failed: ' . mysqli_connect_error());
 }
 
+// Retrieve the medical funds data from the database
+$query_funds  = "SELECT * FROM medical_funds inner join users on users.id = medical_funds.user_id  WHERE animal_id = '$id'";
+$result_funds = mysqli_query($conn, $query_funds);
+if (!$result_funds) {
+  die('Error: ' . mysqli_error($conn));
+}
+$medical_funds = mysqli_fetch_all($result_funds, MYSQLI_ASSOC);
+
 // Check if the animal ID is provided in the query parameters
 if (isset($_GET['id'])) {
   $animal_id = mysqli_real_escape_string($conn, $_GET['id']);
@@ -137,7 +145,7 @@ mysqli_close($conn);
                 <?php
               }
                 ?>
-                  <?php echo $animal['medical_adopt_fee']; ?>
+                <?php echo $animal['medical_adopt_fee']; ?>
                 </p>
             </div>
           </div>
@@ -217,7 +225,41 @@ mysqli_close($conn);
       </div>
     </div>
   </div>
-
+  <?php if ($animal['isMedical'] == 1) : ?>
+    <div class="container">
+      <div class="col">
+        <h2 class="mt-3">Medical Funds Record</h2>
+        <table id="medical_funds_table" border="1" cellpadding="10" cellspacing="0">
+          <thead>
+            <tr>
+              <!-- <th>ID</th> -->
+              <th>Donor Name</th>
+              <th>Amount(RM)</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($medical_funds as $fund) : ?>
+              <tr>
+                <!-- <td>
+                <?php echo $fund['id']; ?>
+              </td> -->
+                <td>
+                  <?php echo $fund['name']; ?>
+                </td>
+                <td>
+                  <?php echo $fund['total_amount']; ?>
+                </td>
+                <td>
+                  <?php echo $fund['receive_date']; ?>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <?php endif; ?>
 
 
   <!-- Bootstrap JS -->
@@ -229,6 +271,11 @@ mysqli_close($conn);
         $('#comment-button').hide();
         $('#comment-form').show();
       });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#medical_funds_table').DataTable();
     });
   </script>
 </body>
