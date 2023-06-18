@@ -146,12 +146,14 @@ mysqli_close($conn);
               <button class="btn btn-primary" id="comment-button">
                 <i class="fas fa-comment"></i> Write Comment
               </button>
-              <?php if ($animal['isMedical'] == 1)
-              ?>
-              <button class="btn btn-light" id="comment-button">
-                <i class="fas fa-comment"></i> Medical
-              </button>
               <?php
+              if ($animal['isMedical'] === 1) {
+              ?>
+                <button class="btn btn-light" id="comment-button">
+                  <i class="fas fa-comment"></i> Medical
+                </button>
+              <?php
+              }
               ?>
             </div>
           </div>
