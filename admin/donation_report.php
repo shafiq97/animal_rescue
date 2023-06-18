@@ -32,15 +32,8 @@ error_reporting(E_ALL);
     include('header.php');
     ?>
   </nav>
-  <div class="container">
+  <div class="container" style="">
     <h1>Total Donations Approved per User</h1>
-    <div class="mb-3">
-      <label for="filter">Filter:</label>
-      <select id="filter" class="form-control" onchange="updateChart()">
-        <option value="week">Week</option>
-        <option value="month">Month</option>
-      </select>
-    </div>
     <canvas id="chart"></canvas>
   </div>
 
@@ -55,19 +48,11 @@ error_reporting(E_ALL);
     die("Connection failed: " . $conn->connect_error);
   }
 
-  // Get the total approved donations for each user based on filter
-  $filter = isset($_GET['filter']) ? $_GET['filter'] : 'week';
-  $sql    = "SELECT user_id, SUM(amount) as total_amount 
-  FROM donations 
-  WHERE admin_approval = 'approved'";
-  if ($filter === 'week') {
-    $sql .= " AND DATE(created_at) >= CURDATE() - INTERVAL DAYOFWEEK(CURDATE())+6 DAY
-    AND DATE(created_at) < CURDATE() - INTERVAL DAYOFWEEK(CURDATE())-1 DAY";
-  } else if ($filter === 'month') {
-    $sql .= " AND YEAR(created_at) = YEAR(CURDATE()) 
-    AND MONTH(created_at) = MONTH(CURDATE())";
-  }
-  $sql .= " GROUP BY user_id";
+  // Get the total approved donations for each user
+  $sql    = "SELECT MONTHNAME(created_at) as period, SUM(amount) as total_amount 
+              FROM donations 
+              WHERE admin_approval = 'approved'
+              GROUP BY MONTH(created_at)";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     $data = [
@@ -75,8 +60,8 @@ error_reporting(E_ALL);
       'values' => []
     ];
     while ($row = $result->fetch_assoc()) {
-      // Push user_id and total_amount into the data array
-      array_push($data['labels'], $row['user_id']);
+      // Push period and total_amount into the data array
+      array_push($data['labels'], $row['period']);
       array_push($data['values'], $row['total_amount']);
     }
   } else {
@@ -88,61 +73,39 @@ error_reporting(E_ALL);
   ?>
 
   <script>
-    var chart;
-
-    $(document).ready(function () {
-      updateChart();
-    });
-
-    function updateChart() {
-      var filter = document.getElementById('filter').value;
-
-      // Get the chart data from the PHP array
-      var data = {
+    // Generate chart
+    var ctx = document.getElementById('chart').getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'line',
+      data: {
         labels: <?php echo json_encode($data['labels']); ?>,
-        values: <?php echo json_encode($data['values']); ?>
-      };
-
-      // Remove existing chart if it exists
-      if (chart) {
-        chart.destroy();
-      }
-
-      // Generate chart
-      var ctx = document.getElementById('chart').getContext('2d');
-      chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: data.labels,
-          datasets: [{
-            label: 'Total Approved Donations',
-            data: data.values,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1,
-            fill: false
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            x: {
-              title: {
-                display: true,
-                text: 'User ID'
-              }
-            },
-            y: {
-              title: {
-                display: true,
-                text: 'Donation Amount'
-              },
-              beginAtZero: true
+        datasets: [{
+          label: 'Total Approved Donations',
+          data: <?php echo json_encode($data['values']); ?>,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Month'
             }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Donation Amount'
+            },
+            beginAtZero: true
           }
         }
-      });
-    }
+      }
+    });
   </script>
 </body>
 </html>
