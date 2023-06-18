@@ -111,7 +111,7 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
   </nav>
 
   <!-- Display animals in a card layout -->
-  <div class="container">
+  <div class="container" style="margin-top: 100px">
     <form method="GET" action="">
       <div class="form-group">
         <label for="filter">Filter by medical condition:</label>

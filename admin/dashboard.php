@@ -26,9 +26,15 @@ if (!$conn) {
   die('Connection failed: ' . mysqli_connect_error());
 }
 
-// Retrieve images from the database
+$medicalFilter = '';
+if (isset($_GET['isMedical']) && $_GET['isMedical'] !== '') {
+  $isMedical = $_GET['isMedical'];
+  $medicalFilter = ' WHERE isMedical=' . $isMedical;
+}
+
 // Retrieve animals from the database
-$sql     = 'SELECT * FROM animals';
+$sql = 'SELECT * FROM animals ' . $medicalFilter;
+
 $result  = mysqli_query($conn, $sql);
 $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -41,6 +47,7 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>User Dashboard</title>
   <!-- Bootstrap CSS -->
@@ -68,11 +75,11 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
   </style>
 </head>
+
 <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <a class="navbar-brand" href="#">User Dashboard</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <?php
@@ -80,7 +87,18 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
     ?>
   </nav>
   <!-- Display animals in a table -->
-  <div class="container" style="width: 100%">
+  <div class="container" style="width: 100%; margin-top: 100px">
+    <form method="GET" action="">
+      <div class="form-group">
+        <label for="filter">Filter by medical condition:</label>
+        <select id="filter" class="form-control" name="isMedical">
+          <option value="">Select</option>
+          <option value="1">Medical</option>
+          <option value="0">Non-medical</option>
+        </select>
+        <button type="submit" class="btn btn-primary mt-2">Apply filter</button>
+      </div>
+    </form>
     <div class="col">
       <div class="scrollable-table">
 
@@ -178,14 +196,13 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 <?php echo $animal['isMedical']; ?>
               </td> -->
                 <td>
-                  <?php if ($animal['approval'] == 'approved'): ?>
+                  <?php if ($animal['approval'] == 'approved') : ?>
                     Approved
-                  <?php else: ?>
+                  <?php else : ?>
                     <form method="POST" action="update_approval.php">
                       <input type="hidden" name="id" value="<?php echo $animal['id']; ?>">
                       <input type="hidden" name="approval" value="approved">
-                      <button onclick="return confirm('Are you sure?')" type="submit"
-                        class="btn btn-primary">Approve</button>
+                      <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-primary">Approve</button>
                     </form>
                   <?php endif; ?>
                 </td>
@@ -193,9 +210,7 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
                   <a class="btn btn-success" href="animal_profile.php?id=<?php echo $animal['id'] ?>">View</a>
                 </td>
                 <td>
-                  <a class="btn btn-danger"
-                    onclick="return confirm('Are you sure you want to delete this animal record?')"
-                    href="delete_animal.php?id=<?php echo $animal['id'] ?>">Delete</a>
+                  <a class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this animal record?')" href="delete_animal.php?id=<?php echo $animal['id'] ?>">Delete</a>
                 </td>
               </tr>
             <?php } ?>
@@ -212,10 +227,11 @@ $animals = mysqli_fetch_all($result, MYSQLI_ASSOC);
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <!-- Logout confirmation dialog -->
   <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
       $('#animal-table').DataTable();
     });
   </script>
 
 </body>
+
 </html>
