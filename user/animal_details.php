@@ -58,6 +58,7 @@ mysqli_close($conn);
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Animal Details</title>
   <!-- Bootstrap CSS -->
@@ -83,11 +84,11 @@ mysqli_close($conn);
     }
   </style>
 </head>
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Animal Rescue</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <!-- Include the header file -->
@@ -95,7 +96,7 @@ mysqli_close($conn);
   </nav>
 
   <div class="container vertical-center mt-2">
-    <?php if ($animal): ?>
+    <?php if ($animal) : ?>
       <div class="card">
         <div class="card-title mt-1" style="text-align: center">
           <h2>
@@ -145,6 +146,13 @@ mysqli_close($conn);
               <button class="btn btn-primary" id="comment-button">
                 <i class="fas fa-comment"></i> Write Comment
               </button>
+              <?php if ($animal['isMedical'] == 1)
+              ?>
+              <button class="btn btn-light" id="comment-button">
+                <i class="fas fa-comment"></i> Medical
+              </button>
+              <?php
+              ?>
             </div>
           </div>
           <div class="row mt-3">
@@ -171,7 +179,7 @@ mysqli_close($conn);
 
 
 
-    <?php else: ?>
+    <?php else : ?>
       <p>Animal not found.</p>
     <?php endif; ?>
   </div>
@@ -183,10 +191,9 @@ mysqli_close($conn);
         Comments
       </div>
       <div class="card-body">
-        <?php while ($comment = mysqli_fetch_assoc($comments_result)): ?>
+        <?php while ($comment = mysqli_fetch_assoc($comments_result)) : ?>
           <div class="media mb-3">
-            <img src="<?php echo $comment['profile_picture']; ?>" alt="" class="mr-3 rounded-circle"
-              style="width: 48px; height: 48px;">
+            <img src="<?php echo $comment['profile_picture']; ?>" alt="" class="mr-3 rounded-circle" style="width: 48px; height: 48px;">
             <div class="media-body">
               <h5 class="mt-0">
                 <?php echo $comment['username']; ?>
@@ -205,12 +212,13 @@ mysqli_close($conn);
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script>
-    $(document).ready(function () {
-      $('#comment-button').click(function () {
+    $(document).ready(function() {
+      $('#comment-button').click(function() {
         $('#comment-button').hide();
         $('#comment-form').show();
       });
     });
   </script>
 </body>
+
 </html>

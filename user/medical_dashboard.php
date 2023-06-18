@@ -104,7 +104,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
           ?>
             <div class="col-md-12">
               <div class="card shadow clickable-card">
-                <div class="row no-gutters" onclick="window.location.href='animal_profile.php?id=<?php echo $animal['id']; ?>';">
+                <div class="row no-gutters" onclick="window.location.href='animal_details.php?id=<?php echo $animal['id']; ?>';">
                   <div class="col-md-4">
                     <div class=" image-container">
                       <img src="<?php echo $animal["image_path"]; ?>" alt="<?php echo $animal["name"]; ?>" class="fill-image">
