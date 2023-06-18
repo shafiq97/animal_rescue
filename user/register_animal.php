@@ -85,7 +85,8 @@ if (!$conn) {
 							<option value="cat">Cat</option>
 							<option value="rabbit">Rabbit</option>
 							<option value="hamster">Hamster</option>
-							<option value="small-and-furry">Bird</option>
+							<option value="bird">Bird</option>
+							<option value="small-and-furry">Small and Furry</option>
 							<option value="reptiles">Reptiles</option>
 						</select>
 					</div>
