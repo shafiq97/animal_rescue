@@ -126,9 +126,19 @@ mysqli_close($conn);
               <p><strong>Vaccinated:</strong>
                 <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?>
               </p>
-              <p><strong>Adoption Fee:</strong>
-                <?php echo $animal['medical_adopt_fee']; ?>
-              </p>
+              <?php
+              if ($animal['isMedical'] == 1) {
+              ?>
+                <p><strong>Medical Fee:</strong>
+                <?php
+              } else {
+                ?>
+                <p><strong>Adoption Fee:</strong>
+                <?php
+              }
+                ?>
+                  <?php echo $animal['medical_adopt_fee']; ?>
+                </p>
             </div>
           </div>
           <div class="row mt-3">
@@ -147,7 +157,7 @@ mysqli_close($conn);
                 <i class="fas fa-comment"></i> Write Comment
               </button>
               <?php
-              if ($animal['isMedical'] === 1) {
+              if ($animal['isMedical'] == 1) {
               ?>
                 <button class="btn btn-light" id="comment-button">
                   <i class="fas fa-comment"></i> Medical
