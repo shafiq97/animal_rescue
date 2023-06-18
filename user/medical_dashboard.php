@@ -40,9 +40,19 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
       width: 100%;
     }
 
+    .image-container {
+      height: 200px;
+      /* You can adjust this to whatever fixed height you want. */
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     .card {
       background-color: blanchedalmond;
-      height: 100%;
+      height: 300;
       display: flex;
       flex-direction: column;
       margin-bottom: 20px;
@@ -96,27 +106,15 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
               <div class="card shadow clickable-card">
                 <div class="row no-gutters" onclick="window.location.href='animal_profile.php?id=<?php echo $animal['id']; ?>';">
                   <div class="col-md-4">
-                    <div style="
-                      background-image: url('<?php echo $animal["image_path"]; ?>'); 
-                      height: 100%; 
-                      background-size: cover; 
-                      background-position: center;
-                      background-repeat: no-repeat;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;">
+                    <div class=" image-container">
                       <img src="<?php echo $animal["image_path"]; ?>" alt="<?php echo $animal["name"]; ?>" class="fill-image">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="card-body">
                       <h5 class="card-title"><?php echo $animal['name']; ?></h5>
+                      <p class="card-text"><?php echo $animal['age']; ?> years old ,<?php echo $animal['gender']; ?>, <?php echo $animal['breed']; ?></p>
                       <p class="card-text"><?php echo $animal['description']; ?></p>
-                      <p class="card-text">Age (month/year): <?php echo $animal['age']; ?> years old</p>
-                      <p class="card-text">Gender: <?php echo $animal['gender']; ?></p>
-                      <p class="card-text">Breed: <?php echo $animal['breed']; ?></p>
-                      <p class="card-text">Maturing Size: <?php echo $animal['maturing_size']; ?></p>
-                      <p class="card-text">Vaccinated: <?php echo $animal['vaccinated'] ? 'Yes' : 'No'; ?></p>
                       <p class="card-text">Medical Fee: <?php echo $animal['medical_adopt_fee']; ?></p>
                     </div>
                   </div>
