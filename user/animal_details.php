@@ -95,6 +95,10 @@ mysqli_close($conn);
       /* align-items: center; */
       justify-content: center;
     }
+
+    #medical_funds_table {
+      width: 100%;
+    }
   </style>
 </head>
 
@@ -232,7 +236,7 @@ mysqli_close($conn);
   </div>
   <?php if ($animal['isMedical'] == 1) : ?>
     <div class="container">
-      <div class="col">
+      <div class="col-12">
         <h2 class="mt-3">Medical Funds Record</h2>
         <table id="medical_funds_table" border="1" cellpadding="10" cellspacing="0">
           <thead>
