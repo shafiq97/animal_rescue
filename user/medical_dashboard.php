@@ -122,6 +122,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                     <?php
                     $donationPercentage = 0;
                     $found = false;
+
                     foreach ($donations as $donation) {
                       if ($donation['animal_id'] == $animal['id']) {
                         $found = true;
@@ -142,7 +143,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                     if ($found) {
                     ?>
                       <div class="progress mt-4">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $donationPercentage ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo round($donationPercentage) ?>%</div>
+                        <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo min($donationPercentage, 100) ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><?php echo min(round($donationPercentage), 100) ?>%</div>
                       </div>
                     <?php
                     }
