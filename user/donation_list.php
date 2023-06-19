@@ -36,6 +36,7 @@ mysqli_close($conn);
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Donation List</title>
   <!-- Bootstrap CSS -->
@@ -44,11 +45,12 @@ mysqli_close($conn);
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
 </head>
 </head>
+
 <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <img class="navbar-brand" height="60px" src="../images/logo-header.png" alt="">
     <a class="navbar-brand" href="#">Donation List</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <?php
@@ -56,13 +58,11 @@ mysqli_close($conn);
     ?>
   </nav>
 
-
-
-  <div class="container mt-5">
+  <div class="container" style="margin-top: 100px !important;">
     <div class="row">
       <div class="col-md-12">
         <h2>Your Donations</h2>
-        <?php if (mysqli_num_rows($result) > 0): ?>
+        <?php if (mysqli_num_rows($result) > 0) : ?>
           <table id="donationTable" class="table table-striped table-bordered mt-4" style="width:100%">
             <thead>
               <tr>
@@ -73,7 +73,7 @@ mysqli_close($conn);
               </tr>
             </thead>
             <tbody>
-              <?php while ($row = mysqli_fetch_assoc($result)): ?>
+              <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                 <tr>
                   <td>RM
                     <?php echo $row['amount']; ?>
@@ -89,7 +89,7 @@ mysqli_close($conn);
               <?php endwhile; ?>
             </tbody>
           </table>
-        <?php else: ?>
+        <?php else : ?>
           <p>You haven't made any donations yet.</p>
         <?php endif; ?>
       </div>
@@ -100,7 +100,7 @@ mysqli_close($conn);
     <div class="row">
       <div class="col-md-12">
         <h2>Your Medical Fund Donations</h2>
-        <?php if (mysqli_num_rows($result2) > 0): ?>
+        <?php if (mysqli_num_rows($result2) > 0) : ?>
           <table id="donationTable2" class="table table-striped table-bordered mt-4" style="width:100%">
             <thead>
               <tr>
@@ -111,7 +111,7 @@ mysqli_close($conn);
               </tr>
             </thead>
             <tbody>
-              <?php while ($row = mysqli_fetch_assoc($result2)): ?>
+              <?php while ($row = mysqli_fetch_assoc($result2)) : ?>
                 <tr>
                   <td>
                     <?php echo $row['name']; ?>
@@ -127,7 +127,7 @@ mysqli_close($conn);
               <?php endwhile; ?>
             </tbody>
           </table>
-        <?php else: ?>
+        <?php else : ?>
           <p>You haven't made any donations yet.</p>
         <?php endif; ?>
       </div>
@@ -144,11 +144,12 @@ mysqli_close($conn);
   <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
 
   <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
       $('#donationTable').DataTable();
       $('#donationTable2').DataTable();
     });
   </script>
 
 </body>
+
 </html>
