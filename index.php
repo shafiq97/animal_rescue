@@ -157,7 +157,9 @@
 <body translate="no">
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
+      <img class="navbar-brand" height="100px" src="images/logo-header.png" alt="">
       <a class="navbar-brand" style="color: white" href="#">Animal Rescue</a>
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
         <span class="navbar-toggler-icon"></span>
       </button>

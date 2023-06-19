@@ -144,7 +144,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     .fixed-form {
       position: fixed;
       left: 0px;
-      top: 60px;
+      top: 130px;
       width: 200px;
       height: 100%;
       overflow: auto;
@@ -279,6 +279,7 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     </div>
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container">
+        <img class="navbar-brand" height="100px" src="images/logo-header.png" alt="">
         <a class="navbar-brand" style="color: white" href="#">Animal Rescue</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
           <span class="navbar-toggler-icon"></span>
