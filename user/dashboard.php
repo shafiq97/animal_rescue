@@ -154,6 +154,16 @@ $donations = mysqli_fetch_all($result2, MYSQLI_ASSOC);
   </head>
 
   <body>
+    <?php
+    if(isset($_GET['success'])){
+      ?>
+      <script>
+        alert('Thank you for your donation!');
+      </script>
+      <?php
+    }
+
+    ?>
     <!-- Modal -->
     <div class="modal fade" id="animalModal" tabindex="-1" role="dialog" aria-labelledby="animalModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
