@@ -5,11 +5,16 @@
   <title>Donate</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .vh-100 {
+      min-height: 100vh;
+    }
+  </style>
 </head>
 
 <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <img class="navbar-brand" height="60px" src="../images/logo-header.png" alt="">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <img class="navbar-brand" height="60px" src="../images/logo-header.png" alt="">
     <a class="navbar-brand" href="#">Donate</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -19,7 +24,7 @@
     ?>
   </nav>
 
-  <div class="container mt-5">
+  <div class="container vh-100 d-flex justify-content-center align-items-center">
     <div class="row">
       <div class="col-md-12">
         <h2>Make a Medical Fund</h2>
